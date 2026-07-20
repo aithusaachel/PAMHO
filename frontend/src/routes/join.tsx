@@ -64,6 +64,7 @@ const expect = [
 function JoinPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -72,7 +73,7 @@ function JoinPage() {
     try {
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
-      const res = await fetch("/api/submissions", {
+      const res = await fetch(`${API_URL}/api/submissions`, {
         method: "POST",
         body: JSON.stringify({ formType: "join", data }),
         headers: { "Content-Type": "application/json" },

@@ -6,7 +6,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dbPath = path.join(__dirname, 'data.sqlite');
+const dbPath = process.env.DB_PATH || path.join(__dirname, 'data.sqlite');
 
 const app = express();
 app.use(cors());
@@ -96,15 +96,6 @@ app.delete('/api/submissions/:id', checkAuth, async (req, res) => {
 
 // Options route to properly handle preflight for CORS with auth
 app.options('*', cors());
-
-// Serve static frontend files
-const frontendDistPath = path.join(__dirname, '../frontend/dist');
-app.use(express.static(frontendDistPath));
-
-// Fallback to index.html for React Router
-app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendDistPath, 'index.html'));
-});
 
 const PORT = process.env.PORT || 3000;
 

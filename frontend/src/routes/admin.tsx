@@ -106,6 +106,7 @@ function AdminPage() {
   const [submissions, setSubmissions] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
   const [filter, setFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -152,7 +153,7 @@ function AdminPage() {
   const fetchSubmissions = () => {
     if (!auth) return;
     setLoading(true);
-    fetch("/api/submissions", {
+    fetch(`${API_URL}/api/submissions`, {
       headers: { Authorization: auth }
     })
       .then(res => {
@@ -211,7 +212,7 @@ function AdminPage() {
     e.preventDefault();
     try {
       await Promise.all(newEntries.map(async (entry) => {
-        const res = await fetch("/api/submissions", {
+        const res = await fetch(`${API_URL}/api/submissions`, {
           method: "POST",
           body: JSON.stringify({ formType: entry.formType, data: entry.data }),
           headers: { "Content-Type": "application/json" },
@@ -230,7 +231,7 @@ function AdminPage() {
   const handleDelete = async (id: number) => {
     if (!window.confirm("Are you sure you want to permanently delete this entry?")) return;
     try {
-      const res = await fetch(`/api/submissions/${id}`, {
+      const res = await fetch(`${API_URL}/api/submissions/${id}`, {
         method: "DELETE",
         headers: { Authorization: auth }
       });
