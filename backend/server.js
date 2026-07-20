@@ -1,52 +1,57 @@
 import express from 'express';
 import cors from 'cors';
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import pg from 'pg';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dbPath = process.env.DB_PATH || path.join(__dirname, 'data.sqlite');
+const { Pool } = pg;
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Hardcoded admin credentials
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "pamho2026"; // basic hardcoded password
+// Initialize PostgreSQL Connection Pool
+// It automatically uses the DATABASE_URL environment variable if provided
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  // Render requires SSL for external connections to their Postgres databases
+  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
+});
 
-// Basic Auth Middleware
-function checkAuth(req, res, next) {
-  const b64auth = (req.headers.authorization || '').split(' ')[1] || '';
-  const [login, password] = Buffer.from(b64auth, 'base64').toString().split(':');
-
-  if (login && password && login === ADMIN_USER && password === ADMIN_PASS) {
-    return next();
-  }
-
-  res.set('WWW-Authenticate', 'Basic realm="401"');
-  res.status(401).send('Authentication required.');
-}
-
-let db;
-
-// Initialize Database
 async function initializeDB() {
-  db = await open({
-    filename: dbPath,
-    driver: sqlite3.Database
-  });
-
-  await db.exec(`
-    CREATE TABLE IF NOT EXISTS submissions (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      formType TEXT NOT NULL,
-      data TEXT NOT NULL,
-      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
-    )
-  `);
+  const client = await pool.connect();
+  try {
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS submissions (
+        id SERIAL PRIMARY KEY,
+        "formType" TEXT NOT NULL,
+        data JSONB NOT NULL,
+        "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+    console.log('PostgreSQL Database initialized with submissions table');
+  } catch (err) {
+    console.error('Failed to initialize database:', err);
+  } finally {
+    client.release();
+  }
 }
+
+// Basic Authentication Middleware
+const checkAuth = (req, res, next) => {
+  const authHeader = req.headers.authorization || '';
+  const match = authHeader.match(/^Basic (.+)$/);
+  if (!match) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  
+  const decoded = Buffer.from(match[1], 'base64').toString();
+  const [username, password] = decoded.split(':');
+  
+  if (username === 'admin' && password === 'admin123') {
+    next();
+  } else {
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+};
 
 app.post('/api/submissions', async (req, res) => {
   const { formType, data } = req.body;
@@ -55,12 +60,12 @@ app.post('/api/submissions', async (req, res) => {
   }
   
   try {
-    const result = await db.run(
-      'INSERT INTO submissions (formType, data) VALUES (?, ?)',
-      formType,
-      JSON.stringify(data)
+    // node-postgres (pg) automatically handles JSONB serialization for the data object
+    const result = await pool.query(
+      'INSERT INTO submissions ("formType", data) VALUES ($1, $2) RETURNING id',
+      [formType, data]
     );
-    res.status(201).json({ id: result.lastID, success: true });
+    res.status(201).json({ id: result.rows[0].id, success: true });
   } catch (err) {
     console.error('DB Error:', err);
     res.status(500).json({ error: 'Failed to save submission' });
@@ -69,11 +74,10 @@ app.post('/api/submissions', async (req, res) => {
 
 app.get('/api/submissions', checkAuth, async (req, res) => {
   try {
-    const rows = await db.all('SELECT * FROM submissions ORDER BY createdAt DESC');
-    res.json(rows.map(row => ({
-      ...row,
-      data: JSON.parse(row.data)
-    })));
+    const result = await pool.query('SELECT * FROM submissions ORDER BY "createdAt" DESC');
+    
+    // node-postgres automatically parses JSONB columns back into JS objects
+    res.json(result.rows);
   } catch (err) {
     console.error('DB Error:', err);
     res.status(500).json({ error: 'Failed to retrieve submissions' });
@@ -81,10 +85,11 @@ app.get('/api/submissions', checkAuth, async (req, res) => {
 });
 
 app.delete('/api/submissions/:id', checkAuth, async (req, res) => {
-  const { id } = req.params;
   try {
-    const result = await db.run('DELETE FROM submissions WHERE id = ?', id);
-    if (result.changes === 0) {
+    const result = await pool.query('DELETE FROM submissions WHERE id = $1', [req.params.id]);
+    
+    // rowCount tells us how many rows were affected by the query
+    if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Submission not found' });
     }
     res.json({ success: true });
@@ -101,8 +106,6 @@ const PORT = process.env.PORT || 3000;
 
 initializeDB().then(() => {
   app.listen(PORT, () => {
-    console.log(`Backend server listening on port ${PORT}`);
+    console.log(`Backend API running on port ${PORT}`);
   });
-}).catch(err => {
-  console.error('Failed to initialize database:', err);
 });
