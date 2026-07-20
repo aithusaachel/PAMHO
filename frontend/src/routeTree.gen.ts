@@ -17,7 +17,6 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ConversationRouteImport } from './routes/conversation'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as PartnersRouteImport } from './routes/partners'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -59,11 +58,6 @@ const PartnersRoute = PartnersRouteImport.update({
   path: '/partners',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -74,7 +68,6 @@ export interface FileRoutesByFullPath {
   '/conversation': typeof ConversationRoute
   '/join': typeof JoinRoute
   '/partners': typeof PartnersRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -85,7 +78,6 @@ export interface FileRoutesByTo {
   '/conversation': typeof ConversationRoute
   '/join': typeof JoinRoute
   '/partners': typeof PartnersRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -97,7 +89,6 @@ export interface FileRoutesById {
   '/conversation': typeof ConversationRoute
   '/join': typeof JoinRoute
   '/partners': typeof PartnersRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -110,7 +101,6 @@ export interface FileRouteTypes {
     | '/conversation'
     | '/join'
     | '/partners'
-    | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -121,7 +111,6 @@ export interface FileRouteTypes {
     | '/conversation'
     | '/join'
     | '/partners'
-    | '/sitemap.xml'
   id:
     | '__root__'
     | '/'
@@ -132,7 +121,6 @@ export interface FileRouteTypes {
     | '/conversation'
     | '/join'
     | '/partners'
-    | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -144,7 +132,6 @@ export interface RootRouteChildren {
   ConversationRoute: typeof ConversationRoute
   JoinRoute: typeof JoinRoute
   PartnersRoute: typeof PartnersRoute
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -205,13 +192,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PartnersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -224,7 +204,6 @@ const rootRouteChildren: RootRouteChildren = {
   ConversationRoute: ConversationRoute,
   JoinRoute: JoinRoute,
   PartnersRoute: PartnersRoute,
-  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
