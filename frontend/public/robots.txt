@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pamhoafrica.lovable.app/sitemap.xml

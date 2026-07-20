@@ -1,0 +1,13 @@
+# PAMHO — Pan-African Mental Health Organization
+
+> PAMHO advances policy, research, advocacy, and community care to strengthen mental health across Africa, and convenes the Pan-African Mental Health Conversation.
+
+## Pages
+
+- [Home](/): Overview of PAMHO and the Pan-African Mental Health Conversation.
+- [About](/about): Mission, vision, and the story behind PAMHO.
+- [Apply to Speak](/conversation): Speaker application for the continental dialogue.
+- [Join the Conversation](/join): Register as a participant in the Pan-African Mental Health Conversation.
+- [Partners](/partners): Institutional partnership program and application.
+- [Ambassadors](/ambassadors): Ambassador program and application.
+- [Contact](/contact): Reach the PAMHO team.
