@@ -8,6 +8,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.json({ status: 'PAMHO API is running perfectly!' });
+});
+
 // Initialize PostgreSQL Connection Pool
 // It automatically uses the DATABASE_URL environment variable if provided
 const pool = new Pool({
@@ -103,6 +108,16 @@ app.delete('/api/submissions/:id', checkAuth, async (req, res) => {
 app.options('*', cors());
 
 const PORT = process.env.PORT || 3000;
+
+// Keep-alive script to prevent Render free tier from sleeping
+const RENDER_URL = process.env.RENDER_EXTERNAL_URL;
+if (RENDER_URL) {
+  setInterval(() => {
+    fetch(RENDER_URL)
+      .then(() => console.log(`Keep-alive ping successful`))
+      .catch((err) => console.error(`Keep-alive ping failed:`, err));
+  }, 14 * 60 * 1000); // Ping every 14 minutes
+}
 
 initializeDB().then(() => {
   app.listen(PORT, () => {
