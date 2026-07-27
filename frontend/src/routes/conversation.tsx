@@ -4,6 +4,7 @@ import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { Field, TextareaField, SelectField } from "@/components/site/FormFields";
 import { Reveal } from "@/components/site/Reveal";
+import SEO from "@/components/SEO";
 import pattern from "@/assets/pattern.svg";
 import conversationImg from "@/assets/conversation.jpg";
 import { toast } from "sonner";
@@ -78,6 +79,10 @@ function ConversationPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="The Conversation — PAMHO" 
+        description="Join the inaugural Pan-African Mental Health Conversation."
+      />
       <Toaster />
       <Nav />
 

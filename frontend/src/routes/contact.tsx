@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { Mail, MessageCircle, Instagram, Twitter, Linkedin, ArrowRight } from "lucide-react";
 import pattern from "@/assets/pattern.svg";
 import contactCollab from "@/assets/contact-collab.jpg";
+import SEO from "@/components/SEO";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -59,6 +60,10 @@ function ContactPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Contact PAMHO" 
+        description="Get in touch with the Pan-African Mental Health Organization."
+      />
       <Toaster />
       <Nav />
 

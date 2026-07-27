@@ -87,8 +87,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "PAMHO" },
       { name: "twitter:description", content: "The Pan-African Mental Health Organization advances policy, research, and community care across Africa." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/eomXD3vGEfeikyxVvaTjAF88oGJ3/social-images/social-1782475839192-photo_5771740042534962426_y-removebg-preview.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/eomXD3vGEfeikyxVvaTjAF88oGJ3/social-images/social-1782475839192-photo_5771740042534962426_y-removebg-preview.webp" },
+      { property: "og:image", content: "https://pamhoafrica.org/src/assets/pamho-logo.png" },
+      { name: "twitter:image", content: "https://pamhoafrica.org/src/assets/pamho-logo.png" },
     ],
     links: [
       {
@@ -110,8 +110,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@type": "Organization",
           name: "Pan-African Mental Health Organization",
           alternateName: "PAMHO",
-          url: "https://pamhoafrica.lovable.app",
-          logo: "https://pamhoafrica.lovable.app/favicon.ico",
+          url: "https://pamhoafrica.org",
+          logo: "https://pamhoafrica.org/src/assets/pamho-logo.png",
         }),
       },
       {
@@ -120,7 +120,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "PAMHO",
-          url: "https://pamhoafrica.lovable.app",
+          url: "https://pamhoafrica.org",
         }),
       },
     ],

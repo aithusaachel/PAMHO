@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
+import SEO from "@/components/SEO";
 import hero from "@/assets/hero.jpg";
 import community from "@/assets/community.jpg";
 import pattern from "@/assets/pattern.svg";
@@ -48,6 +49,10 @@ const pillars = [
 function Index() {
   return (
     <div className="min-h-screen bg-background">
+      <SEO 
+        title="Advancing Mental Health Across Africa" 
+        description="The Pan-African Mental Health Organization advances policy, research, education, and community care for mental wellbeing across Africa." 
+      />
       <Nav />
 
       {/* HERO */}
