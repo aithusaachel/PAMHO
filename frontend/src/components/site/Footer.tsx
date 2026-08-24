@@ -25,7 +25,7 @@ export function Footer() {
           <ul className="mt-5 space-y-3 text-sm text-white/80">
             <li><a href="/" className="hover:text-[oklch(0.85_0.13_78)]">Home</a></li>
             <li><a href="/about" className="hover:text-[oklch(0.85_0.13_78)]">About</a></li>
-            <li><a href="/conversation" className="hover:text-[oklch(0.85_0.13_78)]">Apply to Speak</a></li>
+            <li><a href="/conversation" className="hover:text-[oklch(0.85_0.13_78)]">The Conversation</a></li>
             <li><a href="/join" className="hover:text-[oklch(0.85_0.13_78)]">Join the Conversation</a></li>
             <li><a href="/partners" className="hover:text-[oklch(0.85_0.13_78)]">Partner With Us</a></li>
             <li><a href="/ambassadors" className="hover:text-[oklch(0.85_0.13_78)]">Become an Ambassador</a></li>

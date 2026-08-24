@@ -86,7 +86,7 @@ function Index() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="/conversation"
+                href="/join"
                 className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_-12px_oklch(0.32_0.12_305_/_0.6)] transition hover:bg-primary/90"
               >
                 Join the Pan-African Mental Health Conversation
@@ -257,13 +257,11 @@ function Index() {
                   Featured Initiative
                 </span>
                 <h2 className="mt-5 font-display text-4xl font-semibold leading-tight text-cream sm:text-5xl">
-                  Now Open: The Pan-African Mental Health{" "}
+                  The Pan-African Mental Health{" "}
                   <span className="italic text-accent">Conversation</span>.
                 </h2>
                 <p className="mt-5 max-w-xl text-base leading-relaxed text-cream/80">
-                  PAMHO's inaugural continental online dialogue on mental health in Africa. We are
-                  calling for speakers, panelists, partners, and ambassadors from across the
-                  continent and diaspora.
+                  PAMHO's inaugural continental online dialogue on mental health in Africa. Speaker applications are officially closed. Register to attend and join the movement.
                 </p>
               </div>
               <div className="grid gap-3 sm:grid-cols-2 lg:items-stretch">
@@ -271,7 +269,7 @@ function Index() {
                   href="/conversation"
                   className="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 text-sm font-semibold text-[oklch(0.22_0.09_305)] transition hover:bg-accent/90"
                 >
-                  Apply to Speak <ArrowRight className="h-4 w-4" />
+                  The Conversation <ArrowRight className="h-4 w-4" />
                 </a>
                 <a
                   href="/join"

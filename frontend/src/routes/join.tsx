@@ -246,6 +246,12 @@ function JoinPage() {
                     required
                     wide
                   />
+                  <Field
+                    label="Ambassador or Community Mobilizer Referral"
+                    name="ambassadorReferral"
+                    placeholder="Name of the Ambassador or Community Mobilizer who referred you (if applicable)"
+                    wide
+                  />
                   <SelectField
                     label="Is there a specific theme you are most interested in?"
                     name="theme"

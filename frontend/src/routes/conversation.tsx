@@ -91,8 +91,8 @@ function ConversationPage() {
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06]" style={{ backgroundImage: `url(${pattern})`, backgroundSize: "320px" }} />
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:py-28">
           <div>
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
-              Call for Contributions
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-destructive/30 bg-destructive/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-destructive">
+              Applications Closed
             </span>
             <h1 className="mt-6 font-display text-[2.4rem] font-semibold leading-[1.05] text-primary sm:text-5xl lg:text-[3.5rem]">
               The Pan-African Mental Health{" "}
@@ -104,11 +104,10 @@ function ConversationPage() {
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
               The Pan-African Mental Health Conversation is PAMHO's inaugural continental forum
               bringing together professionals, advocates, researchers, policymakers, students, and
-              community voices to advance mental health across Africa. This is an open, inclusive,
-              solutions-driven dialogue. We want Africa's best minds in the room.
+              community voices to advance mental health across Africa. Speaker applications are now closed. You can still register to attend the event!
             </p>
-            <a href="#apply" className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
-              Apply to Speak <ArrowRight className="h-4 w-4" />
+            <a href="/join" className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
+              Register to Attend <ArrowRight className="h-4 w-4" />
             </a>
           </div>
           <div className="relative">
@@ -167,39 +166,30 @@ function ConversationPage() {
           <div className="relative overflow-hidden rounded-3xl border border-primary/20 bg-card p-7 shadow-xl sm:p-12">
             <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
             <div className="relative">
-              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/70">Submit Your Application</span>
-              <h2 className="mt-3 font-display text-3xl font-semibold text-primary sm:text-4xl">Apply to speak, present, or join a panel.</h2>
-
-              {submitted ? (
-                <p className="mt-10 rounded-2xl border border-accent/40 bg-accent/10 p-6 text-base leading-relaxed text-primary">
-                  Thank you for your submission. The PAMHO team will be in touch with you shortly.
+              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/70">Speaker Applications Status</span>
+              <h2 className="mt-3 font-display text-3xl font-semibold text-primary sm:text-4xl">Applications to speak are now closed.</h2>
+              <div className="mt-6 rounded-2xl border border-primary/15 bg-accent/10 p-6 sm:p-8">
+                <p className="text-base leading-relaxed text-foreground/90">
+                  Thank you to everyone who submitted a proposal to speak, present, or join a panel at The Pan-African Mental Health Conversation. Applications are officially closed while our review committee evaluates all submissions.
                 </p>
-              ) : (
-              <form onSubmit={onSubmit} className="mt-10 grid gap-6 sm:grid-cols-2">
-                <Field label="Full Name" name="fullName" required />
-                <Field label="Country of Residence" name="country" required />
-                <Field label="WhatsApp Number" name="whatsapp" required />
-                <Field label="Email Address" name="email" type="email" required />
-                <TextareaField label="Professional or Personal Background" name="background" required rows={4} hint="200 word limit" />
-                <Field label="Proposed Presentation or Panel Title" name="title" required wide />
-                <SelectField label="Select Theme" name="theme" required options={themes.map((t) => t.title)} />
-                <SelectField label="Select Format" name="format" required options={formats.map((f) => f.title)} value={format} onChange={setFormat} />
-                <TextareaField label="Abstract" name="abstract" required rows={6} hint="350 word limit" />
-                {format === "Panel Discussion" && (
-                  <TextareaField label="Panel Co-panelist Suggestions" name="panelSuggestions" rows={4} />
-                )}
-                <TextareaField label="Why This Topic Matters to Africa" name="why" required rows={4} hint="150 word limit" />
-                <Field label="Instagram Handle" name="instagram" />
-                <Field label="Twitter / X Handle" name="twitter" />
-                <Field label="LinkedIn Profile URL" name="linkedin" type="url" wide />
-                <div className="sm:col-span-2">
-                  <button type="submit" disabled={submitting} className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-7 py-4 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 disabled:opacity-60 sm:w-auto">
-                    {submitting ? "Submitting…" : "Submit Application"}
-                    <ArrowRight className="h-4 w-4" />
-                  </button>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  Selected speakers will be contacted directly via email with confirmation details and scheduling information.
+                </p>
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <a
+                    href="/join"
+                    className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90"
+                  >
+                    Register to Attend <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="/contact"
+                    className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-background px-6 py-3.5 text-sm font-semibold text-primary transition hover:bg-accent/10"
+                  >
+                    Contact Support
+                  </a>
                 </div>
-              </form>
-              )}
+              </div>
             </div>
           </div>
         </div>
