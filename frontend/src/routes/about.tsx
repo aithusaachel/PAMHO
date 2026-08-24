@@ -63,11 +63,14 @@ function AboutPage() {
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06]" style={{ backgroundImage: `url(${pattern})`, backgroundSize: "320px" }} />
         <Reveal className="mx-auto max-w-4xl px-5 py-20 text-center sm:px-8 lg:py-28">
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
-            About PAMHO
+            About PAMHO & The Continental Conversation
           </span>
           <h1 className="mt-6 font-display text-5xl font-semibold leading-tight text-primary sm:text-6xl">
-            Building Africa's <span className="italic text-[oklch(0.45_0.16_305)]">Mental Health Future</span>.
+            Convening Africa's <span className="italic text-[oklch(0.45_0.16_305)]">Mental Health Future</span>.
           </h1>
+          <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+            The Pan-African Mental Health Organization (PAMHO) is the convener of <strong>The Pan-African Mental Health Conversation</strong> — bringing together leaders, advocates, researchers, youth, and communities across 54 African nations.
+          </p>
         </Reveal>
       </section>
 

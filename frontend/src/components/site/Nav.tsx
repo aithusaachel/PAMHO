@@ -1,12 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sparkles, ArrowRight } from "lucide-react";
 import logoUrl from "@/assets/pamho-logo.png";
 
 const links = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
-  { to: "/conversation", label: "Apply to Speak" },
   { to: "/join", label: "Join the Conversation" },
   { to: "/partners", label: "Partner With Us" },
   { to: "/ambassadors", label: "Become an Ambassador" },
@@ -17,6 +16,23 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-md">
+      {/* Top Event Announcement Banner */}
+      <div className="bg-primary px-4 py-2 text-center text-xs font-medium text-primary-foreground sm:px-6">
+        <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 flex-wrap">
+          <span className="inline-flex items-center gap-1.5 font-semibold">
+            <Sparkles className="h-3.5 w-3.5 text-accent" />
+            The Pan-African Mental Health Conversation is coming soon!
+          </span>
+          <span className="hidden opacity-80 sm:inline">•</span>
+          <span className="opacity-90">Speaker applications closed — Registration is open.</span>
+          <a
+            href="/join"
+            className="inline-flex items-center gap-1 font-semibold text-accent underline underline-offset-2 hover:text-accent/90"
+          >
+            Register to Attend <ArrowRight className="h-3 w-3" />
+          </a>
+        </div>
+      </div>
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3 sm:px-8">
         <Link to="/" className="flex min-w-0 items-center" aria-label="PAMHO — Pan-African Mental Health Organization">
           <img

@@ -20,17 +20,17 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PAMHO — Advancing Mental Health Across Africa" },
+      { title: "The Pan-African Mental Health Conversation — PAMHO" },
       {
         name: "description",
         content:
-          "The Pan-African Mental Health Organization advances policy, research, education, and community care for mental wellbeing across Africa.",
+          "Africa's inaugural continental mental health dialogue convening leaders, advocates, researchers, youth, and communities across 54 African nations.",
       },
-      { property: "og:title", content: "PAMHO — Advancing Mental Health Across Africa" },
+      { property: "og:title", content: "The Pan-African Mental Health Conversation — PAMHO" },
       {
         property: "og:description",
         content:
-          "Healthy Minds, Healthy Lives. Join Africa's leading conversation on mental health.",
+          "Healthy Minds, Healthy Lives. Register to attend Africa's premier continental dialogue on mental health.",
       },
     ],
   }),
@@ -46,12 +46,23 @@ const pillars = [
   { icon: HeartHandshake, title: "Community Interventions", desc: "Bringing mental health support, resources, and conversations closer to the people who need them." },
 ];
 
+const eventThemes = [
+  { n: "01", title: "Mental Health and African Identity", desc: "Culture, tradition, spirituality, and identity shaping wellbeing." },
+  { n: "02", title: "Youth Mental Health", desc: "Addressing psychological challenges facing young Africans." },
+  { n: "03", title: "Mental Health Policy and Systems", desc: "Legislative gaps, funding, workforce, and service delivery." },
+  { n: "04", title: "Community & Family Approaches", desc: "Grassroots, community-led, and family-centered models." },
+  { n: "05", title: "Mental Health in Education", desc: "Schools and universities promoting psychological wellbeing." },
+  { n: "06", title: "Trauma, Conflict, and Resilience", desc: "Displacement, conflict, poverty, and historical trauma." },
+  { n: "07", title: "Innovation & Technology", desc: "Digital tools expanding mental health access in Africa." },
+  { n: "08", title: "Lived Experience & Storytelling", desc: "Centering personal journeys as advocacy and education." },
+];
+
 function Index() {
   return (
     <div className="min-h-screen bg-background">
       <SEO 
-        title="Advancing Mental Health Across Africa" 
-        description="The Pan-African Mental Health Organization advances policy, research, education, and community care for mental wellbeing across Africa." 
+        title="The Pan-African Mental Health Conversation" 
+        description="Africa's inaugural continental mental health dialogue convening leaders, advocates, researchers, youth, and communities." 
       />
       <Nav />
 
@@ -74,36 +85,35 @@ function Index() {
           <Reveal className="flex flex-col justify-center">
             <span className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
               <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              Pan-African Mental Health Organization
+              Upcoming Continental Dialogue
             </span>
             <h1 className="mt-6 font-display text-[2.6rem] font-semibold leading-[1.05] text-primary sm:text-5xl lg:text-[3.75rem]">
-              Advancing Mental Health{" "}
-              <span className="italic text-[oklch(0.45_0.16_305)]">Across Africa</span>.
+              The Pan-African Mental Health{" "}
+              <span className="italic text-[oklch(0.45_0.16_305)]">Conversation</span>.
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              The Pan-African Mental Health Organization is building the systems, networks, and
-              conversations that Africa's mental health future requires.
+              PAMHO's inaugural continental forum bringing together professionals, advocates, researchers, policymakers, students, and community voices to advance mental health across Africa. Register to attend and secure your place.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="/join"
                 className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-[0_10px_30px_-12px_oklch(0.32_0.12_305_/_0.6)] transition hover:bg-primary/90"
               >
-                Join the Pan-African Mental Health Conversation
+                Register to Attend
                 <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
               </a>
               <a
-                href="/about"
+                href="/conversation"
                 className="inline-flex items-center gap-2 rounded-full border border-primary/25 px-6 py-3.5 text-sm font-semibold text-primary hover:bg-primary/5"
               >
-                Learn About PAMHO
+                Event Themes & Details
               </a>
             </div>
             <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-border/70 pt-6">
               {[
-                ["54", "African nations"],
-                ["6", "Pillars of work"],
-                ["1", "Continental movement"],
+                ["8", "Core Event Themes"],
+                ["3", "Participation Formats"],
+                ["54", "Nations Represented"],
               ].map(([k, v]) => (
                 <div key={v}>
                   <dt className="font-display text-3xl font-semibold text-primary">{k}</dt>
@@ -125,6 +135,37 @@ function Index() {
               />
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* EVENT THEMES HIGHLIGHT */}
+      <section className="py-20 bg-accent/5 border-y border-border/60">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/70">
+                Dialogue Agenda
+              </span>
+              <h2 className="mt-3 font-display text-3xl font-semibold text-primary sm:text-4xl">
+                Eight Themes Shaping the Conversation.
+              </h2>
+            </div>
+            <a
+              href="/conversation"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+            >
+              View Full Program Details <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {eventThemes.map((t) => (
+              <div key={t.n} className="lift-card rounded-xl border border-border bg-card p-5">
+                <span className="text-[11px] font-mono font-semibold text-accent-foreground/70">{t.n}</span>
+                <h3 className="mt-2 font-display text-base font-semibold text-primary">{t.title}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{t.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
