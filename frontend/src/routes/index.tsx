@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
@@ -15,6 +16,8 @@ import {
   HeartHandshake,
   ArrowRight,
   Eye,
+  Calendar,
+  Clock,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -57,6 +60,78 @@ const eventThemes = [
   { n: "08", title: "Lived Experience & Storytelling", desc: "Centering personal journeys as advocacy and education." },
 ];
 
+const EVENT_TARGET_DATE = new Date("2026-10-10T09:00:00Z").getTime();
+
+function CountdownBanner() {
+  const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
+
+  function getTimeRemaining() {
+    const total = EVENT_TARGET_DATE - new Date().getTime();
+    const seconds = Math.max(0, Math.floor((total / 1000) % 60));
+    const minutes = Math.max(0, Math.floor((total / 1000 / 60) % 60));
+    const hours = Math.max(0, Math.floor((total / (1000 * 60 * 60)) % 24));
+    const days = Math.max(0, Math.floor(total / (1000 * 60 * 60 * 24)));
+    return { total, days, hours, minutes, seconds };
+  }
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(getTimeRemaining());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section className="relative bg-[oklch(0.22_0.09_305)] py-12 text-cream border-y border-accent/30 overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.1]"
+        style={{ backgroundImage: `url(${pattern})`, backgroundSize: "280px" }}
+      />
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 relative">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+          <div className="text-center lg:text-left">
+            <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/15 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              <Calendar className="h-3.5 w-3.5" /> October 10th • World Mental Health Day
+            </span>
+            <h2 className="mt-3 font-display text-3xl font-semibold text-cream sm:text-4xl">
+              The Continental Dialogue Begins In:
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-4 gap-3 sm:gap-5 text-center">
+            {[
+              [timeLeft.days, "Days"],
+              [timeLeft.hours, "Hours"],
+              [timeLeft.minutes, "Minutes"],
+              [timeLeft.seconds, "Seconds"],
+            ].map(([val, label]) => (
+              <div
+                key={label as string}
+                className="flex flex-col items-center justify-center rounded-2xl bg-white/10 border border-white/15 px-4 py-3 sm:px-6 sm:py-4 backdrop-blur-sm min-w-[72px] sm:min-w-[96px] shadow-inner"
+              >
+                <span className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-accent">
+                  {String(val).padStart(2, "0")}
+                </span>
+                <span className="mt-1 text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-cream/80">
+                  {label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <a
+            href="/join"
+            className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-semibold text-[oklch(0.22_0.09_305)] transition hover:bg-accent/90 shadow-lg shrink-0"
+          >
+            Register to Attend <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen bg-background">
@@ -65,6 +140,9 @@ function Index() {
         description="Africa's inaugural continental mental health dialogue convening leaders, advocates, researchers, youth, and communities." 
       />
       <Nav />
+
+      {/* LIVE COUNTDOWN BANNER - TOP OF PAGE */}
+      <CountdownBanner />
 
       {/* HERO */}
       <section className="relative overflow-hidden">
@@ -128,10 +206,10 @@ function Index() {
             <div className="relative overflow-hidden rounded-[1.75rem] border border-primary/15 shadow-2xl">
               <img
                 src={hero}
-                alt="African mental health professionals in community conversation"
+                alt="African mental health advocates collaborating in a bright workshop setting"
                 width={1600}
-                height={1200}
-                className="h-full w-full object-cover"
+                height={1000}
+                className="h-[360px] sm:h-[420px] lg:h-[440px] w-full object-cover object-center"
               />
             </div>
           </Reveal>

@@ -1,15 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
-import { Field, TextareaField, SelectField } from "@/components/site/FormFields";
-import { Reveal } from "@/components/site/Reveal";
 import SEO from "@/components/SEO";
 import pattern from "@/assets/pattern.svg";
-import conversationImg from "@/assets/conversation.jpg";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
-import { Mic, Video, MessagesSquare, ArrowRight } from "lucide-react";
+import { Video } from "lucide-react";
 
 export const Route = createFileRoute("/conversation")({
   head: () => ({
@@ -24,176 +21,170 @@ export const Route = createFileRoute("/conversation")({
       {
         property: "og:description",
         content:
-          "An online continental dialogue on mental health in Africa. Eight themes, three formats.",
+          "An online continental dialogue on mental health in Africa.",
       },
     ],
   }),
   component: ConversationPage,
 });
 
-const themes = [
-  { n: 1, title: "Mental Health and African Identity", desc: "Exploring how culture, tradition, spirituality, and identity shape mental health experiences and help-seeking behavior across Africa." },
-  { n: 2, title: "Youth Mental Health", desc: "Addressing the psychological challenges facing young Africans in education, employment, relationships, and digital life." },
-  { n: 3, title: "Mental Health Policy and Systems", desc: "Examining gaps in mental health legislation, funding, workforce, and service delivery across African nations." },
-  { n: 4, title: "Community and Family-Based Approaches", desc: "Highlighting grassroots, community-led, and family-centered models of mental health support." },
-  { n: 5, title: "Mental Health in Education", desc: "Exploring the role of schools and universities in promoting psychological wellbeing and early intervention." },
-  { n: 6, title: "Trauma, Conflict, and Resilience", desc: "Addressing mental health in the context of displacement, conflict, poverty, and historical trauma across the continent." },
-  { n: 7, title: "Innovation and Technology in Mental Health", desc: "Examining digital tools, platforms, and innovations expanding mental health access in African contexts." },
-  { n: 8, title: "Lived Experience and Storytelling", desc: "Centering the voices of those with personal mental health journeys as a form of advocacy and education." },
-];
+function ZoomStage() {
+  const [meetingId, setMeetingId] = useState("9332105985");
+  const [passcode, setPasscode] = useState("tcW3rK");
+  const [userName, setUserName] = useState("PAMHO Participant");
+  const [isJoined, setIsJoined] = useState(false);
 
-const formats = [
-  { icon: Mic, title: "Live Presentation", desc: "A structured presentation delivered live during the conversation followed by audience engagement.", duration: "20 to 30 minutes" },
-  { icon: Video, title: "Recorded Presentation", desc: "A professionally prepared recorded presentation submitted in advance for screening during the conversation.", duration: "15 to 20 minutes" },
-  { icon: MessagesSquare, title: "Panel Discussion", desc: "A moderated group discussion bringing together three to five voices around a shared theme. Panelists engage with each other and with audience questions in real time.", duration: "45 to 60 minutes" },
-];
-
-function ConversationPage() {
-  const [format, setFormat] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
-
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    setSubmitting(true);
-    try {
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
-      const res = await fetch(`${API_URL}/api/submissions`, {
-        method: "POST",
-        body: JSON.stringify({ formType: "conversation", data }),
-        headers: { "Content-Type": "application/json" },
-      });
-      if (!res.ok) throw new Error("Submission failed");
-      setSubmitted(true);
-      form.reset();
-      setFormat("");
-    } catch {
-      toast.error("Submission failed", { description: "Please try again in a moment." });
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  const cleanMeetingId = meetingId.replace(/\s+/g, "");
+  const zoomEmbedUrl = `https://zoom.us/wc/join/${cleanMeetingId}?pwd=${passcode}&un=${encodeURIComponent(userName)}`;
 
   return (
+    <section id="stage" className="py-16 bg-primary/5 border-y border-border/60">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              Live Stage Preview
+            </span>
+            <h2 className="mt-3 font-display text-3xl font-semibold text-primary sm:text-4xl">
+              Pan-African Mental Health Virtual Stage
+            </h2>
+            <p className="mt-2 text-sm text-muted-foreground max-w-2xl">
+              Join the live continental dialogue directly on the PAMHO platform. Enter your display name and passcode below to enter the live session.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 rounded-3xl border border-primary/20 bg-card p-6 shadow-xl sm:p-8">
+          {!isJoined ? (
+            <div className="mx-auto max-w-md py-8 text-center">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                <Video className="h-8 w-8" />
+              </div>
+              <h3 className="mt-4 font-display text-2xl font-semibold text-primary">Enter the Live Stage</h3>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Meeting ID: <code className="rounded bg-muted px-2 py-0.5 font-mono">{cleanMeetingId}</code>
+              </p>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (!passcode) {
+                    toast.error("Please enter the Meeting Passcode from your Zoom invitation");
+                    return;
+                  }
+                  setIsJoined(true);
+                }}
+                className="mt-6 space-y-4 text-left"
+              >
+                <div>
+                  <label className="block text-xs font-semibold text-foreground/80 mb-1">Your Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                    className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Enter your name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-foreground/80 mb-1">Meeting Passcode</label>
+                  <input
+                    type="password"
+                    required
+                    value={passcode}
+                    onChange={(e) => setPasscode(e.target.value)}
+                    className="w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Enter meeting passcode"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+                >
+                  Join Live Stage Now
+                </button>
+              </form>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-emerald-600 flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+                    Connected to Stage (Meeting: {cleanMeetingId})
+                  </span>
+                  <span className="text-xs font-mono font-medium bg-muted px-2.5 py-1 rounded border border-border text-foreground">
+                    Passcode: tcW3rK
+                  </span>
+                </div>
+                <button
+                  onClick={() => setIsJoined(false)}
+                  className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground hover:bg-muted"
+                >
+                  Exit Stage
+                </button>
+              </div>
+              <div className="relative overflow-hidden rounded-2xl border border-border bg-black aspect-video sm:h-[620px] w-full">
+                <iframe
+                  src={zoomEmbedUrl}
+                  title="PAMHO Zoom Stage"
+                  className="h-full w-full border-0"
+                  allow="camera *; microphone *; display-capture *; autoplay *; clipboard-read *; clipboard-write *; fullscreen *"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ConversationPage() {
+  return (
     <div className="min-h-screen bg-background">
-      <SEO 
-        title="The Conversation — PAMHO" 
-        description="Join the inaugural Pan-African Mental Health Conversation."
+      <SEO
+        title="The Conversation — PAMHO Virtual Stage"
+        description="Join the live Pan-African Mental Health Conversation stage."
       />
       <Toaster />
       <Nav />
 
+      {/* Hero Header */}
       <section className="relative overflow-hidden border-b border-border/60">
-        <div aria-hidden className="absolute inset-0 -z-10" style={{ background: "radial-gradient(ellipse at 50% 0%, oklch(0.32 0.13 305 / 0.18), transparent 60%), var(--background)" }} />
-        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06]" style={{ backgroundImage: `url(${pattern})`, backgroundSize: "320px" }} />
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-[1.2fr_1fr] lg:items-center lg:py-28">
-          <div>
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-destructive/30 bg-destructive/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-destructive">
-              Applications Closed
-            </span>
-            <h1 className="mt-6 font-display text-[2.4rem] font-semibold leading-[1.05] text-primary sm:text-5xl lg:text-[3.5rem]">
-              The Pan-African Mental Health{" "}
-              <span className="italic text-[oklch(0.45_0.16_305)]">Conversation</span>
-            </h1>
-            <p className="mt-5 font-display text-xl italic text-[oklch(0.45_0.16_305)]">
-              An Online Continental Dialogue on Mental Health in Africa
-            </p>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              The Pan-African Mental Health Conversation is PAMHO's inaugural continental forum
-              bringing together professionals, advocates, researchers, policymakers, students, and
-              community voices to advance mental health across Africa. Speaker applications are now closed. You can still register to attend the event!
-            </p>
-            <a href="/join" className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
-              Register to Attend <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
-          <div className="relative">
-            <div className="absolute -inset-3 -z-10 rounded-[2rem] bg-gradient-to-br from-accent/40 to-primary/30 blur-2xl" />
-            <div className="overflow-hidden rounded-[1.5rem] border border-primary/15 shadow-xl">
-              <img src={conversationImg} alt="African woman speaking at conference podium" width={1400} height={1000} className="h-full w-full object-cover" />
-            </div>
-          </div>
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={{
+            background:
+              "radial-gradient(ellipse at 50% 0%, oklch(0.32 0.13 305 / 0.18), transparent 60%), var(--background)",
+          }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 opacity-[0.06]"
+          style={{ backgroundImage: `url(${pattern})`, backgroundSize: "320px" }}
+        />
+        <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 lg:py-24">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            Live Stage Portal
+          </span>
+          <h1 className="mt-6 font-display text-[2.4rem] font-semibold leading-[1.05] text-primary sm:text-5xl lg:text-[3.5rem]">
+            The Pan-African Mental Health{" "}
+            <span className="italic text-[oklch(0.45_0.16_305)]">Conversation</span>
+          </h1>
+          <p className="mt-4 font-display text-xl italic text-[oklch(0.45_0.16_305)]">
+            An Online Continental Dialogue on Mental Health in Africa
+          </p>
         </div>
       </section>
 
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="max-w-2xl">
-            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/70">Eight Themes</span>
-            <h2 className="mt-3 font-display text-4xl font-semibold text-primary sm:text-5xl">The conversations shaping Africa's mental health.</h2>
-          </div>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {themes.map((t) => (
-              <Reveal as="article" delay={t.n * 40} key={t.n} className="lift-card group relative overflow-hidden rounded-2xl border border-border bg-card p-6">
-                <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-accent-foreground/60">Theme 0{t.n}</span>
-                <h3 className="mt-4 font-display text-lg font-semibold leading-snug text-primary">{t.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative bg-[oklch(0.96_0.018_82)] py-24">
-        <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.05]" style={{ backgroundImage: `url(${pattern})`, backgroundSize: "260px" }} />
-        <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="max-w-2xl">
-            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/70">Participation Formats</span>
-            <h2 className="mt-3 font-display text-4xl font-semibold text-primary sm:text-5xl">Three ways to take part.</h2>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {formats.map(({ icon: Icon, title, desc, duration }, i) => (
-              <Reveal as="article" delay={i * 80} key={title} className="lift-card relative overflow-hidden rounded-2xl border border-primary/15 bg-card p-8 shadow-sm">
-                <span className="inline-grid h-12 w-12 place-items-center rounded-xl bg-primary text-primary-foreground">
-                  <Icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-6 font-display text-xl font-semibold text-primary">{title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{desc}</p>
-                <span className="mt-6 inline-block rounded-full bg-accent/20 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
-                  Duration: {duration}
-                </span>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="apply" className="relative pb-28 pt-24">
-        <div className="mx-auto max-w-4xl px-5 sm:px-8">
-          <div className="relative overflow-hidden rounded-3xl border border-primary/20 bg-card p-7 shadow-xl sm:p-12">
-            <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
-            <div className="relative">
-              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/70">Speaker Applications Status</span>
-              <h2 className="mt-3 font-display text-3xl font-semibold text-primary sm:text-4xl">Applications to speak are now closed.</h2>
-              <div className="mt-6 rounded-2xl border border-primary/15 bg-accent/10 p-6 sm:p-8">
-                <p className="text-base leading-relaxed text-foreground/90">
-                  Thank you to everyone who submitted a proposal to speak, present, or join a panel at The Pan-African Mental Health Conversation. Applications are officially closed while our review committee evaluates all submissions.
-                </p>
-                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                  Selected speakers will be contacted directly via email with confirmation details and scheduling information.
-                </p>
-                <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <a
-                    href="/join"
-                    className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90"
-                  >
-                    Register to Attend <ArrowRight className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="/contact"
-                    className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-background px-6 py-3.5 text-sm font-semibold text-primary transition hover:bg-accent/10"
-                  >
-                    Contact Support
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Embedded Zoom Virtual Stage */}
+      <ZoomStage />
 
       <Footer />
     </div>

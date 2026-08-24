@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Sparkles, ArrowRight } from "lucide-react";
 import logoUrl from "@/assets/pamho-logo.png";
 
@@ -14,10 +14,26 @@ const links = [
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-md">
-      {/* Top Event Announcement Banner */}
-      <div className="bg-primary px-4 py-2 text-center text-xs font-medium text-primary-foreground sm:px-6">
+    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/90 backdrop-blur-md transition-all duration-300">
+      {/* Top Event Announcement Banner (Collapses on Scroll) */}
+      <div
+        className={`bg-primary px-4 text-center text-xs font-medium text-primary-foreground transition-all duration-300 ease-in-out ${
+          scrolled
+            ? "max-h-0 py-0 opacity-0 overflow-hidden"
+            : "max-h-16 py-2 opacity-100 sm:px-6"
+        }`}
+      >
         <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 flex-wrap">
           <span className="inline-flex items-center gap-1.5 font-semibold">
             <Sparkles className="h-3.5 w-3.5 text-accent" />
@@ -33,12 +49,21 @@ export function Nav() {
           </a>
         </div>
       </div>
-      <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3 sm:px-8">
+
+      <div
+        className={`mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 transition-all duration-300 sm:px-8 ${
+          scrolled ? "py-1.5" : "py-3"
+        }`}
+      >
         <Link to="/" className="flex min-w-0 items-center" aria-label="PAMHO — Pan-African Mental Health Organization">
           <img
             src={logoUrl}
             alt="Pan-African Mental Health Organization"
-            className="h-24 w-auto shrink-0 object-contain sm:h-28 lg:h-32"
+            className={`w-auto shrink-0 object-contain transition-all duration-300 ${
+              scrolled
+                ? "h-10 sm:h-12 lg:h-14"
+                : "h-20 sm:h-24 lg:h-28"
+            }`}
           />
         </Link>
         <nav className="hidden items-center gap-7 lg:flex">
@@ -53,7 +78,9 @@ export function Nav() {
           ))}
           <a
             href="/join"
-            className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition hover:bg-primary/90"
+            className={`rounded-full bg-primary font-semibold text-primary-foreground shadow-sm transition-all duration-300 hover:bg-primary/90 ${
+              scrolled ? "px-4 py-2 text-xs" : "px-5 py-2.5 text-sm"
+            }`}
           >
             Register to Attend
           </a>
