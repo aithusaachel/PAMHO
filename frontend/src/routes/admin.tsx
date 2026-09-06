@@ -280,54 +280,70 @@ function AdminPage() {
   const handleExportPDF = () => {
     if (filteredSubmissions.length === 0) return alert("No data to export.");
 
-    const doc = new jsPDF({ orientation: "landscape" });
+    const doc = new jsPDF();
+    const pageW = doc.internal.pageSize.getWidth();
+    const pageH = doc.internal.pageSize.getHeight();
+    const margin = 14;
     const dateStr = new Date().toLocaleDateString();
     const filterLabel = TABS.find(t => t.id === filter)?.label || "All Submissions";
+    const schema = FORM_SCHEMAS[filter] || [];
 
-    // Header branding
-    doc.setFontSize(18);
-    doc.setTextColor(88, 28, 135);
-    doc.text("PAMHO — Admin Records", 14, 18);
-    doc.setFontSize(10);
-    doc.setTextColor(100);
-    doc.text(`Category: ${filterLabel}   |   Exported: ${dateStr}   |   Total: ${filteredSubmissions.length} record(s)`, 14, 26);
+    // Cover page
+    doc.setFillColor(88, 28, 135);
+    doc.rect(0, 0, pageW, 40, "F");
+    doc.setTextColor(255);
+    doc.setFontSize(20);
+    doc.setFont("helvetica", "bold");
+    doc.text("PAMHO", margin, 16);
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${filterLabel} — Records Export`, margin, 26);
+    doc.setFontSize(9);
+    doc.setTextColor(220);
+    doc.text(`Exported: ${dateStr}   |   Total: ${filteredSubmissions.length} record(s)`, margin, 35);
 
-    // Collect all keys across visible records
-    const allKeys = new Set<string>();
-    filteredSubmissions.forEach(sub => Object.keys(sub.data).forEach(k => allKeys.add(k)));
-    const keys = Array.from(allKeys);
+    // Each record as a card
+    filteredSubmissions.forEach((sub, index) => {
+      // Always start a new page per record (cleaner, no overflow issues)
+      if (index === 0) {
+        // use space after cover header on first page
+      } else {
+        doc.addPage();
+      }
 
-    const head = [["#", "Date", "Type", ...keys.map(k => {
-      const schema = Object.values(FORM_SCHEMAS).flat();
-      const field = schema.find(f => f.name === k);
-      return field ? field.label : k;
-    })]]
+      const startY = index === 0 ? 48 : 14;
 
-    const body = filteredSubmissions.map(sub => [
-      sub.id,
-      new Date(sub.createdAt).toLocaleDateString(),
-      sub.formType,
-      ...keys.map(k => String(sub.data[k] || "—"))
-    ]);
+      // Record header bar
+      doc.setFillColor(88, 28, 135);
+      doc.rect(margin, startY, pageW - margin * 2, 10, "F");
+      doc.setTextColor(255);
+      doc.setFontSize(9);
+      doc.setFont("helvetica", "bold");
+      doc.text(`Record ${index + 1} of ${filteredSubmissions.length}   |   ID: #${sub.id}   |   Submitted: ${new Date(sub.createdAt).toLocaleString()}`, margin + 3, startY + 6.5);
 
-    autoTable(doc, {
-      head,
-      body,
-      startY: 32,
-      styles: { fontSize: 7, cellPadding: 2, overflow: "linebreak" },
-      headStyles: { fillColor: [88, 28, 135], textColor: 255, fontStyle: "bold" },
-      alternateRowStyles: { fillColor: [245, 240, 255] },
-      columnStyles: { 0: { cellWidth: 10 }, 1: { cellWidth: 22 }, 2: { cellWidth: 20 } },
-      margin: { top: 32, left: 14, right: 14 },
+      // Fields table
+      const rows = schema.map(field => [field.label, String(sub.data[field.name] || "—")]);
+
+      autoTable(doc, {
+        body: rows,
+        startY: startY + 12,
+        theme: "striped",
+        styles: { fontSize: 9, cellPadding: 3, overflow: "linebreak" },
+        columnStyles: {
+          0: { cellWidth: 60, fontStyle: "bold", textColor: [88, 28, 135], fillColor: [245, 240, 255] },
+          1: { cellWidth: "auto", textColor: [40, 40, 40] },
+        },
+        margin: { left: margin, right: margin },
+      });
     });
 
-    // Footer page numbers
+    // Footer page numbers on all pages
     const pageCount = (doc as any).internal.getNumberOfPages();
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
       doc.setFontSize(8);
-      doc.setTextColor(150);
-      doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.getWidth() - 30, doc.internal.pageSize.getHeight() - 8);
+      doc.setTextColor(160);
+      doc.text(`PAMHO Admin  |  ${filterLabel}  |  Page ${i} of ${pageCount}`, margin, pageH - 7);
     }
 
     doc.save(`pamho_${filter}_${new Date().toISOString().slice(0, 10)}.pdf`);
