@@ -518,6 +518,15 @@ function AdminPage() {
               <Download className="h-4 w-4" />
               CSV
             </button>
+            {filter !== "all" && (
+              <button
+                onClick={handleExportPDF}
+                className="hidden sm:inline-flex items-center gap-2 rounded-lg border border-input bg-background px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm transition hover:bg-muted hover:text-foreground"
+              >
+                <FileDown className="h-4 w-4" />
+                PDF
+              </button>
+            )}
             <button
               onClick={() => setIsAdding(true)}
               className="inline-flex items-center gap-1.5 sm:gap-2 rounded-lg bg-primary px-3 sm:px-4 py-2 text-sm font-medium text-primary-foreground shadow transition hover:bg-primary/90 whitespace-nowrap"
