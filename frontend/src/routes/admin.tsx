@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { X, Plus, Eye, LogOut, LayoutDashboard, MessageSquare, Users, Handshake, Network, UserPlus, Trash2, Search, Download, Menu } from "lucide-react";
+import { X, Plus, Eye, LogOut, LayoutDashboard, MessageSquare, Users, Handshake, Network, UserPlus, Trash2, Search, Download, Menu, FileDown } from "lucide-react";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import pamhoLogo from "@/assets/pamho-logo.png";
 import {
   Pagination,
@@ -275,6 +277,118 @@ function AdminPage() {
     document.body.removeChild(link);
   };
 
+  const handleExportPDF = () => {
+    if (filteredSubmissions.length === 0) return alert("No data to export.");
+
+    const doc = new jsPDF({ orientation: "landscape" });
+    const dateStr = new Date().toLocaleDateString();
+    const filterLabel = TABS.find(t => t.id === filter)?.label || "All Submissions";
+
+    // Header branding
+    doc.setFontSize(18);
+    doc.setTextColor(88, 28, 135);
+    doc.text("PAMHO — Admin Records", 14, 18);
+    doc.setFontSize(10);
+    doc.setTextColor(100);
+    doc.text(`Category: ${filterLabel}   |   Exported: ${dateStr}   |   Total: ${filteredSubmissions.length} record(s)`, 14, 26);
+
+    // Collect all keys across visible records
+    const allKeys = new Set<string>();
+    filteredSubmissions.forEach(sub => Object.keys(sub.data).forEach(k => allKeys.add(k)));
+    const keys = Array.from(allKeys);
+
+    const head = [["#", "Date", "Type", ...keys.map(k => {
+      const schema = Object.values(FORM_SCHEMAS).flat();
+      const field = schema.find(f => f.name === k);
+      return field ? field.label : k;
+    })]]
+
+    const body = filteredSubmissions.map(sub => [
+      sub.id,
+      new Date(sub.createdAt).toLocaleDateString(),
+      sub.formType,
+      ...keys.map(k => String(sub.data[k] || "—"))
+    ]);
+
+    autoTable(doc, {
+      head,
+      body,
+      startY: 32,
+      styles: { fontSize: 7, cellPadding: 2, overflow: "linebreak" },
+      headStyles: { fillColor: [88, 28, 135], textColor: 255, fontStyle: "bold" },
+      alternateRowStyles: { fillColor: [245, 240, 255] },
+      columnStyles: { 0: { cellWidth: 10 }, 1: { cellWidth: 22 }, 2: { cellWidth: 20 } },
+      margin: { top: 32, left: 14, right: 14 },
+    });
+
+    // Footer page numbers
+    const pageCount = (doc as any).internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setTextColor(150);
+      doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.getWidth() - 30, doc.internal.pageSize.getHeight() - 8);
+    }
+
+    doc.save(`pamho_${filter}_${new Date().toISOString().slice(0, 10)}.pdf`);
+  };
+
+  const handleDownloadSinglePDF = (sub: any) => {
+    const doc = new jsPDF();
+    const schema = FORM_SCHEMAS[sub.formType] || [];
+    const dateStr = new Date(sub.createdAt).toLocaleString();
+    const typeLabel = TABS.find(t => t.id === sub.formType)?.label || sub.formType;
+
+    // Header
+    doc.setFillColor(88, 28, 135);
+    doc.rect(0, 0, doc.internal.pageSize.getWidth(), 28, "F");
+    doc.setTextColor(255);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("PAMHO", 14, 12);
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text(`${typeLabel} Submission`, 14, 20);
+
+    // Meta info
+    doc.setTextColor(80);
+    doc.setFontSize(9);
+    doc.text(`Record ID: #${sub.id}`, 14, 36);
+    doc.text(`Submitted: ${dateStr}`, 14, 43);
+    doc.setDrawColor(200);
+    doc.line(14, 47, doc.internal.pageSize.getWidth() - 14, 47);
+
+    // Fields as table
+    const rows = schema.map(field => [
+      field.label,
+      String(sub.data[field.name] || "—")
+    ]);
+
+    autoTable(doc, {
+      body: rows,
+      startY: 52,
+      theme: "striped",
+      styles: { fontSize: 9, cellPadding: 3, overflow: "linebreak" },
+      columnStyles: {
+        0: { cellWidth: 55, fontStyle: "bold", textColor: [88, 28, 135], fillColor: [245, 240, 255] },
+        1: { cellWidth: "auto", textColor: [40, 40, 40] }
+      },
+      margin: { left: 14, right: 14 },
+    });
+
+    // Footer
+    const pageCount = (doc as any).internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setTextColor(150);
+      doc.text(`Page ${i} of ${pageCount}  |  PAMHO Admin`, 14, doc.internal.pageSize.getHeight() - 8);
+    }
+
+    const name = sub.data.fullName || sub.data.orgName || `record_${sub.id}`;
+    doc.save(`pamho_${sub.formType}_${name.replace(/\s+/g, "_")}.pdf`);
+  };
+
   if (!auth) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-muted/30 p-4">
@@ -402,7 +516,14 @@ function AdminPage() {
               className="hidden sm:inline-flex items-center gap-2 rounded-lg border border-input bg-background px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm transition hover:bg-muted hover:text-foreground"
             >
               <Download className="h-4 w-4" />
-              Export
+              CSV
+            </button>
+            <button
+              onClick={handleExportPDF}
+              className="hidden sm:inline-flex items-center gap-2 rounded-lg border border-input bg-background px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm transition hover:bg-muted hover:text-foreground"
+            >
+              <FileDown className="h-4 w-4" />
+              PDF
             </button>
             <button
               onClick={() => setIsAdding(true)}
@@ -479,6 +600,14 @@ function AdminPage() {
                               >
                                 <Eye className="h-3.5 w-3.5" />
                                 View
+                              </button>
+                              <button
+                                onClick={() => handleDownloadSinglePDF(sub)}
+                                className="inline-flex items-center gap-1.5 rounded-md border border-input bg-background px-3 py-1.5 text-xs font-medium shadow-sm transition hover:bg-muted hover:text-foreground"
+                                title="Download PDF"
+                              >
+                                <FileDown className="h-3.5 w-3.5" />
+                                PDF
                               </button>
                               <button
                                 onClick={() => handleDelete(sub.id)}
@@ -567,7 +696,14 @@ function AdminPage() {
                 ))}
               </div>
             </div>
-            <div className="border-t border-border bg-muted/20 px-6 py-4 text-right shrink-0">
+            <div className="border-t border-border bg-muted/20 px-6 py-4 flex justify-between items-center shrink-0">
+              <button
+                onClick={() => handleDownloadSinglePDF(viewEntry)}
+                className="inline-flex items-center gap-2 rounded-lg border border-input bg-background px-4 py-2 text-sm font-medium text-muted-foreground shadow-sm transition hover:bg-muted hover:text-foreground"
+              >
+                <FileDown className="h-4 w-4" />
+                Download PDF
+              </button>
               <button onClick={() => setViewEntry(null)} className="rounded-lg bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition hover:bg-primary/90">
                 Close
               </button>

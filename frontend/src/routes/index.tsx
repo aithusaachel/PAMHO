@@ -135,9 +135,9 @@ function CountdownBanner() {
 function Index() {
   return (
     <div className="min-h-screen bg-background">
-      <SEO 
-        title="The Pan-African Mental Health Conversation" 
-        description="Africa's inaugural continental mental health dialogue convening leaders, advocates, researchers, youth, and communities." 
+      <SEO
+        title="The Pan-African Mental Health Conversation"
+        description="Africa's inaugural continental mental health dialogue convening leaders, advocates, researchers, youth, and communities."
       />
       <Nav />
 
@@ -265,7 +265,7 @@ function Index() {
           <Reveal delay={120}>
             <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary/70">
               Who We Are
-            </span>
+            </span>/
             <h2 className="mt-3 font-display text-4xl font-semibold text-primary sm:text-5xl">
               A continental institution for African mental health.
             </h2>
