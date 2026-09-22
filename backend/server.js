@@ -1,11 +1,29 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import pg from 'pg';
+import { SubmissionSchema } from './validation.js';
+import { checkAuth, publicSubmissionLimiter, adminLimiter } from './middleware.js';
+
+// Fail-safe startup: ensure credentials exist
+if (!process.env.ADMIN_USERNAME || !process.env.ADMIN_PASSWORD) {
+  console.error('FATAL: ADMIN_USERNAME or ADMIN_PASSWORD environment variable is missing.');
+  process.exit(1);
+}
 
 const { Pool } = pg;
-
 const app = express();
-app.use(cors());
+
+// Trust the reverse proxy (e.g. Render) so rate limiting identifies true client IPs
+// We configure this only as broadly as necessary. Setting it to 1 assumes exactly one reverse proxy.
+app.set('trust proxy', 1);
+
+// Configure CORS. If FRONTEND_URL is provided, restrict to it. Otherwise allow all (fallback for MVP).
+const corsOptions = process.env.FRONTEND_URL 
+  ? { origin: process.env.FRONTEND_URL } 
+  : {};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 // Health check endpoint
@@ -14,10 +32,8 @@ app.get('/', (req, res) => {
 });
 
 // Initialize PostgreSQL Connection Pool
-// It automatically uses the DATABASE_URL environment variable if provided
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  // Render requires SSL for external connections to their Postgres databases
   ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
 });
 
@@ -40,87 +56,83 @@ async function initializeDB() {
   }
 }
 
-// Basic Authentication Middleware
-const checkAuth = (req, res, next) => {
-  const authHeader = req.headers.authorization || '';
-  const match = authHeader.match(/^Basic (.+)$/);
-  if (!match) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-  
-  const decoded = Buffer.from(match[1], 'base64').toString();
-  const [username, password] = decoded.split(':');
-  
-  if (username === 'admin' && password === 'admin123') {
-    next();
-  } else {
-    res.status(401).json({ error: 'Unauthorized' });
-  }
-};
-
-app.post('/api/submissions', async (req, res) => {
-  const { formType, data } = req.body;
-  if (!formType || !data) {
-    return res.status(400).json({ error: 'Missing formType or data' });
-  }
-  
+// ---------------------------------------------------------
+// PUBLIC ENDPOINTS
+// ---------------------------------------------------------
+app.post('/api/submissions', publicSubmissionLimiter, async (req, res) => {
   try {
-    // node-postgres (pg) automatically handles JSONB serialization for the data object
+    // 1. Validate request body against Zod schemas
+    const parsed = SubmissionSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ 
+        error: 'Validation failed', 
+        details: parsed.error.format() 
+      });
+    }
+
+    const { formType, data } = parsed.data;
+
+    // 2. Insert into database
     const result = await pool.query(
       'INSERT INTO submissions ("formType", data) VALUES ($1, $2) RETURNING id',
       [formType, data]
     );
     res.status(201).json({ id: result.rows[0].id, success: true });
   } catch (err) {
-    console.error('DB Error:', err);
+    console.error('DB Error:', err.message);
     res.status(500).json({ error: 'Failed to save submission' });
   }
 });
 
-app.get('/api/submissions', checkAuth, async (req, res) => {
+// ---------------------------------------------------------
+// PROTECTED ADMIN ENDPOINTS
+// ---------------------------------------------------------
+app.get('/api/submissions', adminLimiter, checkAuth, async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM submissions ORDER BY "createdAt" DESC');
-    
-    // node-postgres automatically parses JSONB columns back into JS objects
     res.json(result.rows);
   } catch (err) {
-    console.error('DB Error:', err);
+    console.error('DB Error:', err.message);
     res.status(500).json({ error: 'Failed to retrieve submissions' });
   }
 });
 
-app.delete('/api/submissions/:id', checkAuth, async (req, res) => {
+app.delete('/api/submissions/:id', adminLimiter, checkAuth, async (req, res) => {
   try {
     const result = await pool.query('DELETE FROM submissions WHERE id = $1', [req.params.id]);
-    
-    // rowCount tells us how many rows were affected by the query
     if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Submission not found' });
     }
     res.json({ success: true });
   } catch (err) {
-    console.error('DB Error:', err);
+    console.error('DB Error:', err.message);
     res.status(500).json({ error: 'Failed to delete submission' });
   }
 });
 
 // Options route to properly handle preflight for CORS with auth
-app.options('*', cors());
+app.options('*', cors(corsOptions));
 
+// ---------------------------------------------------------
+// SERVER INITIALIZATION
+// ---------------------------------------------------------
 const PORT = process.env.PORT || 3000;
 
-// Keep-alive script to prevent Render free tier from sleeping
 const RENDER_URL = process.env.RENDER_EXTERNAL_URL;
 if (RENDER_URL) {
   setInterval(() => {
-    fetch(RENDER_URL)
-      .then(() => console.log(`Keep-alive ping successful`))
-      .catch((err) => console.error(`Keep-alive ping failed:`, err));
+    fetch(RENDER_URL).catch(() => {});
   }, 14 * 60 * 1000); // Ping every 14 minutes
 }
 
-initializeDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Backend API running on port ${PORT}`);
+// Export app for testing purposes
+export { app };
+
+// Only start the server if we are running directly (not in tests)
+if (process.env.NODE_ENV !== 'test') {
+  initializeDB().then(() => {
+    app.listen(PORT, () => {
+      console.log(`Backend API running on port ${PORT}`);
+    });
   });
-});
+}
