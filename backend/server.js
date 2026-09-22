@@ -20,7 +20,7 @@ app.set('trust proxy', 1);
 
 // Configure CORS. If FRONTEND_URL is provided, restrict to it. Otherwise allow all (fallback for MVP).
 const corsOptions = process.env.FRONTEND_URL 
-  ? { origin: process.env.FRONTEND_URL } 
+  ? { origin: process.env.FRONTEND_URL.split(',').map(url => url.trim()) } 
   : {};
 app.use(cors(corsOptions));
 
