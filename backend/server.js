@@ -19,9 +19,23 @@ const app = express();
 app.set('trust proxy', 1);
 
 // Configure CORS. If FRONTEND_URL is provided, restrict to it. Otherwise allow all (fallback for MVP).
-const corsOptions = process.env.FRONTEND_URL 
-  ? { origin: process.env.FRONTEND_URL.split(',').map(url => url.trim().replace(/\/$/, '')) } 
-  : {};
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (!process.env.FRONTEND_URL) return callback(null, true);
+    
+    // Strip slashes, quotes, and whitespace
+    const allowedOrigins = process.env.FRONTEND_URL.split(',')
+      .map(url => url.trim().replace(/\/$/, '').replace(/^["']|["']$/g, ''));
+      
+    if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+      callback(null, true);
+    } else {
+      console.warn(`CORS Blocked: Origin '${origin}' is not in allowed list:`, allowedOrigins);
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
 app.use(cors(corsOptions));
 
 app.use(express.json());
