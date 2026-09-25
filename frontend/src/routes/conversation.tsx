@@ -1,12 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import SEO from "@/components/SEO";
 import pattern from "@/assets/pattern.svg";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
-import { Video } from "lucide-react";
+import { Video, Calendar } from "lucide-react";
+
+const EVENT_TARGET_DATE = new Date("2026-10-10T09:00:00Z").getTime();
 
 export const Route = createFileRoute("/conversation")({
   head: () => ({
@@ -144,6 +146,27 @@ function ZoomStage() {
 }
 
 function ConversationPage() {
+  const [timeLeft, setTimeLeft] = useState(getTimeRemaining());
+
+  function getTimeRemaining() {
+    const total = EVENT_TARGET_DATE - new Date().getTime();
+    const seconds = Math.max(0, Math.floor((total / 1000) % 60));
+    const minutes = Math.max(0, Math.floor((total / 1000 / 60) % 60));
+    const hours = Math.max(0, Math.floor((total / (1000 * 60 * 60)) % 24));
+    const days = Math.max(0, Math.floor(total / (1000 * 60 * 60 * 24)));
+    return { total, days, hours, minutes, seconds };
+  }
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(getTimeRemaining());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Show live stage if time left is less than or equal to 1 day
+  const isEveOfEvent = timeLeft.total <= 24 * 60 * 60 * 1000;
+
   return (
     <div className="min-h-screen bg-background">
       <SEO
@@ -170,8 +193,17 @@ function ConversationPage() {
         />
         <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8 lg:py-24">
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-primary">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            Live Stage Portal
+            {isEveOfEvent ? (
+              <>
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                Live Stage Portal
+              </>
+            ) : (
+              <>
+                <Calendar className="h-3.5 w-3.5" />
+                Upcoming Event
+              </>
+            )}
           </span>
           <h1 className="mt-6 font-display text-[2.4rem] font-semibold leading-[1.05] text-primary sm:text-5xl lg:text-[3.5rem]">
             The Pan-African Mental Health{" "}
@@ -183,8 +215,38 @@ function ConversationPage() {
         </div>
       </section>
 
-      {/* Embedded Zoom Virtual Stage */}
-      <ZoomStage />
+      {/* Conditional: Embedded Zoom Virtual Stage or Countdown */}
+      {isEveOfEvent ? (
+        <ZoomStage />
+      ) : (
+        <section className="py-20 bg-primary/5 border-y border-border/60">
+          <div className="mx-auto max-w-4xl px-5 sm:px-8 text-center">
+            <h2 className="font-display text-3xl font-semibold text-primary sm:text-4xl mb-12">
+              The Continental Dialogue Begins In:
+            </h2>
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
+              {[
+                [timeLeft.days, "Days"],
+                [timeLeft.hours, "Hours"],
+                [timeLeft.minutes, "Minutes"],
+                [timeLeft.seconds, "Seconds"],
+              ].map(([val, label]) => (
+                <div
+                  key={label as string}
+                  className="flex flex-col items-center justify-center rounded-3xl bg-card border border-primary/15 px-6 py-6 sm:px-10 sm:py-8 shadow-xl min-w-[110px] sm:min-w-[160px]"
+                >
+                  <span className="font-display text-5xl sm:text-7xl font-bold tracking-tight text-primary">
+                    {String(val).padStart(2, "0")}
+                  </span>
+                  <span className="mt-3 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <Footer />
     </div>

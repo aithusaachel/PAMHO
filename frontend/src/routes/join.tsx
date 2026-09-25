@@ -127,6 +127,7 @@ function JoinPage() {
         </div>
       </section>
 
+      {/*
       <Reveal className="mx-auto max-w-7xl px-5 pt-10 sm:px-8">
         <div className="overflow-hidden rounded-3xl border border-primary/15 shadow-xl">
           <img
@@ -206,6 +207,7 @@ function JoinPage() {
           </Reveal>
         </div>
       </section>
+      */}
 
       <section id="register" className="relative pb-28 pt-4">
         <div className="mx-auto max-w-4xl px-5 sm:px-8">

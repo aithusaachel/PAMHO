@@ -107,6 +107,7 @@ function PartnersPage() {
         </div>
       </section>
 
+      {/*
       <Reveal className="mx-auto max-w-7xl px-5 pt-10 sm:px-8">
         <div className="overflow-hidden rounded-3xl border border-primary/15 shadow-xl">
           <img
@@ -183,6 +184,7 @@ function PartnersPage() {
           </div>
         </div>
       </section>
+      */}
 
       <section id="apply" className="relative pb-28">
         <div className="mx-auto max-w-4xl px-5 sm:px-8">
