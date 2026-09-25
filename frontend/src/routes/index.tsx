@@ -5,7 +5,7 @@ import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import SEO from "@/components/SEO";
 import hero from "@/assets/hero.jpg";
-import community from "@/assets/community.jpg";
+import community from "@/assets/ambassadors-network.jpg";
 import pattern from "@/assets/pattern.svg";
 import {
   Megaphone,
