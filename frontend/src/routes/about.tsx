@@ -3,7 +3,7 @@ import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { Reveal } from "@/components/site/Reveal";
 import SEO from "@/components/SEO";
-import community from "@/assets/community.jpg";
+import community from "@/assets/ambassadors-network.jpg";
 import visionImg from "@/assets/about-vision.jpg";
 import missionImg from "@/assets/about-mission.jpg";
 import pattern from "@/assets/pattern.svg";
@@ -52,8 +52,8 @@ const sections = [
 function AboutPage() {
   return (
     <div className="min-h-screen bg-background">
-      <SEO 
-        title="About PAMHO — Building Africa's Mental Health Future" 
+      <SEO
+        title="About PAMHO — Building Africa's Mental Health Future"
         description="PAMHO is a continental institution committed to transforming mental health outcomes across Africa through advocacy, research, education and community empowerment."
       />
       <Nav />
