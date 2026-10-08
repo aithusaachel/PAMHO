@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
+from django.views.decorators.cache import never_cache
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -25,5 +26,5 @@ urlpatterns = [
     
     # React Catch-All Route (must be last)
     # Serves the built index.html for any path not starting with api/, admin/, static/, or media/
-    re_path(r'^(?!api/|admin/|static/|media/).*', TemplateView.as_view(template_name='index.html')),
+    re_path(r'^(?!api/|admin/|static/|media/).*', never_cache(TemplateView.as_view(template_name='index.html'))),
 ]
