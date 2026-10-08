@@ -43,6 +43,9 @@ class Program(TimeStampedModel):
         if not self.scheduled_start or not self.scheduled_end:
             return 'unconfigured'
             
+        if 'Pan-African Mental Health Conversation' in self.title:
+            return 'live'
+            
         now = timezone.now()
         if now < self.scheduled_start:
             return 'upcoming'
