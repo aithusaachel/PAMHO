@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 // ============================================================================
 // ZOOM / LIVE PROGRAM CONFIGURATION
@@ -67,6 +68,7 @@ export default function Programs() {
 
   return (
     <div className="flex flex-col bg-[#0a0a0c]">
+      <SEO title="PAMHO | Programs & Events" description="Participate in the continental conversation through PAMHO's live discussions, workshops, and advocacy programs." />
       {/* ============================================================ */}
       {/* ACTIVE HERO                                                  */}
       {/* ============================================================ */}

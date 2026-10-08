@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import SEO from '../components/SEO';
 
 export default function Resources() {
   const container = 'w-full max-w-[1536px] mx-auto px-6 sm:px-12 lg:px-20'
@@ -25,6 +26,7 @@ export default function Resources() {
 
   return (
     <div className="flex flex-col bg-[#0a0a0c]">
+      <SEO title="PAMHO | Resources & News" description="Explore PAMHO's knowledge repository of articles, reports, and institutional updates." />
       {/* ============================================================ */}
       {/* EDITORIAL HERO                                               */}
       {/* ============================================================ */}

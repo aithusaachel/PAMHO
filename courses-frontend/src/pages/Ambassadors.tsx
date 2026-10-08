@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function Ambassadors() {
   const container = 'w-full max-w-[1536px] mx-auto px-6 sm:px-12 lg:px-20'
 
   return (
     <div className="flex flex-col bg-[#0a0a0c]">
+      <SEO title="PAMHO | Ambassadors & Mobilizers" description="Join the continental network of PAMHO ambassadors driving change." />
       {/* ============================================================ */}
       {/* HUMAN-CENTERED HERO                                          */}
       {/* ============================================================ */}

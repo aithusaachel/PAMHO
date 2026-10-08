@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function About() {
   const container = 'w-full max-w-[1536px] mx-auto px-6 sm:px-12 lg:px-20'
 
   return (
     <div className="flex flex-col bg-[#0a0a0c]">
+      <SEO title="PAMHO | About the Organization" description="Learn about the mission, vision, and framework of the Pan-African Mental Health Organization." />
       {/* ============================================================ */}
       {/* INSTITUTIONAL HERO                                           */}
       {/* ============================================================ */}
@@ -157,8 +159,9 @@ export default function About() {
       </section>
 
       {/* ============================================================ */}
-      {/* LEADERSHIP (Institutional Presentation)                      */}
+      {/* LEADERSHIP (Institutional Presentation - Temporarily Hidden)   */}
       {/* ============================================================ */}
+      {/* 
       <section className={`py-40 ${container} bg-[#111115]`}>
         <div className="mb-20">
           <h2 className="text-[11px] uppercase tracking-widest text-[#b48aff] font-bold mb-4">Organization</h2>
@@ -175,6 +178,7 @@ export default function About() {
            </p>
         </div>
       </section>
+      */}
 
       {/* ============================================================ */}
       {/* FINAL CLOSING STATEMENT / CTA                                */}

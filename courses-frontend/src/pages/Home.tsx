@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import FlagMarquee from '../components/FlagMarquee'
+import SEO from '../components/SEO'
 
 export default function Home() {
   const container = 'w-full max-w-[1536px] mx-auto px-6 sm:px-12 lg:px-20'
@@ -26,6 +27,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col">
+      <SEO title="Pan-African Mental Health Organization (PAMHO)" />
       {/* ============================================================ */}
       {/* PROMOTIONAL BANNER                                           */}
       {/* ============================================================ */}
@@ -169,7 +171,7 @@ export default function Home() {
              </div>
              <h4 className="text-2xl font-bold text-[#f4f2ee] mb-4">Programs & Advocacy</h4>
              <p className="text-gray-400 text-sm leading-relaxed mb-8">
-               On-the-ground initiatives, school programs, and policy advocacy campaigns designed for regional impact.
+               On-the-ground initiatives and advocacy campaigns designed for regional impact, including our flagship Pan-African Mental Health Conversation.
              </p>
              <span className="text-[#8442fa] font-mono text-xs uppercase tracking-widest group-hover:text-[#b48aff] transition-colors">View Programs &rarr;</span>
           </Link>

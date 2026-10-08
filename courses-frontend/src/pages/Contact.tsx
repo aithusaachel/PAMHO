@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import SEO from '../components/SEO'
 
 export default function Contact() {
   const container = 'w-full max-w-[1536px] mx-auto px-6 sm:px-12 lg:px-20'
@@ -67,6 +68,7 @@ export default function Contact() {
 
   return (
     <div className="flex flex-col bg-[#0a0a0c]">
+      <SEO title="PAMHO | Contact & Get Involved" description="Connect with the Pan-African Mental Health Organization for general enquiries, partnerships, and membership." />
       {/* ============================================================ */}
       {/* HERO SECTION                                                 */}
       {/* ============================================================ */}
@@ -248,18 +250,18 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
-                  <input required type="text" className="w-full bg-[#111115] border border-gray-800 rounded-sm px-4 py-3 text-white focus:border-[#8442fa] outline-none transition-colors" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                  <input id="name" required type="text" className="w-full bg-[#111115] border border-gray-800 rounded-sm px-4 py-3 text-white focus:border-[#8442fa] outline-none transition-colors" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
-                  <input required type="email" className="w-full bg-[#111115] border border-gray-800 rounded-sm px-4 py-3 text-white focus:border-[#8442fa] outline-none transition-colors" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                  <input id="email" required type="email" className="w-full bg-[#111115] border border-gray-800 rounded-sm px-4 py-3 text-white focus:border-[#8442fa] outline-none transition-colors" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
                 </div>
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Enquiry Type</label>
-                <select className="w-full bg-[#111115] border border-gray-800 rounded-sm px-4 py-3 text-white focus:border-[#8442fa] outline-none transition-colors" value={formData.type} onChange={e => setFormData({...formData, type: e.target.value})}>
+                <label htmlFor="type" className="block text-sm font-medium text-gray-300 mb-2">Enquiry Type</label>
+                <select id="type" className="w-full bg-[#111115] border border-gray-800 rounded-sm px-4 py-3 text-white focus:border-[#8442fa] outline-none transition-colors" value={formData.type} onChange={e => setFormData({...formData, type: e.target.value})}>
                   <option value="Become a Member">Become a Member</option>
                   <option value="General Enquiry">General Enquiry</option>
                   <option value="Partnership">Partnership</option>
@@ -273,14 +275,14 @@ export default function Contact() {
 
               {formData.type === 'Become a Member' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Organization/Affiliation (Optional)</label>
-                  <input type="text" className="w-full bg-[#111115] border border-gray-800 rounded-sm px-4 py-3 text-white focus:border-[#8442fa] outline-none transition-colors" placeholder="e.g. University, Hospital, NGO" />
+                  <label htmlFor="organization" className="block text-sm font-medium text-gray-300 mb-2">Organization/Affiliation (Optional)</label>
+                  <input id="organization" type="text" className="w-full bg-[#111115] border border-gray-800 rounded-sm px-4 py-3 text-white focus:border-[#8442fa] outline-none transition-colors" placeholder="e.g. University, Hospital, NGO" />
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
-                <textarea required rows={5} className="w-full bg-[#111115] border border-gray-800 rounded-sm px-4 py-3 text-white focus:border-[#8442fa] outline-none transition-colors resize-none" value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}></textarea>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                <textarea id="message" required rows={5} className="w-full bg-[#111115] border border-gray-800 rounded-sm px-4 py-3 text-white focus:border-[#8442fa] outline-none transition-colors resize-none" value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})}></textarea>
               </div>
 
               <div className="pt-4">

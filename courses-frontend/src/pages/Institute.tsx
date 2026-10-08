@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 interface Course {
   id: number;
@@ -85,6 +86,7 @@ export default function Institute() {
 
   return (
     <div className="flex flex-col">
+      <SEO title="PAMHO Institute | Professional Mental Health Education" description="Structured mental health education and professional development courses provided by PAMHO." />
       {/* ============================================================ */}
       {/* TYPOGRAPHIC HERO                                             */}
       {/* ============================================================ */}
