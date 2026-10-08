@@ -132,6 +132,8 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+# Serve files from the root of STATIC_ROOT (like /pamho-logo.png or /favicon.ico)
+WHITENOISE_ROOT = STATIC_ROOT
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
