@@ -23,7 +23,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
 
           <Link to="/" className="flex-shrink-0 relative z-50">
-            <img src="/pamho-logo.png" alt="PAMHO" style={{ height: '115px', width: 'auto' }} className="brightness-0 invert opacity-90 transition-opacity hover:opacity-100" />
+            <img src="/pamho-logo.png" alt="PAMHO" style={{ height: '115px', width: 'auto' }} className="opacity-90 transition-opacity hover:opacity-100" />
           </Link>
 
           <div className="hidden lg:flex items-center space-x-8 xl:space-x-10">

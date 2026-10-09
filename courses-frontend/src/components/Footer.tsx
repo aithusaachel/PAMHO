@@ -9,7 +9,7 @@ export default function Footer() {
 
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <img src="/pamho-logo.png" alt="PAMHO" style={{ height: '115px', width: '105px' }} className="mb-12 brightness-0 invert opacity-70 hover:opacity-100 transition-opacity" />
+              <img src="/pamho-logo.png" alt="PAMHO" style={{ height: '115px', width: '105px' }} className="mb-12 opacity-70 hover:opacity-100 transition-opacity" />
               <h2 className="font-serif text-3xl md:text-5xl text-[#F5F2E9] leading-tight max-w-sm font-light">
                 Convening Africa's Mental Health Future.
               </h2>
