@@ -29,7 +29,7 @@ export default function About() {
           <Reveal delay={200}>
             <div className="w-full aspect-[21/9] md:aspect-[2.35/1] overflow-hidden relative">
               <img 
-                src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=1920&q=80" 
+                src="/images/about_hero.jpg" 
                 alt="African community gathered in conversation" 
                 className="img-cinematic absolute inset-0 filter brightness-[0.5] saturate-[0.6]" 
               />
