@@ -4,9 +4,9 @@ export default function AdminPrograms() {
   const [programs, setPrograms] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState({ title: '', slug: '', description: '', status: 'draft', zoom_enabled: false });
+  const [formData, setFormData] = useState({ title: '', slug: '', description: '', status: 'draft', zoom_enabled: false, zoom_meeting_id: '', zoom_passcode: '' });
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editFormData, setEditFormData] = useState({ slug: '', title: '', description: '', zoom_enabled: false });
+  const [editFormData, setEditFormData] = useState({ slug: '', title: '', description: '', zoom_enabled: false, zoom_meeting_id: '', zoom_passcode: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function AdminPrograms() {
         const newProgram = await res.json();
         setPrograms([newProgram, ...programs]);
         setIsModalOpen(false);
-        setFormData({ title: '', slug: '', description: '', status: 'draft', zoom_enabled: false });
+        setFormData({ title: '', slug: '', description: '', status: 'draft', zoom_enabled: false, zoom_meeting_id: '', zoom_passcode: '' });
       } else {
         alert("Failed to create program. Please check slug is unique.");
       }
@@ -101,6 +101,30 @@ export default function AdminPrograms() {
                   <input type="checkbox" id="zoomToggle" checked={formData.zoom_enabled} onChange={e => setFormData({...formData, zoom_enabled: e.target.checked})} />
                   <label htmlFor="zoomToggle" className="text-sm text-neutral-400">Enable Live Zoom Meeting Integration</label>
                 </div>
+                {formData.zoom_enabled && (
+                  <div className="grid grid-cols-2 gap-4 mt-4">
+                    <div>
+                      <label className="block text-sm text-neutral-400 mb-1">Meeting ID</label>
+                      <input 
+                        type="text" 
+                        value={formData.zoom_meeting_id} 
+                        onChange={e => setFormData({...formData, zoom_meeting_id: e.target.value})} 
+                        className="w-full bg-[#1A1A1A] border border-[rgba(245,242,233,0.1)] rounded p-2 text-[#F5F2E9]" 
+                        placeholder="e.g. 9332105985"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm text-neutral-400 mb-1">Passcode</label>
+                      <input 
+                        type="text" 
+                        value={formData.zoom_passcode} 
+                        onChange={e => setFormData({...formData, zoom_passcode: e.target.value})} 
+                        className="w-full bg-[#1A1A1A] border border-[rgba(245,242,233,0.1)] rounded p-2 text-[#F5F2E9]" 
+                        placeholder="e.g. tcW3rK"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="mt-6 flex justify-end gap-3">
                 <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 text-sm text-neutral-400 hover:text-white transition-colors">Cancel</button>
@@ -154,6 +178,30 @@ export default function AdminPrograms() {
                   <input type="checkbox" id="zoomToggleEdit" checked={editFormData.zoom_enabled} onChange={e => setEditFormData({...editFormData, zoom_enabled: e.target.checked})} />
                   <label htmlFor="zoomToggleEdit" className="text-sm text-neutral-400">Enable Live Zoom Meeting Integration</label>
                 </div>
+                {editFormData.zoom_enabled && (
+                  <div className="grid grid-cols-2 gap-4 mt-4">
+                    <div>
+                      <label className="block text-sm text-neutral-400 mb-1">Meeting ID</label>
+                      <input 
+                        type="text" 
+                        value={editFormData.zoom_meeting_id || ''} 
+                        onChange={e => setEditFormData({...editFormData, zoom_meeting_id: e.target.value})} 
+                        className="w-full bg-[#1A1A1A] border border-[rgba(245,242,233,0.1)] rounded p-2 text-[#F5F2E9]" 
+                        placeholder="e.g. 9332105985"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm text-neutral-400 mb-1">Passcode</label>
+                      <input 
+                        type="text" 
+                        value={editFormData.zoom_passcode || ''} 
+                        onChange={e => setEditFormData({...editFormData, zoom_passcode: e.target.value})} 
+                        className="w-full bg-[#1A1A1A] border border-[rgba(245,242,233,0.1)] rounded p-2 text-[#F5F2E9]" 
+                        placeholder="e.g. tcW3rK"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="mt-6 flex justify-end gap-3">
                 <button type="button" onClick={() => setIsEditModalOpen(false)} className="px-4 py-2 text-sm text-neutral-400 hover:text-white transition-colors">Cancel</button>
@@ -215,7 +263,7 @@ export default function AdminPrograms() {
                     </button>
                     <button 
                       onClick={() => {
-                        setEditFormData({ slug: program.slug, title: program.title, description: program.description, zoom_enabled: program.zoom_enabled });
+                        setEditFormData({ slug: program.slug, title: program.title, description: program.description, zoom_enabled: program.zoom_enabled, zoom_meeting_id: program.zoom_meeting_id || '', zoom_passcode: program.zoom_passcode || '' });
                         setIsEditModalOpen(true);
                       }}
                       className="text-sm text-blue-400 hover:text-blue-300 transition-colors mr-4"

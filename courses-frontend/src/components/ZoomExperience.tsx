@@ -2,12 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import ZoomMtgEmbedded from '@zoom/meetingsdk/embedded'
 
 interface ZoomExperienceProps {
-  meetingNumber: string;
-  passcode: string;
   programId: string;
 }
 
-export default function ZoomExperience({ meetingNumber, passcode, programId }: ZoomExperienceProps) {
+export default function ZoomExperience({ programId }: ZoomExperienceProps) {
   const zoomRootRef = useRef<HTMLDivElement>(null)
   const [status, setStatus] = useState<'idle' | 'initializing' | 'joining' | 'active' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
@@ -40,7 +38,7 @@ export default function ZoomExperience({ meetingNumber, passcode, programId }: Z
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ meetingNumber })
+          body: JSON.stringify({})
         })
         
         if (!response.ok) {
@@ -50,13 +48,17 @@ export default function ZoomExperience({ meetingNumber, passcode, programId }: Z
         const data = await response.json()
         signature = data.signature
         sdkKey = data.sdkKey
+        
+        // Use dynamically returned meeting details
+        var dynamicMeetingNumber = data.meetingNumber
+        var dynamicPasscode = data.passcode
       } catch (err) {
         // For development fallback when backend isn't ready
         console.warn('Backend signature fetch failed. Ensure Django endpoint exists.', err)
         throw new Error('Live meeting configuration is not yet available.')
       }
 
-      if (!signature || !sdkKey) {
+      if (!signature || !sdkKey || !dynamicMeetingNumber) {
         throw new Error('Invalid meeting configuration received.')
       }
 
@@ -84,8 +86,8 @@ export default function ZoomExperience({ meetingNumber, passcode, programId }: Z
       await client.join({
         sdkKey: sdkKey,
         signature: signature,
-        meetingNumber: meetingNumber,
-        password: passcode,
+        meetingNumber: dynamicMeetingNumber,
+        password: dynamicPasscode,
         userName: 'Guest Participant', // Or fetch from the user's PAMHO profile if logged in
       })
 

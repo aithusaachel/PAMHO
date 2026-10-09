@@ -9,10 +9,8 @@ class ProgramSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'title', 'slug', 'description', 'program_type',
             'scheduled_start', 'scheduled_end', 'timezone',
-            'event_state', 'zoom_enabled'
+            'event_state', 'zoom_enabled', 'zoom_meeting_id', 'zoom_passcode'
         ]
-        # We purposely do not expose zoom_meeting_id or zoom_passcode here.
-        # They should only be accessed if absolutely needed or via the join endpoint.
         read_only_fields = ['event_state']
 
 class ZoomJoinResponseSerializer(serializers.Serializer):

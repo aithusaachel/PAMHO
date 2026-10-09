@@ -81,5 +81,7 @@ class ProgramViewSet(viewsets.ModelViewSet):
             
         return Response({
             "signature": signature,
-            "sdkKey": sdk_key
+            "sdkKey": sdk_key,
+            "meetingNumber": meeting_number,
+            "passcode": program.zoom_passcode
         })
