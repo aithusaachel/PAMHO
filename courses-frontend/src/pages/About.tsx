@@ -8,32 +8,25 @@ export default function About() {
       <div className="grain-overlay"></div>
 
       {/* ============================================================ */}
-      {/* 1. THE OPENING                                               */}
+      {/* 1. THE OPENING - Cinematic Hero                              */}
       {/* ============================================================ */}
-      <section className="pt-48 pb-24 md:pt-64 md:pb-48">
-        <div className="canvas-container text-center flex flex-col items-center">
+      <section className="relative h-[70vh] min-h-[600px] w-full flex flex-col justify-center pt-24">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/images/about_hero.jpg" 
+            alt="African mental health leadership" 
+            className="w-full h-full object-cover filter brightness-[0.35] contrast-[1.1] saturate-[0.8]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-[#030303]/60 to-[#030303]/20"></div>
+        </div>
+
+        <div className="canvas-container relative z-10 text-center flex flex-col items-center">
           <Reveal>
             <span className="label-tracking text-[#8442FA] mb-8 block">About the Organization</span>
-            <h1 className="title-hero max-w-5xl mx-auto">
+            <h1 className="title-hero max-w-5xl mx-auto drop-shadow-lg">
               Convening Africa's <span className="italic text-[rgba(245,242,233,0.7)]">Mental Health Future.</span>
             </h1>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* 2. THE VISUAL ANCHOR                                         */}
-      {/* ============================================================ */}
-      <section className="pb-32">
-        <div className="canvas-container">
-          <Reveal delay={200}>
-            <div className="w-full aspect-[21/9] md:aspect-[2.35/1] overflow-hidden relative">
-              <img 
-                src="/images/about_hero.jpg" 
-                alt="African community gathered in conversation" 
-                className="img-cinematic absolute inset-0 filter brightness-[0.5] saturate-[0.6]" 
-              />
-            </div>
           </Reveal>
         </div>
       </section>
