@@ -73,7 +73,7 @@ export default function Dashboard() {
       <section className="pt-48 pb-16 md:pt-64 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl">
           <Reveal>
-            <span className="label-tracking text-[#D1893D] mb-8 block">Account Overview</span>
+            <span className="label-tracking text-[#8442FA] mb-8 block">Account Overview</span>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-none text-[#F5F2E9] mb-8 tracking-[-0.02em]">
               Welcome back,<br />
               <span className="italic text-[rgba(245,242,233,0.7)]">{user?.first_name || user?.username}.</span>
@@ -95,7 +95,7 @@ export default function Dashboard() {
             <div className="flex justify-between items-end border-b border-[rgba(245,242,233,0.15)] pb-8 mb-16">
               <h2 className="title-section">Your Courses</h2>
               {enrollments.length > 0 && (
-                <Link to="/institute/catalog" className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] transition-colors flex items-center gap-4">
+                <Link to="/institute/catalog" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] transition-colors flex items-center gap-4">
                   Browse Catalog <span className="font-serif text-xl leading-none">&rarr;</span>
                 </Link>
               )}
@@ -119,8 +119,8 @@ export default function Dashboard() {
                   
                   <div className="md:col-span-3 flex flex-col gap-4">
                     <div className="flex items-center gap-3">
-                      <span className={`w-1.5 h-1.5 rounded-full ${enrollment.status === 'completed' ? 'bg-[#D1893D]' : 'bg-[rgba(245,242,233,0.4)] animate-pulse'}`}></span>
-                      <span className="label-tracking !text-[#D1893D]">
+                      <span className={`w-1.5 h-1.5 rounded-full ${enrollment.status === 'completed' ? 'bg-[#8442FA]' : 'bg-[rgba(245,242,233,0.4)] animate-pulse'}`}></span>
+                      <span className="label-tracking !text-[#8442FA]">
                         {enrollment.status}
                       </span>
                     </div>
@@ -137,11 +137,11 @@ export default function Dashboard() {
                     <div className="mt-4 max-w-md">
                       <div className="flex justify-between text-[11px] uppercase tracking-widest text-[rgba(245,242,233,0.4)] mb-3 font-medium">
                         <span>{enrollment.progress_summary.completed_lessons} / {enrollment.progress_summary.total_lessons} Lessons Completed</span>
-                        <span className="text-[#D1893D]">{enrollment.progress_summary.percent_complete}%</span>
+                        <span className="text-[#8442FA]">{enrollment.progress_summary.percent_complete}%</span>
                       </div>
                       <div className="w-full bg-[rgba(245,242,233,0.05)] h-1 rounded-none overflow-hidden">
                         <div 
-                          className="bg-[#D1893D] h-full transition-all duration-1000 ease-out" 
+                          className="bg-[#8442FA] h-full transition-all duration-1000 ease-out" 
                           style={{ width: `${enrollment.progress_summary.percent_complete}%` }}
                         ></div>
                       </div>
@@ -151,7 +151,7 @@ export default function Dashboard() {
                   <div className="md:col-span-3 flex md:justify-end items-start pt-2">
                     <Link 
                       to={`/institute/courses/${enrollment.course_identifier}`}
-                      className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] flex items-center gap-4 transition-colors"
+                      className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] flex items-center gap-4 transition-colors"
                     >
                       {enrollment.status === 'completed' ? 'Review Course' : 'Resume Course'} 
                       <span className="w-8 h-[1px] bg-current block"></span>

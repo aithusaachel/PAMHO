@@ -35,7 +35,7 @@ export default function Resources() {
       <section className="pt-48 pb-16 md:pt-64 md:pb-32 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#D1893D] mb-8 block">Editorial Archive</span>
+            <span className="label-tracking text-[#8442FA] mb-8 block">Editorial Archive</span>
             <h1 className="title-hero mb-8">
               Insights and <span className="italic text-[rgba(245,242,233,0.7)]">publications.</span>
             </h1>
@@ -69,7 +69,7 @@ export default function Resources() {
                 <Reveal key={resource.id} delay={idx * 100} className="grid grid-cols-1 md:grid-cols-12 gap-8 py-16 border-b border-[rgba(245,242,233,0.05)] group hover:bg-[rgba(245,242,233,0.02)] transition-colors">
                   
                   <div className="md:col-span-3 flex flex-col gap-4">
-                    <span className="label-tracking text-[#D1893D]">
+                    <span className="label-tracking text-[#8442FA]">
                       {resource.category || 'Article'}
                     </span>
                     <span className="font-serif text-lg text-[rgba(245,242,233,0.3)]">
@@ -89,7 +89,7 @@ export default function Resources() {
                   </div>
 
                   <div className="md:col-span-2 flex md:justify-end items-start pt-2">
-                    <Link to={`/resources/${resource.slug}`} className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] flex items-center gap-4 transition-colors">
+                    <Link to={`/resources/${resource.slug}`} className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] flex items-center gap-4 transition-colors">
                       Read <span className="w-8 h-[1px] bg-current block"></span>
                     </Link>
                   </div>

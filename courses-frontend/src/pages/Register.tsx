@@ -70,7 +70,7 @@ export default function Register() {
       <div className="max-w-2xl w-full flex flex-col z-10">
         <Reveal>
           <div className="mb-16">
-            <span className="label-tracking text-[#D1893D] mb-4 block">Join the Institute</span>
+            <span className="label-tracking text-[#8442FA] mb-4 block">Join the Institute</span>
             <h2 className="title-hero mb-4 text-left">
               Create Account
             </h2>
@@ -87,7 +87,7 @@ export default function Register() {
             )}
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+              <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                 <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">First Name</label>
                 <input
                   type="text"
@@ -99,7 +99,7 @@ export default function Register() {
                 />
               </div>
               
-              <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+              <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                 <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Last Name</label>
                 <input
                   type="text"
@@ -112,7 +112,7 @@ export default function Register() {
               </div>
             </div>
 
-            <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+            <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
               <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Username</label>
               <input
                 type="text"
@@ -124,7 +124,7 @@ export default function Register() {
               />
             </div>
             
-            <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+            <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
               <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Email Address</label>
               <input
                 type="email"
@@ -136,7 +136,7 @@ export default function Register() {
               />
             </div>
 
-            <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+            <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
               <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Password</label>
               <input
                 type="password"
@@ -162,7 +162,7 @@ export default function Register() {
           <div className="mt-12 pt-8 border-t border-[rgba(245,242,233,0.05)]">
             <p className="font-sans font-light text-[rgba(245,242,233,0.4)]">
               Already have an account?{' '}
-              <Link to="/login" className="text-[#D1893D] hover:text-[#F5F2E9] transition-colors">
+              <Link to="/login" className="text-[#8442FA] hover:text-[#F5F2E9] transition-colors">
                 Sign in here
               </Link>
             </p>

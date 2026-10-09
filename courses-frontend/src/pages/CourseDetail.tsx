@@ -138,7 +138,7 @@ export default function CourseDetail() {
               
               <div className="flex gap-4 mb-8">
                 {course.difficulty && (
-                  <span className="label-tracking !text-[#D1893D]">
+                  <span className="label-tracking !text-[#8442FA]">
                     {course.difficulty}
                   </span>
                 )}
@@ -168,7 +168,7 @@ export default function CourseDetail() {
                     <p className="font-sans font-light text-[rgba(245,242,233,0.5)] mb-8">
                       You are enrolled in this course. Proceed to the learning environment.
                     </p>
-                    <Link to={`/institute/learn/${course.slug}`} className="btn-cinematic !border-[#D1893D] !text-[#D1893D] hover:!text-[#030303]">
+                    <Link to={`/institute/learn/${course.slug}`} className="btn-cinematic !border-[#8442FA] !text-[#8442FA] hover:!text-[#030303]">
                       Start Course
                     </Link>
                   </>
@@ -234,7 +234,7 @@ export default function CourseDetail() {
                           <span className="font-serif text-xl md:text-2xl text-[rgba(245,242,233,0.8)]">{lesson.title}</span>
                         </div>
                         <div className="flex items-center gap-6 pl-10 md:pl-0">
-                          <span className="label-tracking text-[#D1893D]">
+                          <span className="label-tracking text-[#8442FA]">
                             {lesson.lesson_type}
                           </span>
                           {lesson.duration && (

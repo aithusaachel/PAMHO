@@ -42,7 +42,7 @@ export default function Catalog() {
       <section className="pt-48 pb-16 md:pt-64 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#D1893D] mb-8 block">The PAMHO Institute</span>
+            <span className="label-tracking text-[#8442FA] mb-8 block">The PAMHO Institute</span>
             <h1 className="title-hero mb-8">
               Curriculum <span className="italic text-[rgba(245,242,233,0.7)]">Index.</span>
             </h1>
@@ -95,14 +95,14 @@ export default function Catalog() {
                       </div>
                     ) : (
                       <div className="aspect-[4/3] w-full bg-[#030303] mb-8 flex flex-col justify-center items-center border border-[rgba(245,242,233,0.05)] relative overflow-hidden">
-                        <span className="font-serif text-[10rem] text-[#D1893D] opacity-10 absolute -right-10 -bottom-10">P</span>
+                        <span className="font-serif text-[10rem] text-[#8442FA] opacity-10 absolute -right-10 -bottom-10">P</span>
                       </div>
                     )}
                     
                     <div className="flex flex-col flex-1">
                       <div className="flex gap-4 mb-6">
                         {course.difficulty && (
-                          <span className="label-tracking !text-[#D1893D]">
+                          <span className="label-tracking !text-[#8442FA]">
                             {course.difficulty}
                           </span>
                         )}
@@ -123,7 +123,7 @@ export default function Catalog() {
                       
                       <div className="mt-auto pt-4 flex items-center justify-between border-t border-[rgba(245,242,233,0.05)] group-hover:border-[rgba(245,242,233,0.2)] transition-colors">
                         <span className="label-tracking text-[rgba(245,242,233,0.5)] group-hover:text-[#F5F2E9] transition-colors">Review Syllabus</span>
-                        <span className="font-serif text-xl text-[#D1893D] group-hover:translate-x-2 transition-transform">&rarr;</span>
+                        <span className="font-serif text-xl text-[#8442FA] group-hover:translate-x-2 transition-transform">&rarr;</span>
                       </div>
                     </div>
                   </Link>

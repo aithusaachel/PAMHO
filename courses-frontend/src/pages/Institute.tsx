@@ -14,7 +14,7 @@ export default function Institute() {
       <section className="pt-48 pb-16 md:pt-64 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#D1893D] mb-8 block">Education Platform</span>
+            <span className="label-tracking text-[#8442FA] mb-8 block">Education Platform</span>
             <h1 className="title-hero mb-8">
               Knowledge as a <span className="italic text-[rgba(245,242,233,0.7)]">tool for change.</span>
             </h1>
@@ -22,7 +22,7 @@ export default function Institute() {
               The PAMHO Institute provides evidence-based, culturally contextualized curricula for professionals, advocates, and students across the continent.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
-              <Link to="/institute/catalog" className="btn-cinematic !border-[#D1893D] !text-[#D1893D] hover:!text-[#030303]">
+              <Link to="/institute/catalog" className="btn-cinematic !border-[#8442FA] !text-[#8442FA] hover:!text-[#030303]">
                 Browse Catalog
               </Link>
               <Link to="/login" className="btn-cinematic">
@@ -42,7 +42,7 @@ export default function Institute() {
             
             <div className="md:col-span-6 order-2 md:order-1 flex flex-col gap-12 border-t md:border-t-0 md:border-r border-[rgba(245,242,233,0.05)] pt-12 md:pt-0 md:pr-16">
               <Reveal>
-                <span className="label-tracking text-[#D1893D] mb-4 block">Academic Standard</span>
+                <span className="label-tracking text-[#8442FA] mb-4 block">Academic Standard</span>
                 <h3 className="font-serif text-4xl mb-6">Rigorous Curriculum</h3>
                 <p className="font-sans font-light text-[rgba(245,242,233,0.6)] leading-relaxed text-lg mb-8">
                   Our courses are developed in collaboration with mental health professionals to ensure academic rigor while remaining deeply relevant to the African context.
@@ -50,15 +50,15 @@ export default function Institute() {
                 
                 <ul className="flex flex-col gap-6">
                   <li className="grid grid-cols-12 items-start group">
-                    <span className="col-span-2 font-serif text-[#D1893D] opacity-50">I</span>
+                    <span className="col-span-2 font-serif text-[#8442FA] opacity-50">I</span>
                     <span className="col-span-10 font-sans font-light text-[rgba(245,242,233,0.8)] group-hover:text-[#F5F2E9] transition-colors">Self-paced learning modules designed for active professionals.</span>
                   </li>
                   <li className="grid grid-cols-12 items-start group">
-                    <span className="col-span-2 font-serif text-[#D1893D] opacity-50">II</span>
+                    <span className="col-span-2 font-serif text-[#8442FA] opacity-50">II</span>
                     <span className="col-span-10 font-sans font-light text-[rgba(245,242,233,0.8)] group-hover:text-[#F5F2E9] transition-colors">Case studies rooted in practical, pan-African scenarios.</span>
                   </li>
                   <li className="grid grid-cols-12 items-start group">
-                    <span className="col-span-2 font-serif text-[#D1893D] opacity-50">III</span>
+                    <span className="col-span-2 font-serif text-[#8442FA] opacity-50">III</span>
                     <span className="col-span-10 font-sans font-light text-[rgba(245,242,233,0.8)] group-hover:text-[#F5F2E9] transition-colors">Verified certification upon completion of core tracks.</span>
                   </li>
                 </ul>

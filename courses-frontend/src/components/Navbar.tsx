@@ -47,8 +47,8 @@ export default function Navbar() {
 
           <div className="hidden lg:flex items-center space-x-6">
             <Link to="/contact" className="label-tracking text-[rgba(245,242,233,0.7)] hover:text-[#F5F2E9] transition-colors">Contact</Link>
-            <Link to="/register-conversation" className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] transition-colors">Register</Link>
-            <Link to="/donate" className="label-tracking !text-[#D1893D] hover:!text-[#F5F2E9] transition-colors">Donate</Link>
+            <Link to="/register-conversation" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] transition-colors">Register</Link>
+            <Link to="/donate" className="label-tracking !text-[#8442FA] hover:!text-[#F5F2E9] transition-colors">Donate</Link>
           </div>
 
           {/* Mobile menu button */}
@@ -90,7 +90,7 @@ export default function Navbar() {
               key={label}
               to={path}
               style={{ transitionDelay: isOpen ? `${idx * 40 + 100}ms` : '0ms' }}
-              className={`font-serif text-3xl md:text-4xl text-[#F5F2E9] hover:text-[#D1893D] transition-all duration-500 transform ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+              className={`font-serif text-3xl md:text-4xl text-[#F5F2E9] hover:text-[#8442FA] transition-all duration-500 transform ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
                 }`}
             >
               {label}

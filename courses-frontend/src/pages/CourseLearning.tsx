@@ -124,7 +124,7 @@ export default function CourseLearning() {
   );
   if (!course) return (
     <div className="min-h-screen bg-[#030303] flex items-center justify-center">
-      <span className="font-serif text-2xl text-[#D1893D] italic">Access Denied.</span>
+      <span className="font-serif text-2xl text-[#8442FA] italic">Access Denied.</span>
     </div>
   );
 
@@ -179,15 +179,15 @@ export default function CourseLearning() {
                       onClick={() => setActiveLessonId(lesson.id)}
                       className={`w-full text-left p-4 flex gap-4 transition-all duration-300 ${
                         active 
-                          ? 'bg-[rgba(245,242,233,0.05)] border-l-2 border-[#D1893D]' 
+                          ? 'bg-[rgba(245,242,233,0.05)] border-l-2 border-[#8442FA]' 
                           : 'border-l-2 border-transparent hover:bg-[rgba(245,242,233,0.02)]'
                       }`}
                     >
                       <div className={`shrink-0 w-6 h-6 flex items-center justify-center border transition-colors ${
                         completed 
-                          ? 'bg-[#D1893D] border-[#D1893D] text-[#030303]' 
+                          ? 'bg-[#8442FA] border-[#8442FA] text-[#030303]' 
                           : active 
-                            ? 'border-[#D1893D] text-[#D1893D]' 
+                            ? 'border-[#8442FA] text-[#8442FA]' 
                             : 'border-[rgba(245,242,233,0.2)] text-[rgba(245,242,233,0.4)]'
                       }`}>
                         {completed ? (
@@ -214,7 +214,7 @@ export default function CourseLearning() {
           <div className="max-w-4xl mx-auto">
              <div className="mb-16">
                 <div className="flex justify-between items-center mb-8">
-                  <span className="label-tracking !text-[#D1893D]">
+                  <span className="label-tracking !text-[#8442FA]">
                     {currentLesson.lesson_type}
                   </span>
                 </div>
@@ -237,7 +237,7 @@ export default function CourseLearning() {
                
                {currentLesson.content ? (
                  <div 
-                   className="prose prose-invert prose-lg md:prose-xl prose-p:text-[rgba(245,242,233,0.7)] prose-headings:font-serif prose-headings:text-[#F5F2E9] prose-headings:font-light prose-a:text-[#D1893D] hover:prose-a:text-[#F5F2E9] prose-strong:text-[#F5F2E9] max-w-none leading-relaxed font-sans font-light" 
+                   className="prose prose-invert prose-lg md:prose-xl prose-p:text-[rgba(245,242,233,0.7)] prose-headings:font-serif prose-headings:text-[#F5F2E9] prose-headings:font-light prose-a:text-[#8442FA] hover:prose-a:text-[#F5F2E9] prose-strong:text-[#F5F2E9] max-w-none leading-relaxed font-sans font-light" 
                    dangerouslySetInnerHTML={{ __html: currentLesson.content.replace(/\n/g, '<br/>') }} 
                  />
                ) : (
@@ -255,7 +255,7 @@ export default function CourseLearning() {
                       Complete Lesson
                     </button>
                   ) : (
-                    <div className="label-tracking text-[#D1893D] flex items-center gap-3">
+                    <div className="label-tracking text-[#8442FA] flex items-center gap-3">
                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
                        Completed
                     </div>
@@ -267,7 +267,7 @@ export default function CourseLearning() {
                    onClick={() => setActiveLessonId(nextLesson.id)}
                    className="label-tracking text-[rgba(245,242,233,0.6)] hover:text-[#F5F2E9] transition-colors flex items-center gap-4"
                  >
-                   Next Lesson <span className="text-[#D1893D] font-serif text-xl leading-none">&rarr;</span>
+                   Next Lesson <span className="text-[#8442FA] font-serif text-xl leading-none">&rarr;</span>
                  </button>
                )}
              </div>

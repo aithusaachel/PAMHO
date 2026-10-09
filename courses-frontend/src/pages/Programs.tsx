@@ -61,7 +61,7 @@ export default function Programs() {
       <section className="pt-48 pb-24 md:pt-64 md:pb-32 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#D1893D] mb-8 block">Initiatives & Action</span>
+            <span className="label-tracking text-[#8442FA] mb-8 block">Initiatives & Action</span>
             <h1 className="title-hero max-w-5xl mx-auto mb-12">
               Translating dialogue into <span className="italic text-[rgba(245,242,233,0.7)]">structural impact.</span>
             </h1>
@@ -96,8 +96,8 @@ export default function Programs() {
                   <div className="md:col-span-3 flex flex-col gap-4">
                     {program.event_state === 'live' ? (
                       <div className="flex items-center gap-3">
-                        <span className="w-1.5 h-1.5 bg-[#D1893D] rounded-full animate-pulse"></span>
-                        <span className="label-tracking !text-[#D1893D]">Live Session</span>
+                        <span className="w-1.5 h-1.5 bg-[#8442FA] rounded-full animate-pulse"></span>
+                        <span className="label-tracking !text-[#8442FA]">Live Session</span>
                       </div>
                     ) : (
                       <span className="label-tracking">Upcoming</span>
@@ -108,7 +108,7 @@ export default function Programs() {
                   </div>
 
                   <div className="md:col-span-6">
-                    <h3 className="font-serif text-4xl md:text-5xl mb-6 group-hover:text-[#D1893D] transition-colors">
+                    <h3 className="font-serif text-4xl md:text-5xl mb-6 group-hover:text-[#8442FA] transition-colors">
                       {program.title}
                     </h3>
                     <p className="font-sans font-light text-[rgba(245,242,233,0.6)] leading-relaxed text-lg">
@@ -118,7 +118,7 @@ export default function Programs() {
 
                   <div className="md:col-span-3 flex md:justify-end items-start pt-2">
                     {program.event_state === 'live' && program.is_zoom_event ? (
-                      <Link to="/programs/live" className="btn-cinematic !border-[#D1893D] !text-[#D1893D] hover:!text-[#030303]">
+                      <Link to="/programs/live" className="btn-cinematic !border-[#8442FA] !text-[#8442FA] hover:!text-[#030303]">
                         Join Live
                       </Link>
                     ) : (

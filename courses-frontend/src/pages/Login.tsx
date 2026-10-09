@@ -50,7 +50,7 @@ export default function Login() {
       <div className="max-w-xl w-full flex flex-col z-10">
         <Reveal>
           <div className="mb-16">
-            <span className="label-tracking text-[#D1893D] mb-4 block">Sign In</span>
+            <span className="label-tracking text-[#8442FA] mb-4 block">Sign In</span>
             <h2 className="title-hero mb-4 text-left">
               Welcome Back
             </h2>
@@ -67,7 +67,7 @@ export default function Login() {
             )}
             
             <div className="space-y-8">
-              <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+              <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                 <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Username</label>
                 <input
                   type="text"
@@ -79,7 +79,7 @@ export default function Login() {
                 />
               </div>
               
-              <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+              <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                 <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Password</label>
                 <input
                   type="password"
@@ -106,7 +106,7 @@ export default function Login() {
           <div className="mt-12 pt-8 border-t border-[rgba(245,242,233,0.05)]">
             <p className="font-sans font-light text-[rgba(245,242,233,0.4)]">
               Don't have an account?{' '}
-              <Link to="/register" className="text-[#D1893D] hover:text-[#F5F2E9] transition-colors">
+              <Link to="/register" className="text-[#8442FA] hover:text-[#F5F2E9] transition-colors">
                 Create one here
               </Link>
             </p>

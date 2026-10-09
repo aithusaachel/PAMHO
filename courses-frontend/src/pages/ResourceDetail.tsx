@@ -33,7 +33,7 @@ export default function ResourceDetail() {
   );
   if (error || !resource) return (
     <div className="min-h-screen bg-[#030303] pt-48 text-center">
-      <span className="font-serif text-2xl text-[#D1893D] italic">Document not found or access restricted.</span>
+      <span className="font-serif text-2xl text-[#8442FA] italic">Document not found or access restricted.</span>
     </div>
   );
 
@@ -49,7 +49,7 @@ export default function ResourceDetail() {
               &larr; Back to Index
             </Link>
             
-            <span className="label-tracking text-[#D1893D] mb-6 block">
+            <span className="label-tracking text-[#8442FA] mb-6 block">
               {resource.resource_type?.replace('_', ' ') || 'Article'}
             </span>
             
@@ -81,7 +81,7 @@ export default function ResourceDetail() {
         <div className="canvas-container max-w-4xl">
           <Reveal>
             <div 
-              className="prose prose-invert prose-lg md:prose-xl prose-p:text-[rgba(245,242,233,0.6)] prose-headings:font-serif prose-headings:text-[#F5F2E9] prose-headings:font-light prose-a:text-[#D1893D] prose-a:no-underline hover:prose-a:text-[#F5F2E9] prose-strong:text-[#F5F2E9] max-w-none leading-relaxed font-sans font-light"
+              className="prose prose-invert prose-lg md:prose-xl prose-p:text-[rgba(245,242,233,0.6)] prose-headings:font-serif prose-headings:text-[#F5F2E9] prose-headings:font-light prose-a:text-[#8442FA] prose-a:no-underline hover:prose-a:text-[#F5F2E9] prose-strong:text-[#F5F2E9] max-w-none leading-relaxed font-sans font-light"
               dangerouslySetInnerHTML={{ __html: resource.content || 'No detailed content available.' }}
             />
           </Reveal>

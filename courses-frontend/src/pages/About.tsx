@@ -13,7 +13,7 @@ export default function About() {
       <section className="pt-48 pb-24 md:pt-64 md:pb-48">
         <div className="canvas-container text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#D1893D] mb-8 block">About the Organization</span>
+            <span className="label-tracking text-[#8442FA] mb-8 block">About the Organization</span>
             <h1 className="title-hero max-w-5xl mx-auto">
               Convening Africa's <span className="italic text-[rgba(245,242,233,0.7)]">Mental Health Future.</span>
             </h1>
@@ -49,7 +49,7 @@ export default function About() {
               <Reveal className="sticky top-48">
                 <span className="label-tracking text-[rgba(245,242,233,0.4)] block mb-4">01 &mdash; Why It Matters</span>
                 <h3 className="font-serif text-4xl md:text-5xl font-light leading-[1.2]">
-                  Mental health is not a luxury. It is a <span className="italic text-[#D1893D]">foundation.</span>
+                  Mental health is not a luxury. It is a <span className="italic text-[#8442FA]">foundation.</span>
                 </h3>
               </Reveal>
             </div>
@@ -82,7 +82,7 @@ export default function About() {
             
             <Reveal>
               <div className="border-t border-[rgba(245,242,233,0.1)] pt-8">
-                <span className="label-tracking text-[#D1893D] mb-6 block">Our Vision</span>
+                <span className="label-tracking text-[#8442FA] mb-6 block">Our Vision</span>
                 <h4 className="font-serif text-3xl md:text-4xl leading-snug mb-8">
                   To become a world-class Pan-African institution dedicated to improving mental health.
                 </h4>
@@ -94,7 +94,7 @@ export default function About() {
 
             <Reveal delay={200}>
               <div className="border-t border-[rgba(245,242,233,0.1)] pt-8">
-                <span className="label-tracking text-[#D1893D] mb-6 block">Our Mission</span>
+                <span className="label-tracking text-[#8442FA] mb-6 block">Our Mission</span>
                 <h4 className="font-serif text-3xl md:text-4xl leading-snug mb-8">
                   To promote awareness, strengthen systems, and influence continental policy.
                 </h4>
@@ -114,9 +114,9 @@ export default function About() {
       {/* ============================================================ */}
       <section className="relative py-48 bg-[#110E0C] overflow-hidden flex items-center justify-center">
         <Reveal className="relative z-10 text-center max-w-5xl px-4">
-          <span className="font-serif text-[#D1893D] text-[10rem] leading-none absolute -top-24 left-1/2 -translate-x-1/2 opacity-20">“</span>
+          <span className="font-serif text-[#8442FA] text-[10rem] leading-none absolute -top-24 left-1/2 -translate-x-1/2 opacity-20">“</span>
           <p className="font-serif text-4xl md:text-6xl lg:text-7xl font-light leading-[1.1] relative z-10">
-            Africa cannot rise without the wellbeing of its <span className="italic text-[#D1893D]">people.</span>
+            Africa cannot rise without the wellbeing of its <span className="italic text-[#8442FA]">people.</span>
           </p>
           <span className="label-tracking text-[rgba(245,242,233,0.3)] block mt-16">PAMHO Governing Principle</span>
         </Reveal>

@@ -57,7 +57,7 @@ export default function Contact() {
       <section className="pt-48 pb-16 md:pt-64 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container flex flex-col items-start max-w-5xl">
           <Reveal>
-            <span className="label-tracking text-[#D1893D] mb-8 block">Communications</span>
+            <span className="label-tracking text-[#8442FA] mb-8 block">Communications</span>
             <h1 className="title-hero mb-8">
               Get in <span className="italic text-[rgba(245,242,233,0.7)]">Touch.</span>
             </h1>
@@ -85,7 +85,7 @@ export default function Contact() {
                   <p className="font-sans font-light text-[rgba(245,242,233,0.5)] text-sm leading-relaxed mb-6">
                     For operational questions regarding programs, institute enrollment, or public events. We aim for a 48-hour response time.
                   </p>
-                  <a href="mailto:info@pamho.org" className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] transition-colors">info@pamho.org</a>
+                  <a href="mailto:info@pamho.org" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] transition-colors">info@pamho.org</a>
                 </div>
               </Reveal>
 
@@ -96,7 +96,7 @@ export default function Contact() {
                   <p className="font-sans font-light text-[rgba(245,242,233,0.5)] text-sm leading-relaxed mb-6">
                     For institutional funding, strategic alliances, and speaking engagements requiring direct development office coordination.
                   </p>
-                  <a href="mailto:partners@pamho.org" className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] transition-colors">partners@pamho.org</a>
+                  <a href="mailto:partners@pamho.org" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] transition-colors">partners@pamho.org</a>
                 </div>
               </Reveal>
 
@@ -107,7 +107,7 @@ export default function Contact() {
               <Reveal>
                 {status === 'success' ? (
                   <div className="py-16 md:py-24 max-w-2xl">
-                    <span className="font-serif text-[#D1893D] text-6xl mb-8 block opacity-50">✓</span>
+                    <span className="font-serif text-[#8442FA] text-6xl mb-8 block opacity-50">✓</span>
                     <h3 className="font-serif text-5xl mb-6">Message Sent.</h3>
                     <p className="font-sans font-light text-[rgba(245,242,233,0.6)] text-lg mb-12 leading-relaxed">
                       Your inquiry has been received. Our team will review your submission and respond through the provided email address.

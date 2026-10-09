@@ -18,7 +18,7 @@ export default function Donate() {
       <section className="pt-48 pb-16 md:pt-64 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl">
           <Reveal>
-            <span className="label-tracking text-[#D1893D] mb-8 block">Philanthropy & Funding</span>
+            <span className="label-tracking text-[#8442FA] mb-8 block">Philanthropy & Funding</span>
             <h1 className="title-hero mb-8">
               Fund systemic <span className="italic text-[rgba(245,242,233,0.7)]">reform.</span>
             </h1>
@@ -76,7 +76,7 @@ export default function Donate() {
                   </div>
                 </div>
 
-                <div className="p-8 border border-[rgba(209,137,61,0.3)] bg-[rgba(209,137,61,0.05)] mb-12 flex gap-6 items-start">
+                <div className="p-8 border border-[rgba(132, 66, 250,0.3)] bg-[rgba(132, 66, 250,0.05)] mb-12 flex gap-6 items-start">
                   <p className="font-sans font-light text-[rgba(245,242,233,0.7)] text-sm leading-relaxed">
                     Online processing gateways are currently suspended pending the finalization of our organizational banking compliance structure. Please refer to the direct transfer instructions.
                   </p>
@@ -98,7 +98,7 @@ export default function Donate() {
                   <p className="font-sans font-light text-[rgba(245,242,233,0.5)] text-sm leading-relaxed mb-8">
                     For large-scale or organizational donations, please contact us for bank transfer details and SWIFT information.
                   </p>
-                  <Link to="/contact?type=donation" className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] transition-colors">
+                  <Link to="/contact?type=donation" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] transition-colors">
                     Request Bank Details
                   </Link>
                 </div>
@@ -111,7 +111,7 @@ export default function Donate() {
                   <p className="font-sans font-light text-[rgba(245,242,233,0.5)] text-sm leading-relaxed mb-8">
                     For corporate partnerships and grant opportunities, please reach out to our development office.
                   </p>
-                  <Link to="/contact?type=partnership" className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] transition-colors">
+                  <Link to="/contact?type=partnership" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] transition-colors">
                     Contact Partnerships
                   </Link>
                 </div>

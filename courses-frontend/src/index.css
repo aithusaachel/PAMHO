@@ -12,8 +12,8 @@
     --text-muted: rgba(245, 242, 233, 0.6);
     --text-dark: #030303;
     
-    --accent-ochre: #D1893D;
-    --accent-rust: #9B3E25;
+    --accent-purple: #8442FA;
+    --accent-purple-light: #B48AFF;
   }
 
   body {
@@ -26,7 +26,7 @@
   }
 
   ::selection {
-    background: var(--accent-rust);
+    background: var(--accent-purple-light);
     color: var(--text-bone);
   }
 }

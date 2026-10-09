@@ -24,7 +24,7 @@ export default function Home() {
 
         <div className="canvas-container relative z-10">
           <Reveal delay={200}>
-            <span className="label-tracking text-[#D1893D] mb-6 block">The Inaugural Dialogue</span>
+            <span className="label-tracking text-[#8442FA] mb-6 block">The Inaugural Dialogue</span>
             <h1 className="title-hero max-w-5xl">
               The Pan-African Mental Health <span className="italic text-[rgba(245,242,233,0.7)]">Conversation.</span>
             </h1>
@@ -38,7 +38,7 @@ export default function Home() {
               <Link to="/programs" className="btn-cinematic">
                 Enter the Dialogue <span className="ml-4 font-serif text-xl leading-none">→</span>
               </Link>
-              <Link to="/register-conversation" className="btn-cinematic !border-[rgba(245,242,233,0.2)] !text-[#F5F2E9] hover:!border-[#D1893D] hover:!text-[#D1893D]">
+              <Link to="/register-conversation" className="btn-cinematic !border-[rgba(245,242,233,0.2)] !text-[#F5F2E9] hover:!border-[#8442FA] hover:!text-[#8442FA]">
                 Register to Attend
               </Link>
             </div>
@@ -52,9 +52,9 @@ export default function Home() {
       <section className="py-32 md:py-48 bg-[#030303]">
         <div className="canvas-container flex justify-center">
           <Reveal className="max-w-4xl text-center">
-            <span className="font-serif text-[#D1893D] text-8xl md:text-[10rem] leading-none opacity-20 absolute -ml-16 -mt-16">“</span>
+            <span className="font-serif text-[#8442FA] text-8xl md:text-[10rem] leading-none opacity-20 absolute -ml-16 -mt-16">“</span>
             <h2 className="title-section relative z-10 leading-[1.3]">
-              Mental health is not a luxury. It is a foundation. Africa cannot rise without the wellbeing of its <span className="italic text-[#D1893D]">people.</span>
+              Mental health is not a luxury. It is a foundation. Africa cannot rise without the wellbeing of its <span className="italic text-[#8442FA]">people.</span>
             </h2>
             <span className="label-tracking mt-12 block">PAMHO Manifesto</span>
           </Reveal>
@@ -87,7 +87,7 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="pt-8">
-                  <Link to="/about" className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] flex items-center gap-4 transition-colors w-fit">
+                  <Link to="/about" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] flex items-center gap-4 transition-colors w-fit">
                     Read the Full Manifesto <span className="w-12 h-[1px] bg-current block"></span>
                   </Link>
                 </div>
@@ -120,7 +120,7 @@ export default function Home() {
             
             <div className="flex flex-col justify-center">
               <Reveal>
-                <span className="label-tracking text-[#D1893D] mb-6 block">Structural Pillars</span>
+                <span className="label-tracking text-[#8442FA] mb-6 block">Structural Pillars</span>
                 <h2 className="title-section mb-8">Six pathways. One movement.</h2>
                 <p className="text-body-large text-[rgba(245,242,233,0.7)]">
                   Our operational framework is designed to dismantle stigma and build capacity simultaneously.
@@ -139,7 +139,7 @@ export default function Home() {
               ].map((item, idx) => (
                 <Reveal key={item.n} delay={idx * 100} className="border-b border-[rgba(245,242,233,0.1)] py-8 group">
                   <div className="grid grid-cols-12 items-baseline">
-                    <span className="col-span-2 md:col-span-3 font-serif text-xl md:text-2xl text-[rgba(245,242,233,0.3)] group-hover:text-[#D1893D] transition-colors">{item.n}</span>
+                    <span className="col-span-2 md:col-span-3 font-serif text-xl md:text-2xl text-[rgba(245,242,233,0.3)] group-hover:text-[#8442FA] transition-colors">{item.n}</span>
                     <div className="col-span-10 md:col-span-9">
                       <h4 className="font-serif text-2xl md:text-3xl mb-2">{item.t}</h4>
                       <p className="text-sm md:text-base font-sans font-light text-[rgba(245,242,233,0.5)]">{item.d}</p>
@@ -169,7 +169,7 @@ export default function Home() {
         <Reveal className="relative z-10 text-center flex flex-col items-center">
           <h2 className="title-section mb-12">The work is structural.<br/>The time is now.</h2>
           <div className="flex flex-wrap justify-center gap-6">
-            <Link to="/ambassadors" className="btn-cinematic !border-[#D1893D] !text-[#D1893D] hover:!text-[#030303]">
+            <Link to="/ambassadors" className="btn-cinematic !border-[#8442FA] !text-[#8442FA] hover:!text-[#030303]">
               Become an Ambassador
             </Link>
             <Link to="/donate" className="btn-cinematic">

@@ -16,7 +16,7 @@ export default function Footer() {
             </div>
 
             <div className="mt-16 lg:mt-0">
-              <a href="mailto:info@pamho.org" className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] transition-colors">
+              <a href="mailto:info@pamho.org" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] transition-colors">
                 info@pamho.org
               </a>
             </div>
@@ -25,26 +25,26 @@ export default function Footer() {
           <div className="lg:col-span-2 lg:col-start-7">
             <h4 className="label-tracking text-[rgba(245,242,233,0.3)] mb-8">Organization</h4>
             <ul className="space-y-6">
-              <li><Link to="/about" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">Manifesto</Link></li>
-              <li><Link to="/programs" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">Strategic Programs</Link></li>
-              <li><Link to="/ambassadors" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">The Network</Link></li>
+              <li><Link to="/about" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#8442FA] transition-colors tracking-wide">Manifesto</Link></li>
+              <li><Link to="/programs" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#8442FA] transition-colors tracking-wide">Strategic Programs</Link></li>
+              <li><Link to="/ambassadors" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#8442FA] transition-colors tracking-wide">The Network</Link></li>
             </ul>
           </div>
 
           <div className="lg:col-span-2">
             <h4 className="label-tracking text-[rgba(245,242,233,0.3)] mb-8">Resources</h4>
             <ul className="space-y-6">
-              <li><Link to="/institute" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">PAMHO Institute</Link></li>
-              <li><Link to="/news" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">Editorial</Link></li>
-              <li><Link to="/contact" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">Inquiries</Link></li>
+              <li><Link to="/institute" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#8442FA] transition-colors tracking-wide">PAMHO Institute</Link></li>
+              <li><Link to="/news" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#8442FA] transition-colors tracking-wide">Editorial</Link></li>
+              <li><Link to="/contact" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#8442FA] transition-colors tracking-wide">Inquiries</Link></li>
             </ul>
           </div>
 
           <div className="lg:col-span-2">
             <h4 className="label-tracking text-[rgba(245,242,233,0.3)] mb-8">Support</h4>
             <ul className="space-y-6">
-              <li><Link to="/donate" className="text-sm font-sans font-light text-[#D1893D] hover:text-[#F5F2E9] transition-colors tracking-wide">Fund the Mission</Link></li>
-              <li><Link to="/partners" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">Partnerships</Link></li>
+              <li><Link to="/donate" className="text-sm font-sans font-light text-[#8442FA] hover:text-[#F5F2E9] transition-colors tracking-wide">Fund the Mission</Link></li>
+              <li><Link to="/partners" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#8442FA] transition-colors tracking-wide">Partnerships</Link></li>
             </ul>
           </div>
 

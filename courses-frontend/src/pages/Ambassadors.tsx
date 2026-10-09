@@ -63,7 +63,7 @@ ${formData.meaning}
       <section className="pt-48 pb-16 md:pt-64 md:pb-32">
         <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#D1893D] mb-8 block">Ambassador Program</span>
+            <span className="label-tracking text-[#8442FA] mb-8 block">Ambassador Program</span>
             <h1 className="title-hero mb-8">
               Voices for systemic <span className="italic text-[rgba(245,242,233,0.7)]">change.</span>
             </h1>
@@ -80,7 +80,7 @@ ${formData.meaning}
             
             <Reveal>
               <div className="border-t border-[rgba(245,242,233,0.1)] pt-12">
-                <span className="font-serif text-[#D1893D] text-6xl mb-8 block opacity-40">01</span>
+                <span className="font-serif text-[#8442FA] text-6xl mb-8 block opacity-40">01</span>
                 <h3 className="font-serif text-4xl mb-6">Community Leadership</h3>
                 <p className="font-sans font-light text-[rgba(245,242,233,0.5)] leading-relaxed text-lg">
                   Ambassadors facilitate localized conversations, distribute validated educational resources, and bridge the gap between their communities and professional mental health support.
@@ -90,7 +90,7 @@ ${formData.meaning}
             
             <Reveal delay={200}>
               <div className="border-t border-[rgba(245,242,233,0.1)] pt-12">
-                <span className="font-serif text-[#D1893D] text-6xl mb-8 block opacity-40">02</span>
+                <span className="font-serif text-[#8442FA] text-6xl mb-8 block opacity-40">02</span>
                 <h3 className="font-serif text-4xl mb-6">Public Advocacy</h3>
                 <p className="font-sans font-light text-[rgba(245,242,233,0.5)] leading-relaxed text-lg">
                   By utilizing their public platforms, ambassadors champion the integration of mental health priorities into national frameworks, helping to shape policy and societal attitudes.
@@ -108,7 +108,7 @@ ${formData.meaning}
             <h2 className="title-section mb-12">Join the movement.</h2>
             
             {status === 'success' ? (
-              <div className="p-8 border border-[#D1893D] bg-[#D1893D]/5">
+              <div className="p-8 border border-[#8442FA] bg-[#8442FA]/5">
                 <h3 className="font-serif text-3xl text-[#F5F2E9] mb-4">Application Received</h3>
                 <p className="font-sans font-light text-[rgba(245,242,233,0.6)]">
                   Thank you for your application. Our team will review your details and contact you shortly regarding the Ambassador program.
@@ -132,58 +132,58 @@ ${formData.meaning}
                 )}
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Full Name</label>
                     <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Your name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
                   </div>
-                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Email Address</label>
                     <input required type="email" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Your email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Country</label>
                     <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Country of residence" value={formData.country} onChange={e => setFormData({...formData, country: e.target.value})} />
                   </div>
-                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">City</label>
                     <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="City" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} />
                   </div>
-                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">WhatsApp</label>
                     <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Phone number" value={formData.whatsapp} onChange={e => setFormData({...formData, whatsapp: e.target.value})} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Occupation / Student Status</label>
                     <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Current role" value={formData.occupation} onChange={e => setFormData({...formData, occupation: e.target.value})} />
                   </div>
-                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Social / LinkedIn</label>
                     <input type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Primary social handle" value={formData.socials} onChange={e => setFormData({...formData, socials: e.target.value})} />
                   </div>
                 </div>
 
-                <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                   <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Why do you want to become a PAMHO Ambassador?</label>
                   <textarea required rows={3} className="w-full bg-transparent font-sans font-light text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)] resize-none" placeholder="Your motivation..." value={formData.why} onChange={e => setFormData({...formData, why: e.target.value})}></textarea>
                 </div>
 
-                <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                   <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">How will you promote the conversation?</label>
                   <textarea required rows={3} className="w-full bg-transparent font-sans font-light text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)] resize-none" placeholder="Your outreach strategy..." value={formData.promote} onChange={e => setFormData({...formData, promote: e.target.value})}></textarea>
                 </div>
 
-                <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                   <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">What does mental health mean to you and why does it matter for Africa?</label>
                   <textarea required rows={3} className="w-full bg-transparent font-sans font-light text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)] resize-none" placeholder="Your perspective..." value={formData.meaning} onChange={e => setFormData({...formData, meaning: e.target.value})}></textarea>
                 </div>
 
-                <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                   <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Estimated Reach</label>
                   <select required className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none appearance-none" value={formData.reach} onChange={e => setFormData({...formData, reach: e.target.value})}>
                     <option value="Under 500" className="bg-[#110E0C]">Under 500</option>
