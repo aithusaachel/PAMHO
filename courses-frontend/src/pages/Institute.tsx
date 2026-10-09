@@ -68,7 +68,7 @@ export default function Institute() {
             <div className="md:col-span-6 order-1 md:order-2">
               <Reveal delay={200}>
                 <div className="aspect-square w-full overflow-hidden relative">
-                  <img src="/institute_learning.png" alt="Clinical Education in Africa" className="img-cinematic absolute inset-0 filter brightness-[0.6] saturate-[0.8]" />
+                  <img src="https://images.unsplash.com/photo-1541814674753-2746816e87a9?auto=format&fit=crop&w=1920&q=80" alt="Clinical Education in Africa" className="img-cinematic absolute inset-0 filter brightness-[0.6] saturate-[0.8]" />
                   <div className="absolute inset-0 border border-[rgba(245,242,233,0.1)] m-4 pointer-events-none"></div>
                 </div>
               </Reveal>

@@ -6,20 +6,20 @@ import { Reveal } from '../components/Reveal'
 export default function Contact() {
   const [searchParams] = useSearchParams()
   const initialType = searchParams.get('type') || 'general'
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     type: initialType,
     message: ''
   })
-  
-  const [status, setStatus] = useState<'idle'|'submitting'|'success'|'error'>('idle')
+
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('submitting')
-    
+
     try {
       const payload = {
         name: formData.name,
@@ -33,7 +33,7 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       })
-      
+
       if (res.ok) {
         setStatus('success')
         setFormData({ name: '', email: '', type: 'general', message: '' })
@@ -74,10 +74,10 @@ export default function Contact() {
       <section className="py-24 md:py-32 bg-[#110E0C]">
         <div className="canvas-container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
-            
+
             {/* Logistics */}
             <div className="lg:col-span-4 order-2 lg:order-1 flex flex-col gap-16 border-t lg:border-t-0 lg:border-r border-[rgba(245,242,233,0.05)] pt-16 lg:pt-0 lg:pr-16">
-              
+
               <Reveal delay={200}>
                 <div>
                   <span className="label-tracking mb-4 block">General Operations</span>
@@ -85,7 +85,7 @@ export default function Contact() {
                   <p className="font-sans font-light text-[rgba(245,242,233,0.5)] text-sm leading-relaxed mb-6">
                     For operational questions regarding programs, institute enrollment, or public events. We aim for a 48-hour response time.
                   </p>
-                  <a href="mailto:info@pamho.org" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] transition-colors">info@pamho.org</a>
+                  <a href="mailto:hello@pamhoafrica.org" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] transition-colors">hello@pamhoafrica.org</a>
                 </div>
               </Reveal>
 
@@ -96,7 +96,7 @@ export default function Contact() {
                   <p className="font-sans font-light text-[rgba(245,242,233,0.5)] text-sm leading-relaxed mb-6">
                     For institutional funding, strategic alliances, and speaking engagements requiring direct development office coordination.
                   </p>
-                  <a href="mailto:partners@pamho.org" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] transition-colors">partners@pamho.org</a>
+                  <a href="mailto:hello@pamhoafrica.org" className="label-tracking text-[#8442FA] hover:text-[#F5F2E9] transition-colors">hello@pamhoafrica.org</a>
                 </div>
               </Reveal>
 
@@ -118,42 +118,42 @@ export default function Contact() {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-12 max-w-3xl">
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                       <div className="border-b border-[rgba(245,242,233,0.15)] pb-4 focus-within:border-[rgba(245,242,233,0.6)] transition-colors">
                         <label htmlFor="name" className="label-tracking block mb-4">Full Name</label>
-                        <input 
-                          type="text" 
+                        <input
+                          type="text"
                           id="name"
                           required
                           className="w-full bg-transparent text-2xl font-serif text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
                           placeholder="Your name"
                           value={formData.name}
-                          onChange={e => setFormData({...formData, name: e.target.value})}
+                          onChange={e => setFormData({ ...formData, name: e.target.value })}
                         />
                       </div>
-                      
+
                       <div className="border-b border-[rgba(245,242,233,0.15)] pb-4 focus-within:border-[rgba(245,242,233,0.6)] transition-colors">
                         <label htmlFor="email" className="label-tracking block mb-4">Email Address</label>
-                        <input 
-                          type="email" 
+                        <input
+                          type="email"
                           id="email"
                           required
                           className="w-full bg-transparent text-2xl font-serif text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
                           placeholder="Your email address"
                           value={formData.email}
-                          onChange={e => setFormData({...formData, email: e.target.value})}
+                          onChange={e => setFormData({ ...formData, email: e.target.value })}
                         />
                       </div>
                     </div>
 
                     <div className="border-b border-[rgba(245,242,233,0.15)] pb-4 focus-within:border-[rgba(245,242,233,0.6)] transition-colors">
                       <label htmlFor="type" className="label-tracking block mb-4">Inquiry Category</label>
-                      <select 
+                      <select
                         id="type"
                         className="w-full bg-transparent text-2xl font-serif text-[#F5F2E9] focus:outline-none appearance-none cursor-pointer"
                         value={formData.type}
-                        onChange={e => setFormData({...formData, type: e.target.value})}
+                        onChange={e => setFormData({ ...formData, type: e.target.value })}
                       >
                         <option value="general" className="bg-[#110E0C]">General Inquiry</option>
                         <option value="partnership" className="bg-[#110E0C]">Strategic Partnership</option>
@@ -165,14 +165,14 @@ export default function Contact() {
 
                     <div className="border-b border-[rgba(245,242,233,0.15)] pb-4 focus-within:border-[rgba(245,242,233,0.6)] transition-colors">
                       <label htmlFor="message" className="label-tracking block mb-4">Message</label>
-                      <textarea 
+                      <textarea
                         id="message"
                         required
                         rows={5}
                         className="w-full bg-transparent text-2xl font-serif text-[#F5F2E9] focus:outline-none resize-none placeholder:text-[rgba(245,242,233,0.15)] leading-relaxed"
                         placeholder="How can we help?"
                         value={formData.message}
-                        onChange={e => setFormData({...formData, message: e.target.value})}
+                        onChange={e => setFormData({ ...formData, message: e.target.value })}
                       ></textarea>
                     </div>
 
@@ -183,8 +183,8 @@ export default function Contact() {
                     )}
 
                     <div className="pt-8">
-                      <button 
-                        type="submit" 
+                      <button
+                        type="submit"
                         disabled={status === 'submitting'}
                         className="btn-cinematic"
                       >

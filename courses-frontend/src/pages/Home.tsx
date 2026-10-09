@@ -15,7 +15,7 @@ export default function Home() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="/hero_community.png" 
+            src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=1920&q=80" 
             alt="Community Engagement" 
             className="w-full h-full object-cover filter brightness-[0.35] contrast-[1.1] saturate-[0.8]"
           />
@@ -98,7 +98,7 @@ export default function Home() {
               <Reveal delay={400}>
                 <div className="aspect-[4/5] md:aspect-[3/4] w-full overflow-hidden relative">
                   <img 
-                    src="/institute_learning.png" 
+                    src="https://images.unsplash.com/photo-1541814674753-2746816e87a9?auto=format&fit=crop&w=1920&q=80" 
                     alt="Clinical Education in Africa" 
                     className="img-cinematic"
                   />
@@ -159,7 +159,7 @@ export default function Home() {
       <section className="relative h-[70vh] min-h-[600px] flex items-center justify-center">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/advocacy_group.png" 
+            src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=1920&q=80" 
             alt="Ambassador Network" 
             className="w-full h-full object-cover filter brightness-[0.25] saturate-0"
           />
