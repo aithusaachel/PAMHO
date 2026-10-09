@@ -16,7 +16,7 @@ export default function AdminLayout() {
     { name: 'Courses', path: '/admin/courses' },
     { name: 'Programs', path: '/admin/programs' },
     { name: 'Resources', path: '/admin/resources' },
-    { name: 'Enquiries', path: '/admin/enquiries' },
+    { name: 'Form Submissions', path: '/admin/enquiries' },
     { name: 'Enrollments', path: '/admin/enrollments' },
     { name: 'Users', path: '/admin/users' },
   ];

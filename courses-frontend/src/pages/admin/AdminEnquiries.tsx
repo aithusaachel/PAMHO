@@ -19,6 +19,17 @@ export default function AdminEnquiries() {
     }
   };
 
+  const [activeTab, setActiveTab] = useState('All');
+
+  const filteredEnquiries = activeTab === 'All' 
+    ? enquiries 
+    : enquiries.filter(e => {
+        if (activeTab === 'Ambassadors') return e.enquiry_type?.toLowerCase().includes('ambassador');
+        if (activeTab === 'Memberships') return e.enquiry_type?.toLowerCase().includes('member');
+        if (activeTab === 'Registrations') return e.enquiry_type?.toLowerCase().includes('registration');
+        return !e.enquiry_type?.toLowerCase().includes('ambassador') && !e.enquiry_type?.toLowerCase().includes('member') && !e.enquiry_type?.toLowerCase().includes('registration');
+      });
+
   useEffect(() => {
     fetchEnquiries();
   }, []);
@@ -68,9 +79,26 @@ export default function AdminEnquiries() {
 
   return (
     <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-white mb-2">Manage Enquiries</h1>
-        <p className="text-sm text-neutral-400">View and manage contact submissions.</p>
+      <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-white mb-2">Form Submissions</h1>
+          <p className="text-sm text-neutral-400">View and manage responses from all site forms.</p>
+        </div>
+        <div className="flex gap-2 overflow-x-auto pb-2">
+          {['All', 'Ambassadors', 'Memberships', 'Registrations', 'General Contact'].map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors whitespace-nowrap ${
+                activeTab === tab
+                  ? 'bg-[#8442fa] text-white'
+                  : 'bg-[#121216] border border-neutral-800 text-neutral-400 hover:text-white hover:border-neutral-600'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading ? (
@@ -81,7 +109,7 @@ export default function AdminEnquiries() {
         </div>
       ) : (
         <div className="space-y-4">
-          {enquiries.map((enquiry: any) => (
+          {filteredEnquiries.map((enquiry: any) => (
             <div key={enquiry.id} className="bg-[#121216] border border-neutral-800 rounded-sm p-6 flex flex-col md:flex-row gap-6 justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
