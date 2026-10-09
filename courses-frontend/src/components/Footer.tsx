@@ -1,60 +1,65 @@
 import { Link } from 'react-router-dom'
 
 export default function Footer() {
-  const container = 'w-full max-w-[1536px] mx-auto px-6 sm:px-12 lg:px-20'
-  
   return (
-    <footer className="bg-[#111115] border-t border-[#8442fa]/20 py-20 mt-auto">
-      <div className={container}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-20">
-          <div className="lg:col-span-2">
-            <Link to="/">
-              <img src="/pamho-logo.png" alt="PAMHO Logo" className="h-14 w-auto mb-6" />
-            </Link>
-            <p className="text-sm text-gray-400 max-w-sm leading-relaxed mb-6">
-              Pan African Mental Health Organization.<br/>
-              Dedicated to improving access to support, reducing stigma, and empowering communities through education and advocacy across the continent.
-            </p>
+    <footer className="bg-[#030303] pt-32 pb-12 border-t border-[rgba(245,242,233,0.1)] relative z-10">
+      <div className="canvas-container">
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 mb-32">
+
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            <div>
+              <img src="/pamho-logo.png" alt="PAMHO" style={{ height: '115px', width: '105px' }} className="mb-12 brightness-0 invert opacity-70 hover:opacity-100 transition-opacity" />
+              <h2 className="font-serif text-3xl md:text-5xl text-[#F5F2E9] leading-tight max-w-sm font-light">
+                Convening Africa's Mental Health Future.
+              </h2>
+            </div>
+
+            <div className="mt-16 lg:mt-0">
+              <a href="mailto:info@pamho.org" className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] transition-colors">
+                info@pamho.org
+              </a>
+            </div>
           </div>
-          
-          <div>
-            <h4 className="text-[11px] font-bold uppercase tracking-widest text-[#f4f2ee] mb-6">Organization</h4>
-            <ul className="space-y-4 text-sm text-gray-500">
-              <li><Link to="/about" className="hover:text-[#b48aff] transition-colors">About & Leadership</Link></li>
-              <li><Link to="/programs" className="hover:text-[#b48aff] transition-colors">Programs & Events</Link></li>
-              <li><Link to="/resources" className="hover:text-[#b48aff] transition-colors">Resources & News</Link></li>
-              <li><Link to="/contact" className="hover:text-[#b48aff] transition-colors">Contact</Link></li>
+
+          <div className="lg:col-span-2 lg:col-start-7">
+            <h4 className="label-tracking text-[rgba(245,242,233,0.3)] mb-8">Organization</h4>
+            <ul className="space-y-6">
+              <li><Link to="/about" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">Manifesto</Link></li>
+              <li><Link to="/programs" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">Strategic Programs</Link></li>
+              <li><Link to="/ambassadors" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">The Network</Link></li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="text-[11px] font-bold uppercase tracking-widest text-[#f4f2ee] mb-6">Community</h4>
-            <ul className="space-y-4 text-sm text-gray-500">
-              <li><Link to="/ambassadors" className="hover:text-[#b48aff] transition-colors">Ambassadors</Link></li>
-              <li><Link to="/membership" className="hover:text-[#b48aff] transition-colors">Membership</Link></li>
-              <li><Link to="/membership" className="hover:text-[#b48aff] transition-colors">Partnerships</Link></li>
-              <li><Link to="/donate" className="hover:text-[#b48aff] transition-colors text-[#8442fa]">Make a Donation</Link></li>
+          <div className="lg:col-span-2">
+            <h4 className="label-tracking text-[rgba(245,242,233,0.3)] mb-8">Resources</h4>
+            <ul className="space-y-6">
+              <li><Link to="/institute" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">PAMHO Institute</Link></li>
+              <li><Link to="/news" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">Editorial</Link></li>
+              <li><Link to="/contact" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">Inquiries</Link></li>
             </ul>
           </div>
-          
-          <div>
-            <h4 className="text-[11px] font-bold uppercase tracking-widest text-[#f4f2ee] mb-6">Institute</h4>
-            <ul className="space-y-4 text-sm text-gray-500">
-              <li><Link to="/institute" className="hover:text-[#b48aff] transition-colors">Learning Platform</Link></li>
-              <li><Link to="/institute" className="hover:text-[#b48aff] transition-colors">Course Catalog</Link></li>
-              <li><Link to="/institute" className="hover:text-[#b48aff] transition-colors">Instructors</Link></li>
-              <li><Link to="/institute" className="hover:text-[#b48aff] transition-colors">Verification</Link></li>
+
+          <div className="lg:col-span-2">
+            <h4 className="label-tracking text-[rgba(245,242,233,0.3)] mb-8">Support</h4>
+            <ul className="space-y-6">
+              <li><Link to="/donate" className="text-sm font-sans font-light text-[#D1893D] hover:text-[#F5F2E9] transition-colors tracking-wide">Fund the Mission</Link></li>
+              <li><Link to="/partners" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#D1893D] transition-colors tracking-wide">Partnerships</Link></li>
             </ul>
           </div>
+
         </div>
-        
-        <div className="border-t border-[#8442fa]/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-mono text-gray-500">
-          <div>&copy; {new Date().getFullYear()} PAMHO. All rights reserved.</div>
-          <div className="flex gap-6">
-             <span className="text-gray-500 hover:text-[#b48aff] transition-colors cursor-pointer">Privacy Policy</span>
-             <span className="text-gray-500 hover:text-[#b48aff] transition-colors cursor-pointer">Terms of Service</span>
+
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[rgba(245,242,233,0.1)]">
+          <p className="label-tracking !text-[10px] text-[rgba(245,242,233,0.3)] mb-4 md:mb-0">
+            &copy; {new Date().getFullYear()} Pan-African Mental Health Organization.
+          </p>
+          <div className="flex space-x-8">
+            <Link to="/privacy" className="label-tracking !text-[10px] text-[rgba(245,242,233,0.3)] hover:text-[#F5F2E9]">Privacy Policy</Link>
+            <Link to="/terms" className="label-tracking !text-[10px] text-[rgba(245,242,233,0.3)] hover:text-[#F5F2E9]">Terms of Service</Link>
           </div>
         </div>
+
       </div>
     </footer>
   )

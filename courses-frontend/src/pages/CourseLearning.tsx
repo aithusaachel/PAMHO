@@ -82,8 +82,6 @@ export default function CourseLearning() {
 
   const markComplete = async (lessonId: number) => {
     const token = localStorage.getItem('pamho_access');
-    
-    // Check if there is an existing progress record
     const existing = progressRecords.find(p => p.lesson_id === lessonId);
     
     try {
@@ -95,11 +93,8 @@ export default function CourseLearning() {
         if (response.ok) {
           const data = await response.json();
           setProgressRecords(prev => prev.map(p => p.id === data.id ? data : p));
-        } else {
-          alert("Error: " + JSON.stringify(await response.json()));
         }
       } else {
-        // Create it first, then it might default to IN_PROGRESS. We can complete it immediately.
         const createRes = await fetch('/api/v1/progress/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -114,23 +109,25 @@ export default function CourseLearning() {
           if (completeRes.ok) {
              const completeData = await completeRes.json();
              setProgressRecords(prev => [...prev, completeData]);
-          } else {
-             alert("Error completing: " + JSON.stringify(await completeRes.json()));
           }
-        } else {
-          alert("Error creating progress: " + JSON.stringify(await createRes.json()));
         }
       }
     } catch (err: any) {
       console.error("Failed to mark complete", err);
-      alert("Error: " + err.message);
     }
   };
 
-  if (loading) return <div className="min-h-screen bg-[#FDFBF7] flex items-center justify-center text-neutral-500">Loading learning environment...</div>;
-  if (!course) return <div className="min-h-screen bg-[#FDFBF7] flex items-center justify-center text-neutral-500">Course not found.</div>;
+  if (loading) return (
+    <div className="min-h-screen bg-[#030303] flex items-center justify-center">
+      <span className="font-serif text-2xl text-[rgba(245,242,233,0.4)] italic">Loading course content...</span>
+    </div>
+  );
+  if (!course) return (
+    <div className="min-h-screen bg-[#030303] flex items-center justify-center">
+      <span className="font-serif text-2xl text-[#D1893D] italic">Access Denied.</span>
+    </div>
+  );
 
-  // Flatten lessons to find current/prev/next
   const allLessons = course.modules.flatMap(m => m.lessons);
   const currentIndex = allLessons.findIndex(l => l.id === activeLessonId);
   const currentLesson = allLessons[currentIndex];
@@ -153,26 +150,26 @@ export default function CourseLearning() {
         const videoId = urlObj.pathname.split('/').pop();
         return videoId ? `https://player.vimeo.com/video/${videoId}` : url;
       }
-    } catch (e) {
-      // Invalid URL
-    }
+    } catch (e) {}
     return url;
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-[#FDFBF7] pt-16">
+    <div className="min-h-screen flex flex-col md:flex-row bg-[#030303] pt-16 relative">
+      <div className="grain-overlay pointer-events-none z-0"></div>
+
       {/* Sidebar Navigation */}
-      <div className="w-full md:w-80 bg-white border-r border-neutral-200 flex flex-col h-[calc(100vh-64px)] md:sticky md:top-16 shrink-0 overflow-y-auto">
-        <div className="p-6 border-b border-neutral-200">
-          <Link to="/institute/dashboard" className="text-xs font-medium text-neutral-500 hover:text-[#4A3B69] mb-4 inline-block">&larr; Back to Dashboard</Link>
-          <h2 className="text-lg font-bold text-[#1A1A1A] leading-snug">{course.title}</h2>
+      <div className="w-full md:w-96 bg-[#030303] border-r border-[rgba(245,242,233,0.05)] flex flex-col h-[calc(100vh-64px)] md:sticky md:top-16 shrink-0 overflow-y-auto relative z-10 custom-scrollbar">
+        <div className="p-8 md:p-12 border-b border-[rgba(245,242,233,0.05)] bg-[#110E0C]">
+          <Link to="/institute/dashboard" className="label-tracking text-[rgba(245,242,233,0.4)] hover:text-[#F5F2E9] mb-8 inline-block transition-colors">&larr; Return to Dashboard</Link>
+          <h2 className="font-serif text-3xl text-[#F5F2E9] leading-tight">{course.title}</h2>
         </div>
         
-        <div className="flex-1 py-4">
+        <div className="flex-1 py-8 px-6 md:px-8">
           {course.modules.map((module, mIdx) => (
-            <div key={module.id} className="mb-6">
-              <h3 className="text-xs font-bold text-neutral-400 uppercase tracking-widest px-6 mb-2">Module {mIdx + 1}: {module.title}</h3>
-              <div className="space-y-1">
+            <div key={module.id} className="mb-12">
+              <h3 className="label-tracking text-[rgba(245,242,233,0.3)] mb-6">Module {mIdx + 1}: {module.title}</h3>
+              <div className="flex flex-col gap-2">
                 {module.lessons.map((lesson, lIdx) => {
                   const active = lesson.id === activeLessonId;
                   const completed = isCompleted(lesson.id);
@@ -180,16 +177,28 @@ export default function CourseLearning() {
                     <button
                       key={lesson.id}
                       onClick={() => setActiveLessonId(lesson.id)}
-                      className={`w-full text-left px-6 py-3 text-sm flex gap-3 transition-colors ${active ? 'bg-[#4A3B69]/5 border-r-2 border-[#4A3B69] text-[#4A3B69]' : 'text-neutral-600 hover:bg-neutral-50'}`}
+                      className={`w-full text-left p-4 flex gap-4 transition-all duration-300 ${
+                        active 
+                          ? 'bg-[rgba(245,242,233,0.05)] border-l-2 border-[#D1893D]' 
+                          : 'border-l-2 border-transparent hover:bg-[rgba(245,242,233,0.02)]'
+                      }`}
                     >
-                      <div className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center border ${completed ? 'bg-[#4A3B69] border-[#4A3B69] text-white' : 'border-neutral-300'}`}>
+                      <div className={`shrink-0 w-6 h-6 flex items-center justify-center border transition-colors ${
+                        completed 
+                          ? 'bg-[#D1893D] border-[#D1893D] text-[#030303]' 
+                          : active 
+                            ? 'border-[#D1893D] text-[#D1893D]' 
+                            : 'border-[rgba(245,242,233,0.2)] text-[rgba(245,242,233,0.4)]'
+                      }`}>
                         {completed ? (
-                           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
+                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
                         ) : (
-                           <span className="text-[10px] font-mono">{lIdx + 1}</span>
+                           <span className="font-serif text-[12px] leading-none">{lIdx + 1}</span>
                         )}
                       </div>
-                      <span className="font-medium line-clamp-2">{lesson.title}</span>
+                      <span className={`font-serif text-lg leading-tight line-clamp-2 ${
+                        active ? 'text-[#F5F2E9]' : 'text-[rgba(245,242,233,0.6)]'
+                      }`}>{lesson.title}</span>
                     </button>
                   );
                 })}
@@ -200,25 +209,25 @@ export default function CourseLearning() {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 bg-[#FDFBF7] p-6 md:p-12 overflow-y-auto h-[calc(100vh-64px)]">
+      <div className="flex-1 bg-[#110E0C] p-6 md:p-16 lg:p-24 overflow-y-auto h-[calc(100vh-64px)] relative z-10 custom-scrollbar">
         {currentLesson ? (
-          <div className="max-w-5xl mx-auto">
-             <div className="mb-8">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-xs font-mono text-[#b48aff] bg-[#8442fa]/10 px-3 py-1 rounded-sm uppercase tracking-wider">
+          <div className="max-w-4xl mx-auto">
+             <div className="mb-16">
+                <div className="flex justify-between items-center mb-8">
+                  <span className="label-tracking !text-[#D1893D]">
                     {currentLesson.lesson_type}
                   </span>
                 </div>
-                <h1 className="text-3xl sm:text-4xl font-bold text-[#1A1A1A] mb-4">{currentLesson.title}</h1>
-                <p className="text-lg text-neutral-600 leading-relaxed">{currentLesson.description}</p>
+                <h1 className="font-serif text-5xl md:text-6xl text-[#F5F2E9] mb-8 leading-tight">{currentLesson.title}</h1>
+                <p className="font-sans font-light text-[rgba(245,242,233,0.6)] text-xl leading-relaxed">{currentLesson.description}</p>
              </div>
 
-             <div className="bg-white border border-neutral-200 rounded-sm p-8 shadow-sm mb-12">
+             <div className="mb-16">
                {currentLesson.lesson_type === 'video' && currentLesson.video_url && (
-                 <div className="aspect-video bg-neutral-900 rounded-sm overflow-hidden mb-6 w-full">
+                 <div className="aspect-video bg-[#030303] border border-[rgba(245,242,233,0.05)] overflow-hidden mb-12 w-full relative">
                     <iframe 
                        src={getEmbedUrl(currentLesson.video_url)} 
-                       className="w-full h-full" 
+                       className="absolute inset-0 w-full h-full" 
                        frameBorder="0" 
                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                        allowFullScreen
@@ -227,23 +236,26 @@ export default function CourseLearning() {
                )}
                
                {currentLesson.content ? (
-                 <div className="prose prose-neutral max-w-none text-neutral-800 leading-relaxed" dangerouslySetInnerHTML={{ __html: currentLesson.content.replace(/\n/g, '<br/>') }} />
+                 <div 
+                   className="prose prose-invert prose-lg md:prose-xl prose-p:text-[rgba(245,242,233,0.7)] prose-headings:font-serif prose-headings:text-[#F5F2E9] prose-headings:font-light prose-a:text-[#D1893D] hover:prose-a:text-[#F5F2E9] prose-strong:text-[#F5F2E9] max-w-none leading-relaxed font-sans font-light" 
+                   dangerouslySetInnerHTML={{ __html: currentLesson.content.replace(/\n/g, '<br/>') }} 
+                 />
                ) : (
-                 <p className="text-neutral-500 italic">No text content provided for this lesson.</p>
+                 <p className="font-serif text-xl text-[rgba(245,242,233,0.4)] italic">No textual data provided for this lesson.</p>
                )}
              </div>
 
-             <div className="flex flex-col sm:flex-row justify-between items-center border-t border-neutral-200 pt-8 gap-4">
+             <div className="flex flex-col sm:flex-row justify-between items-center border-t border-[rgba(245,242,233,0.1)] pt-12 gap-8">
                <div>
                   {!isCompleted(currentLesson.id) ? (
                     <button 
                       onClick={() => markComplete(currentLesson.id)}
-                      className="btn-primary px-8 py-3 rounded-sm font-bold shadow-sm"
+                      className="btn-cinematic"
                     >
-                      Mark as Complete
+                      Complete Lesson
                     </button>
                   ) : (
-                    <div className="flex items-center gap-2 text-green-700 font-bold px-8 py-3 bg-green-50 rounded-sm border border-green-200">
+                    <div className="label-tracking text-[#D1893D] flex items-center gap-3">
                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" /></svg>
                        Completed
                     </div>
@@ -253,16 +265,16 @@ export default function CourseLearning() {
                {nextLesson && (
                  <button 
                    onClick={() => setActiveLessonId(nextLesson.id)}
-                   className="text-sm font-medium text-[#4A3B69] hover:text-[#3A2D54] flex items-center gap-2"
+                   className="label-tracking text-[rgba(245,242,233,0.6)] hover:text-[#F5F2E9] transition-colors flex items-center gap-4"
                  >
-                   Next Lesson <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+                   Next Lesson <span className="text-[#D1893D] font-serif text-xl leading-none">&rarr;</span>
                  </button>
                )}
              </div>
           </div>
         ) : (
-          <div className="flex items-center justify-center h-full text-neutral-500">
-            Select a lesson to begin.
+          <div className="flex items-center justify-center h-full text-[rgba(245,242,233,0.3)] font-serif text-2xl italic">
+            Select a lesson to begin learning.
           </div>
         )}
       </div>

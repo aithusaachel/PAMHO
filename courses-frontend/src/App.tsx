@@ -12,6 +12,7 @@ import Resources from './pages/Resources'
 import ResourceDetail from './pages/ResourceDetail'
 import Donate from './pages/Donate'
 import Contact from './pages/Contact'
+import RegisterConversation from './pages/RegisterConversation'
 import LiveZoomPage from './pages/LiveZoomPage'
 
 import Login from './pages/Login'
@@ -83,6 +84,7 @@ export default function App() {
           <Route path="/resources/:slug" element={<ResourceDetail />} />
           <Route path="/donate" element={<Donate />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/register-conversation" element={<RegisterConversation />} />
         </Route>
 
         {/* Institute Platform Routes (Auth UI) */}

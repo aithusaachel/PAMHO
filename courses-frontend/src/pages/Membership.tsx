@@ -1,284 +1,206 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import SEO from '../components/SEO'
+import { Reveal } from '../components/Reveal'
 
 export default function Membership() {
-  const container = 'w-full max-w-[1536px] mx-auto px-6 sm:px-12 lg:px-20'
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formData, setFormData] = useState({ 
+    name: '', email: '', country: '', city: '', whatsapp: '',
+    institution: '', qualifications: '', specialty: 'Clinical Psychology', referral: '' 
+  });
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('submitting');
+    
+    const formattedMessage = `
+Country: ${formData.country}
+City: ${formData.city}
+WhatsApp: ${formData.whatsapp}
+Institution: ${formData.institution}
+Specialty: ${formData.specialty}
+Referral/Source: ${formData.referral}
+
+Clinical Qualifications:
+${formData.qualifications}
+    `.trim();
+
+    try {
+      const res = await fetch('/api/v1/enquiries/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          name: formData.name,
+          email: formData.email,
+          organization: formData.institution,
+          message: formattedMessage,
+          enquiry_type: 'Membership Application' 
+        })
+      });
+      if (res.ok) {
+        setStatus('success');
+      } else {
+        setStatus('error');
+      }
+    } catch (err) {
+      setStatus('error');
+    }
+  };
 
   return (
-    <div className="flex flex-col bg-[#0a0a0c]">
-      <SEO title="PAMHO | Membership & Partners" description="Collaborate and partner with the Pan-African Mental Health Organization." />
-      {/* ============================================================ */}
-      {/* INSTITUTIONAL HERO                                           */}
-      {/* ============================================================ */}
-      <section className={`pt-48 pb-32 ${container} relative`}>
-        {/* Abstract Structural Motif */}
-        <div className="absolute top-0 right-0 w-full h-[600px] pointer-events-none -z-10 overflow-hidden">
-          <div className="absolute top-1/4 right-[10%] w-[500px] h-px bg-gradient-to-r from-transparent via-[#8442fa]/20 to-transparent transform rotate-45"></div>
-          <div className="absolute top-1/3 right-[20%] w-[400px] h-px bg-gradient-to-r from-transparent via-[#8442fa]/30 to-transparent transform -rotate-12"></div>
-          <div className="absolute top-1/2 right-[5%] w-[600px] h-px bg-gradient-to-r from-transparent via-[#8442fa]/10 to-transparent transform rotate-90"></div>
-          <div className="absolute top-1/4 right-[15%] w-[300px] h-[300px] bg-[#140b1e] blur-[120px] rounded-full"></div>
+    <div className="flex flex-col min-h-screen relative bg-[#030303]">
+      <SEO title="Membership | PAMHO" />
+      <div className="grain-overlay"></div>
+
+      <section className="pt-48 pb-16 md:pt-64 md:pb-32">
+        <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
+          <Reveal>
+            <span className="label-tracking text-[#D1893D] mb-8 block">Clinical Membership</span>
+            <h1 className="title-hero mb-8">
+              A Network of <span className="italic text-[rgba(245,242,233,0.7)]">Professionals.</span>
+            </h1>
+            <p className="text-body-large text-[rgba(245,242,233,0.6)] font-light leading-relaxed">
+              PAMHO membership brings together clinical psychologists, researchers, and healthcare professionals committed to defining the continental standard of care.
+            </p>
+          </Reveal>
         </div>
-        
-        <div className="max-w-4xl relative z-10">
-          <div className="tag-outline self-start mb-8 text-[#b48aff] border-[#8442fa]/30 uppercase tracking-widest inline-block">
-            Membership & Partners
-          </div>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold text-[#f4f2ee] tracking-tight leading-[1.05] mb-10">
-            Building stronger <br className="hidden md:block"/> systems together.
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed max-w-3xl mb-12">
-            Systemic change in African mental health cannot be achieved in isolation. PAMHO serves as a collaborative platform, uniting individuals and institutions to scale evidence-based care and advocacy.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6">
-            <a href="#collaboration" className="btn-primary text-sm font-bold px-8 py-4 rounded-sm shadow-[0_4px_20px_-5px_rgba(132,66,250,0.4)]">
-              Explore Collaboration
-            </a>
+      </section>
+
+      <section className="py-24 md:py-32 bg-[#110E0C]">
+        <div className="canvas-container">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 border-t border-[rgba(245,242,233,0.1)] pt-16">
+            
+            <Reveal delay={0}>
+              <div>
+                <span className="font-serif text-[#D1893D] text-5xl mb-6 block opacity-40">I</span>
+                <h3 className="font-serif text-3xl mb-4">Clinical Development</h3>
+                <p className="font-sans font-light text-[rgba(245,242,233,0.5)] leading-relaxed">
+                  Access to clinical frameworks, research data, and continuing educational programs developed specifically for the African socio-economic context.
+                </p>
+              </div>
+            </Reveal>
+            
+            <Reveal delay={150}>
+              <div>
+                <span className="font-serif text-[#D1893D] text-5xl mb-6 block opacity-40">II</span>
+                <h3 className="font-serif text-3xl mb-4">Professional Network</h3>
+                <p className="font-sans font-light text-[rgba(245,242,233,0.5)] leading-relaxed">
+                  Integration into a verified network of continental practitioners, enabling cross-border consultation, referrals, and peer review.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={300}>
+              <div>
+                <span className="font-serif text-[#D1893D] text-5xl mb-6 block opacity-40">III</span>
+                <h3 className="font-serif text-3xl mb-4">Policy Influence</h3>
+                <p className="font-sans font-light text-[rgba(245,242,233,0.5)] leading-relaxed">
+                  Direct input into PAMHO's legislative advocacy and institutional guidelines, helping to shape the future of continental healthcare policy.
+                </p>
+              </div>
+            </Reveal>
+
           </div>
         </div>
       </section>
 
-      {/* ============================================================ */}
-      {/* WHY PARTICIPATION MATTERS                                    */}
-      {/* ============================================================ */}
-      <section className={`py-32 ${container} bg-[#111115] border-y border-[#8442fa]/10`}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 items-center">
-          <div>
-            <h2 className="text-[11px] uppercase tracking-widest text-[#b48aff] font-bold mb-6">The Collaborative Model</h2>
-            <h3 className="text-3xl md:text-4xl font-bold text-[#f4f2ee] mb-6 leading-tight">
-              Alignment across all levels of society.
-            </h3>
-            <p className="text-gray-400 text-lg leading-relaxed font-light mb-6">
-              To elevate mental health as a public-health priority across the continent, interventions must be culturally sensitive, structurally sound, and locally sustainable. This requires a coordinated approach.
-            </p>
-            <p className="text-gray-400 text-lg leading-relaxed font-light">
-              By connecting grassroots realities with clinical expertise and institutional resources, PAMHO creates the infrastructure for lasting systemic change.
-            </p>
-          </div>
-          <div className="relative aspect-square sm:aspect-[4/3] md:aspect-square flex items-center justify-center bg-[#140b1e] border border-[#8442fa]/20 rounded-sm p-12">
-             {/* Abstract Alignment Graphic */}
-             <div className="w-full h-full relative flex flex-col justify-between">
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-[#8442fa]/40 to-transparent"></div>
-                <div className="w-[80%] mx-auto h-px bg-gradient-to-r from-transparent via-[#b48aff]/60 to-transparent"></div>
-                <div className="w-[60%] mx-auto h-[2px] bg-gradient-to-r from-transparent via-[#f4f2ee]/80 to-transparent shadow-[0_0_10px_rgba(244,242,238,0.5)]"></div>
-                <div className="w-[80%] mx-auto h-px bg-gradient-to-r from-transparent via-[#b48aff]/60 to-transparent"></div>
-                <div className="w-full h-px bg-gradient-to-r from-transparent via-[#8442fa]/40 to-transparent"></div>
+      <section className="py-32 md:py-48 bg-[#030303] text-center border-t border-[rgba(245,242,233,0.05)]">
+        <div className="canvas-container flex flex-col items-center max-w-4xl mx-auto">
+          <Reveal>
+            <h2 className="title-section mb-12">Apply for membership.</h2>
+            
+            {status === 'success' ? (
+              <div className="p-8 border border-[#D1893D] bg-[#D1893D]/5">
+                <h3 className="font-serif text-3xl text-[#F5F2E9] mb-4">Application Received</h3>
+                <p className="font-sans font-light text-[rgba(245,242,233,0.6)]">
+                  Your application has been submitted. Our team will review your qualifications and contact you regarding your membership status.
+                </p>
+              </div>
+            ) : !isFormOpen ? (
+              <>
+                <p className="text-body-large text-[rgba(245,242,233,0.5)] font-light mb-16">
+                  Membership requires verification of clinical credentials or equivalent institutional standing. Please fill out the application below to begin the process.
+                </p>
+                <button onClick={() => setIsFormOpen(true)} className="btn-cinematic">
+                  Apply for Membership
+                </button>
+              </>
+            ) : (
+              <form onSubmit={handleSubmit} className="w-full text-left flex flex-col gap-8 animate-fade-in border border-[rgba(245,242,233,0.1)] p-8 md:p-12 bg-[#110E0C]">
+                {status === 'error' && (
+                  <div className="text-red-400 border border-red-900/50 bg-red-900/10 p-4 font-sans font-light text-sm">
+                    Submission failed. Please try again or check your network connection.
+                  </div>
+                )}
                 
-                {/* Vertical Connector */}
-                <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-[#8442fa]/50 to-transparent"></div>
-             </div>
-          </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                    <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Full Name</label>
+                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Your name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+                  </div>
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                    <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Email Address</label>
+                    <input required type="email" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Your email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                    <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Country</label>
+                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Country" value={formData.country} onChange={e => setFormData({...formData, country: e.target.value})} />
+                  </div>
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                    <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">City</label>
+                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="City" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} />
+                  </div>
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                    <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">WhatsApp</label>
+                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Phone number" value={formData.whatsapp} onChange={e => setFormData({...formData, whatsapp: e.target.value})} />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                    <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Clinical / Academic Institution</label>
+                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Hospital, university, or clinic" value={formData.institution} onChange={e => setFormData({...formData, institution: e.target.value})} />
+                  </div>
+                  <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                    <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Primary Specialty</label>
+                    <select required className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none appearance-none" value={formData.specialty} onChange={e => setFormData({...formData, specialty: e.target.value})}>
+                      <option value="Clinical Psychology" className="bg-[#110E0C]">Clinical Psychology</option>
+                      <option value="Psychiatry" className="bg-[#110E0C]">Psychiatry</option>
+                      <option value="Social Work" className="bg-[#110E0C]">Social Work</option>
+                      <option value="Research/Academia" className="bg-[#110E0C]">Research / Academia</option>
+                      <option value="Public Health" className="bg-[#110E0C]">Public Health</option>
+                      <option value="Other" className="bg-[#110E0C]">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                  <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Clinical Qualifications</label>
+                  <textarea required rows={3} className="w-full bg-transparent font-sans font-light text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)] resize-none" placeholder="Provide your licensing, degree, or credential details..." value={formData.qualifications} onChange={e => setFormData({...formData, qualifications: e.target.value})}></textarea>
+                </div>
+
+                <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                  <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">How did you hear about PAMHO?</label>
+                  <input type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Referral, social media, etc." value={formData.referral} onChange={e => setFormData({...formData, referral: e.target.value})} />
+                </div>
+
+                <div className="flex gap-6 mt-4">
+                  <button type="submit" disabled={status === 'submitting'} className="btn-cinematic flex-1 disabled:opacity-50 text-center justify-center">
+                    {status === 'submitting' ? 'Submitting...' : 'Submit Application'}
+                  </button>
+                  <button type="button" onClick={() => setIsFormOpen(false)} className="px-8 border border-[rgba(245,242,233,0.2)] text-[rgba(245,242,233,0.6)] hover:text-[#F5F2E9] hover:border-[#F5F2E9] font-sans font-medium text-[11px] uppercase tracking-[0.2em] transition-all">
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            )}
+          </Reveal>
         </div>
       </section>
-
-      {/* ============================================================ */}
-      {/* INSTITUTIONAL COLLABORATION VISUALIZATION                    */}
-      {/* ============================================================ */}
-      <section id="collaboration" className={`py-40 ${container} bg-[#0a0a0c]`}>
-        <div className="text-center max-w-3xl mx-auto mb-24">
-           <h2 className="text-[11px] uppercase tracking-widest text-[#b48aff] font-bold mb-4">Structural Architecture</h2>
-           <h3 className="text-3xl md:text-4xl font-bold text-[#f4f2ee]">A platform for connection.</h3>
-        </div>
-
-        <div className="relative w-full max-w-6xl mx-auto h-[500px] md:h-[600px] border border-[#8442fa]/10 bg-[#111115] rounded-sm flex items-center justify-center overflow-hidden">
-           {/* Grid Background */}
-           <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(#8442fa 1px, transparent 1px), linear-gradient(90deg, #8442fa 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
-           
-           {/* Center Node: PAMHO */}
-           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-20">
-              <div className="w-32 h-32 md:w-40 md:h-40 border border-[#8442fa] bg-[#1a1025] flex items-center justify-center mb-4 relative shadow-[0_0_50px_rgba(132,66,250,0.15)]">
-                 <div className="absolute inset-4 border border-[#8442fa]/40"></div>
-                 <span className="text-lg md:text-xl font-bold text-[#f4f2ee] tracking-widest">PAMHO</span>
-              </div>
-           </div>
-
-           {/* Top Left: Organizations */}
-           <div className="absolute top-[15%] left-[10%] md:left-[20%] flex flex-col items-center">
-              <div className="w-20 h-20 border border-[#8442fa]/30 bg-[#140b1e] flex items-center justify-center mb-3">
-                 <div className="w-2 h-2 bg-gray-400"></div>
-              </div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-gray-400 bg-[#111115] px-2">Organizations</span>
-           </div>
-
-           {/* Top Right: Professionals */}
-           <div className="absolute top-[15%] right-[10%] md:right-[20%] flex flex-col items-center">
-              <div className="w-20 h-20 border border-[#8442fa]/30 bg-[#140b1e] flex items-center justify-center mb-3">
-                 <div className="w-2 h-2 bg-gray-400"></div>
-              </div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-gray-400 bg-[#111115] px-2">Professionals</span>
-           </div>
-
-           {/* Bottom Left: Communities */}
-           <div className="absolute bottom-[15%] left-[10%] md:left-[20%] flex flex-col items-center">
-              <div className="w-20 h-20 border border-[#8442fa]/30 bg-[#140b1e] flex items-center justify-center mb-3">
-                 <div className="w-2 h-2 bg-[#b48aff]"></div>
-              </div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#b48aff] bg-[#111115] px-2">Communities</span>
-           </div>
-
-           {/* Bottom Right: Advocates */}
-           <div className="absolute bottom-[15%] right-[10%] md:right-[20%] flex flex-col items-center">
-              <div className="w-20 h-20 border border-[#8442fa]/30 bg-[#140b1e] flex items-center justify-center mb-3">
-                 <div className="w-2 h-2 bg-[#b48aff]"></div>
-              </div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#b48aff] bg-[#111115] px-2">Advocates</span>
-           </div>
-
-           {/* Connecting SVG Lines */}
-           <svg className="absolute inset-0 w-full h-full text-[#8442fa]/20 pointer-events-none" style={{ zIndex: 10 }}>
-              {/* Org to Center */}
-              <line x1="20%" y1="15%" x2="50%" y2="50%" stroke="currentColor" strokeWidth="1" />
-              {/* Prof to Center */}
-              <line x1="80%" y1="15%" x2="50%" y2="50%" stroke="currentColor" strokeWidth="1" />
-              {/* Comm to Center */}
-              <line x1="20%" y1="85%" x2="50%" y2="50%" stroke="currentColor" strokeWidth="1" />
-              {/* Adv to Center */}
-              <line x1="80%" y1="85%" x2="50%" y2="50%" stroke="currentColor" strokeWidth="1" />
-           </svg>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* DISTINGUISHING INDIVIDUALS VS ORGANIZATIONS                  */}
-      {/* ============================================================ */}
-      <section className={`py-32 ${container} bg-[#111115] border-y border-[#8442fa]/10`}>
-        <div className="max-w-3xl mx-auto text-center mb-20">
-          <h2 className="text-[11px] uppercase tracking-widest text-[#b48aff] font-bold mb-4">Modes of Engagement</h2>
-          <h3 className="text-3xl md:text-4xl font-bold text-[#f4f2ee]">Two paths, one mission.</h3>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-           {/* Individuals */}
-           <div className="bg-[#140b1e] border border-[#8442fa]/20 p-12 flex flex-col h-full rounded-sm">
-              <div className="w-12 h-12 rounded-sm border border-[#8442fa]/30 bg-[#111115] flex items-center justify-center mb-8">
-                 <svg className="w-5 h-5 text-[#b48aff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-              </div>
-              <h4 className="text-2xl font-bold text-[#f4f2ee] mb-4">Individuals</h4>
-              <p className="text-gray-400 font-light leading-relaxed mb-8 flex-grow">
-                 People who contribute knowledge, advocacy, or community participation. Whether you are a mental health professional, an educator, or a local advocate, your individual expertise forms the foundation of our network.
-              </p>
-              <div className="text-[11px] font-mono uppercase tracking-widest text-[#8442fa]/70 pt-8 border-t border-[#8442fa]/10">
-                 Knowledge • Advocacy • Community
-              </div>
-           </div>
-
-           {/* Organizations */}
-           <div className="bg-[#140b1e] border border-[#8442fa]/20 p-12 flex flex-col h-full rounded-sm">
-              <div className="w-12 h-12 rounded-sm border border-[#8442fa]/30 bg-[#111115] flex items-center justify-center mb-8">
-                 <svg className="w-5 h-5 text-[#b48aff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
-              </div>
-              <h4 className="text-2xl font-bold text-[#f4f2ee] mb-4">Organizations</h4>
-              <p className="text-gray-400 font-light leading-relaxed mb-8 flex-grow">
-                 Institutions that collaborate, support, or work alongside PAMHO to scale impact. Partnerships are evaluated based on mission alignment, regional presence, and shared public-health goals.
-              </p>
-              <div className="text-[11px] font-mono uppercase tracking-widest text-[#8442fa]/70 pt-8 border-t border-[#8442fa]/10">
-                 Institutions • Resources • Scale
-              </div>
-           </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* WAYS TO ENGAGE                                               */}
-      {/* ============================================================ */}
-      <section className={`py-40 ${container} bg-[#0a0a0c]`}>
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-           <div className="lg:col-span-1 border-b lg:border-b-0 lg:border-r border-[#8442fa]/10 pb-12 lg:pb-0 lg:pr-12 flex flex-col justify-between">
-              <h3 className="text-2xl font-bold text-[#f4f2ee] mb-6">Ways to Engage</h3>
-              <p className="text-gray-500 font-mono text-sm uppercase tracking-widest">
-                 Explore the avenues for formal participation.
-              </p>
-           </div>
-           
-           <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-12 lg:pl-12 pt-8 lg:pt-0">
-              <div>
-                 <h4 className="text-xl font-bold text-[#f4f2ee] mb-3 flex items-center gap-3">
-                   <div className="w-2 h-2 rounded-full bg-[#8442fa]"></div>
-                   Learn
-                 </h4>
-                 <p className="text-gray-400 font-light leading-relaxed">
-                   Engage with PAMHO's educational work, access evidence-based resources, and utilize our institutional training platforms to improve local capacity.
-                 </p>
-              </div>
-              <div>
-                 <h4 className="text-xl font-bold text-[#f4f2ee] mb-3 flex items-center gap-3">
-                   <div className="w-2 h-2 rounded-full bg-[#8442fa]"></div>
-                   Contribute
-                 </h4>
-                 <p className="text-gray-400 font-light leading-relaxed">
-                   Bring your clinical expertise, advocacy experience, or grassroots community knowledge to help refine and inform our continental programs.
-                 </p>
-              </div>
-              <div>
-                 <h4 className="text-xl font-bold text-[#f4f2ee] mb-3 flex items-center gap-3">
-                   <div className="w-2 h-2 rounded-full bg-[#8442fa]"></div>
-                   Collaborate
-                 </h4>
-                 <p className="text-gray-400 font-light leading-relaxed">
-                   Explore formal institutional or organizational collaboration to align resources, cross-pollinate research, and implement larger-scale public health initiatives.
-                 </p>
-              </div>
-              <div>
-                 <h4 className="text-xl font-bold text-[#f4f2ee] mb-3 flex items-center gap-3">
-                   <div className="w-2 h-2 rounded-full bg-[#8442fa]"></div>
-                   Connect
-                 </h4>
-                 <p className="text-gray-400 font-light leading-relaxed">
-                   Reach PAMHO directly to discuss specific intersections between your work and our mission, establishing an ongoing dialogue for future alignment.
-                 </p>
-              </div>
-           </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* PARTNER LOGOS (Intentional Empty State)                      */}
-      {/* ============================================================ */}
-      <section className={`py-40 ${container} bg-[#111115] border-y border-[#8442fa]/10`}>
-        <div className="text-center mb-16">
-          <h2 className="text-[11px] uppercase tracking-widest text-[#b48aff] font-bold mb-4">Our Partnerships</h2>
-          <h3 className="text-3xl font-bold text-[#f4f2ee]">Institutional Collaborations</h3>
-        </div>
-
-        <div className="w-full max-w-5xl mx-auto border border-[#8442fa]/10 bg-[#140b1e] rounded-sm p-16 md:p-24 flex flex-col items-center justify-center text-center relative">
-           <div className="w-16 h-16 border border-[#8442fa]/30 bg-[#111115] flex items-center justify-center mb-8 transform rotate-45 relative z-10">
-              <div className="w-6 h-6 border border-[#8442fa]/40 bg-[#140b1e] flex items-center justify-center">
-                 <div className="w-1 h-1 bg-[#b48aff]"></div>
-              </div>
-           </div>
-           
-           <h4 className="text-xl font-bold text-[#f4f2ee] mb-4 relative z-10">Collaboration portfolio updating</h4>
-           <p className="text-gray-400 text-lg leading-relaxed max-w-2xl relative z-10 font-light">
-             Verified institutional partnerships, academic collaborations, and organizational affiliations will be presented here as formal agreements are finalized and documented.
-           </p>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* FINAL INSTITUTIONAL CTA                                      */}
-      {/* ============================================================ */}
-      <section className={`py-40 ${container} relative overflow-hidden bg-[#0a0a0c]`}>
-        <div className="max-w-4xl mx-auto text-center relative z-10 bg-[#140b1e] border border-[#8442fa]/20 rounded-sm p-16 md:p-24 shadow-[0_0_50px_rgba(132,66,250,0.05)] flex flex-col items-center justify-center">
-          <div className="w-16 h-16 border border-[#8442fa]/30 bg-[#111115] flex items-center justify-center mb-8 relative z-10">
-              <div className="w-3 h-3 bg-[#b48aff] shadow-[0_0_15px_#b48aff]"></div>
-          </div>
-          <h2 className="text-[11px] uppercase tracking-widest text-[#b48aff] font-bold mb-6">Build With PAMHO</h2>
-          <h3 className="text-4xl md:text-5xl font-bold text-[#f4f2ee] tracking-tight mb-8">
-            Start the conversation.
-          </h3>
-          <p className="text-gray-400 text-lg leading-relaxed max-w-xl mx-auto mb-12">
-            Whether you are an individual bringing expertise or an organization seeking alignment, we invite you to connect with PAMHO and explore how we can build better mental health systems across Africa together.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center w-full">
-            <Link to="/contact?type=membership" className="btn-primary text-sm font-bold px-10 py-4 rounded-sm shadow-[0_4px_24px_-4px_rgba(132,66,250,0.4)] hover:shadow-[0_4px_30px_-5px_rgba(132,66,250,0.6)] transition-shadow">
-              Get Involved
-            </Link>
-            <Link to="/contact?type=partnership" className="text-sm font-medium text-gray-400 hover:text-[#b48aff] transition-colors border border-gray-800 hover:border-[#8442fa]/30 bg-[#111115] px-10 py-4 rounded-sm">
-              Contact PAMHO
-            </Link>
-          </div>
-        </div>
-      </section>
-
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SEO from '../components/SEO';
+import { Reveal } from '../components/Reveal';
 
 export default function Register() {
   const [username, setUsername] = useState('');
@@ -20,7 +22,6 @@ export default function Register() {
     setIsSubmitting(true);
 
     try {
-      // 1. Register the user
       const registerRes = await fetch('/api/v1/auth/register/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -35,14 +36,12 @@ export default function Register() {
 
       if (!registerRes.ok) {
         const data = await registerRes.json();
-        // Extract errors
         const errorMsg = Object.values(data).flat().join(' ') || 'Registration failed.';
         setError(errorMsg);
         setIsSubmitting(false);
         return;
       }
 
-      // 2. Automatically log them in after registration
       const loginRes = await fetch('/api/v1/auth/token/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -54,105 +53,121 @@ export default function Register() {
         login(loginData.access, loginData.refresh);
         navigate('/institute/dashboard');
       } else {
-        // If login somehow fails, navigate to login
         navigate('/login');
       }
     } catch (err) {
-      setError('A network error occurred.');
+      setError('A network error occurred. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-10 shadow-sm border border-neutral-100 rounded-lg">
-        <div>
-          <h2 className="text-center text-3xl font-light text-[#1A1A1A]">
-            Create an Account
-          </h2>
-          <p className="mt-2 text-center text-sm text-neutral-600">
-            Join the PAMHO Institute
-          </p>
-        </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-50 text-red-800 p-4 rounded text-sm text-center">
-              {error}
-            </div>
-          )}
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-neutral-700">First Name</label>
+    <div className="min-h-screen bg-[#030303] flex items-center justify-center py-24 px-6 sm:px-12 relative">
+      <SEO title="Create Account | PAMHO" />
+      <div className="grain-overlay"></div>
+      
+      <div className="max-w-2xl w-full flex flex-col z-10">
+        <Reveal>
+          <div className="mb-16">
+            <span className="label-tracking text-[#D1893D] mb-4 block">Join the Institute</span>
+            <h2 className="title-hero mb-4 text-left">
+              Create Account
+            </h2>
+            <p className="font-sans font-light text-[rgba(245,242,233,0.5)] text-lg">
+              Register to access the PAMHO Institute network and educational pathways.
+            </p>
+          </div>
+          
+          <form className="space-y-12" onSubmit={handleSubmit}>
+            {error && (
+              <div className="border border-red-900/50 bg-red-900/10 text-red-400 p-4 font-sans font-light text-sm">
+                {error}
+              </div>
+            )}
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+              <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">First Name</label>
                 <input
                   type="text"
-                  className="mt-1 appearance-none rounded-none relative block w-full px-3 py-2 border border-neutral-300 placeholder-neutral-500 text-neutral-900 focus:outline-none focus:ring-[#4A3B69] focus:border-[#4A3B69] sm:text-sm"
+                  required
+                  className="w-full bg-transparent font-serif text-2xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
+                  placeholder="First name"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium text-neutral-700">Last Name</label>
+              
+              <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+                <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Last Name</label>
                 <input
                   type="text"
-                  className="mt-1 appearance-none rounded-none relative block w-full px-3 py-2 border border-neutral-300 placeholder-neutral-500 text-neutral-900 focus:outline-none focus:ring-[#4A3B69] focus:border-[#4A3B69] sm:text-sm"
+                  required
+                  className="w-full bg-transparent font-serif text-2xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
+                  placeholder="Last name"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
             </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-neutral-700">Username</label>
+
+            <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+              <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Username</label>
               <input
                 type="text"
                 required
-                className="mt-1 appearance-none rounded-none relative block w-full px-3 py-2 border border-neutral-300 placeholder-neutral-500 text-neutral-900 focus:outline-none focus:ring-[#4A3B69] focus:border-[#4A3B69] sm:text-sm"
+                className="w-full bg-transparent font-serif text-2xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
+                placeholder="Choose a username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-neutral-700">Email address</label>
+            
+            <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+              <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Email Address</label>
               <input
                 type="email"
                 required
-                className="mt-1 appearance-none rounded-none relative block w-full px-3 py-2 border border-neutral-300 placeholder-neutral-500 text-neutral-900 focus:outline-none focus:ring-[#4A3B69] focus:border-[#4A3B69] sm:text-sm"
+                className="w-full bg-transparent font-serif text-2xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
+                placeholder="Your email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-neutral-700">Password</label>
+
+            <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#D1893D] transition-colors pb-2">
+              <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Password</label>
               <input
                 type="password"
                 required
-                className="mt-1 appearance-none rounded-none relative block w-full px-3 py-2 border border-neutral-300 placeholder-neutral-500 text-neutral-900 focus:outline-none focus:ring-[#4A3B69] focus:border-[#4A3B69] sm:text-sm"
+                className="w-full bg-transparent font-serif text-2xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
+                placeholder="Create a password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-          </div>
 
-          <div>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-none text-white bg-[#4A3B69] hover:bg-[#3A2D54] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#4A3B69] disabled:opacity-50 transition-colors"
-            >
-              {isSubmitting ? 'Registering...' : 'Register'}
-            </button>
+            <div className="pt-8">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn-cinematic w-full disabled:opacity-50"
+              >
+                {isSubmitting ? 'Processing...' : 'Create Account'}
+              </button>
+            </div>
+          </form>
+          
+          <div className="mt-12 pt-8 border-t border-[rgba(245,242,233,0.05)]">
+            <p className="font-sans font-light text-[rgba(245,242,233,0.4)]">
+              Already have an account?{' '}
+              <Link to="/login" className="text-[#D1893D] hover:text-[#F5F2E9] transition-colors">
+                Sign in here
+              </Link>
+            </p>
           </div>
-        </form>
-        <div className="text-center mt-4">
-          <p className="text-sm text-neutral-600">
-            Already have an account?{' '}
-            <Link to="/login" className="font-medium text-[#4A3B69] hover:text-[#3A2D54]">
-              Sign in
-            </Link>
-          </p>
-        </div>
+        </Reveal>
       </div>
     </div>
   );

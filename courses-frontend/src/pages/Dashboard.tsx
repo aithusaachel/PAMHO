@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SEO from '../components/SEO';
+import { Reveal } from '../components/Reveal';
 
 interface ProgressSummary {
   total_lessons: number;
@@ -53,75 +55,116 @@ export default function Dashboard() {
   }, []);
 
   if (loading) {
-    return <div className="min-h-screen bg-[#FDFBF7] flex items-center justify-center text-neutral-500">Loading dashboard...</div>;
+    return (
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center">
+        <span className="font-serif text-2xl text-[rgba(245,242,233,0.4)] italic">Loading dashboard...</span>
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] pt-24 pb-12 px-6 sm:px-12 lg:px-20">
-      <div className="max-w-[1536px] mx-auto">
-        <header className="mb-12">
-          <h1 className="text-3xl font-bold text-[#1A1A1A]">Welcome back, {user?.first_name || user?.username}</h1>
-          <p className="text-neutral-500 mt-2">Here is your learning progress.</p>
-        </header>
+    <div className="flex flex-col min-h-screen relative bg-[#030303]">
+      <SEO title="Dashboard | PAMHO" />
+      <div className="grain-overlay"></div>
 
-        <section>
-          <div className="flex justify-between items-end mb-6">
-            <h2 className="text-xl font-bold text-[#1A1A1A]">Your Courses</h2>
-            {enrollments.length > 0 && (
-              <Link to="/institute/catalog" className="text-sm font-medium text-[#4A3B69] hover:underline">
-                Browse More Courses &rarr;
-              </Link>
-            )}
-          </div>
+      {/* ============================================================ */}
+      {/* 1. THE OPENING                                               */}
+      {/* ============================================================ */}
+      <section className="pt-48 pb-16 md:pt-64 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
+        <div className="canvas-container max-w-5xl">
+          <Reveal>
+            <span className="label-tracking text-[#D1893D] mb-8 block">Account Overview</span>
+            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-none text-[#F5F2E9] mb-8 tracking-[-0.02em]">
+              Welcome back,<br />
+              <span className="italic text-[rgba(245,242,233,0.7)]">{user?.first_name || user?.username}.</span>
+            </h1>
+            <p className="text-body-large text-[rgba(245,242,233,0.6)] font-light leading-relaxed max-w-2xl">
+              Access your curriculum and track your educational progress through the PAMHO Institute.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 2. ENROLLMENTS                                               */}
+      {/* ============================================================ */}
+      <section className="py-24 md:py-32 bg-[#110E0C]">
+        <div className="canvas-container">
           
-          {enrollments.length === 0 ? (
-            <div className="bg-white border border-neutral-100 p-8 text-center rounded-sm shadow-sm">
-              <h3 className="text-lg font-medium text-neutral-800 mb-2">No active enrollments</h3>
-              <p className="text-neutral-500 mb-6">You haven't enrolled in any courses yet.</p>
-              <Link to="/institute/catalog" className="btn-primary px-6 py-2 rounded-sm text-sm font-medium">
-                Browse Catalog
-              </Link>
+          <Reveal>
+            <div className="flex justify-between items-end border-b border-[rgba(245,242,233,0.15)] pb-8 mb-16">
+              <h2 className="title-section">Your Courses</h2>
+              {enrollments.length > 0 && (
+                <Link to="/institute/catalog" className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] transition-colors flex items-center gap-4">
+                  Browse Catalog <span className="font-serif text-xl leading-none">&rarr;</span>
+                </Link>
+              )}
             </div>
+          </Reveal>
+
+          {enrollments.length === 0 ? (
+            <Reveal>
+              <div className="py-24 text-center border border-[rgba(245,242,233,0.05)] bg-[#030303]">
+                <h3 className="font-serif text-3xl text-[#F5F2E9] mb-6">No Active Courses</h3>
+                <p className="text-[rgba(245,242,233,0.5)] font-sans font-light mb-12">You have not enrolled in any courses yet.</p>
+                <Link to="/institute/catalog" className="btn-cinematic inline-flex">
+                  Explore Courses
+                </Link>
+              </div>
+            </Reveal>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {enrollments.map(enrollment => (
-                <div key={enrollment.id} className="bg-white border border-neutral-200 rounded-sm overflow-hidden flex flex-col shadow-sm">
-                  <div className="p-6 flex-1 flex flex-col">
-                    <div className="flex justify-between items-start mb-4">
-                      <span className="text-[10px] font-mono text-[#b48aff] bg-[#8442fa]/10 px-2 py-1 rounded-sm uppercase tracking-wider">
+            <div className="flex flex-col">
+              {enrollments.map((enrollment, idx) => (
+                <Reveal key={enrollment.id} delay={idx * 100} className="grid grid-cols-1 md:grid-cols-12 gap-8 py-16 border-b border-[rgba(245,242,233,0.05)] group hover:bg-[rgba(245,242,233,0.02)] transition-colors">
+                  
+                  <div className="md:col-span-3 flex flex-col gap-4">
+                    <div className="flex items-center gap-3">
+                      <span className={`w-1.5 h-1.5 rounded-full ${enrollment.status === 'completed' ? 'bg-[#D1893D]' : 'bg-[rgba(245,242,233,0.4)] animate-pulse'}`}></span>
+                      <span className="label-tracking !text-[#D1893D]">
                         {enrollment.status}
                       </span>
                     </div>
-                    <h3 className="text-lg font-bold text-[#1A1A1A] mb-4 leading-snug">
+                    <span className="font-serif text-lg text-[rgba(245,242,233,0.3)]">
+                      {new Date(enrollment.enrolled_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </span>
+                  </div>
+
+                  <div className="md:col-span-6 flex flex-col">
+                    <h3 className="font-serif text-3xl md:text-4xl mb-6 text-[rgba(245,242,233,0.9)] group-hover:text-[#F5F2E9] transition-colors leading-tight">
                       {enrollment.course_title}
                     </h3>
                     
-                    <div className="mt-auto">
-                      <div className="flex justify-between text-xs text-neutral-500 mb-2 font-mono">
-                        <span>{enrollment.progress_summary.completed_lessons} / {enrollment.progress_summary.total_lessons} Lessons</span>
-                        <span>{enrollment.progress_summary.percent_complete}%</span>
+                    <div className="mt-4 max-w-md">
+                      <div className="flex justify-between text-[11px] uppercase tracking-widest text-[rgba(245,242,233,0.4)] mb-3 font-medium">
+                        <span>{enrollment.progress_summary.completed_lessons} / {enrollment.progress_summary.total_lessons} Lessons Completed</span>
+                        <span className="text-[#D1893D]">{enrollment.progress_summary.percent_complete}%</span>
                       </div>
-                      <div className="w-full bg-neutral-100 h-1.5 rounded-full overflow-hidden mb-6">
+                      <div className="w-full bg-[rgba(245,242,233,0.05)] h-1 rounded-none overflow-hidden">
                         <div 
-                          className="bg-[#4A3B69] h-full transition-all duration-500" 
+                          className="bg-[#D1893D] h-full transition-all duration-1000 ease-out" 
                           style={{ width: `${enrollment.progress_summary.percent_complete}%` }}
                         ></div>
                       </div>
-                      
-                      <Link 
-                        to={`/institute/courses/${enrollment.course_identifier}`}
-                        className="block w-full text-center bg-[#FDFBF7] border border-neutral-200 hover:border-[#4A3B69] text-[#4A3B69] font-medium py-2 rounded-sm transition-colors text-sm"
-                      >
-                        Continue Learning
-                      </Link>
                     </div>
                   </div>
-                </div>
+
+                  <div className="md:col-span-3 flex md:justify-end items-start pt-2">
+                    <Link 
+                      to={`/institute/courses/${enrollment.course_identifier}`}
+                      className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] flex items-center gap-4 transition-colors"
+                    >
+                      {enrollment.status === 'completed' ? 'Review Course' : 'Resume Course'} 
+                      <span className="w-8 h-[1px] bg-current block"></span>
+                    </Link>
+                  </div>
+
+                </Reveal>
               ))}
             </div>
           )}
-        </section>
-      </div>
+        </div>
+      </section>
+
     </div>
   );
 }

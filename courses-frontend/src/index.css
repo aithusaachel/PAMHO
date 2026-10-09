@@ -1,163 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
 @import "tailwindcss";
 
-@theme {
-  /* Foundational Neutrals */
-  --color-brand-charcoal: #0a0a0c;
-  --color-brand-surface: #111114;
-  --color-brand-ivory: #f4f2ee;
-  --color-brand-muted: #9aa0aa;
+@layer base {
+  :root {
+    --bg-obsidian: #030303;
+    --bg-earth: #110E0C;
+    --bg-bone: #F5F2E9;
+    
+    --text-bone: #F5F2E9;
+    --text-muted: rgba(245, 242, 233, 0.6);
+    --text-dark: #030303;
+    
+    --accent-ochre: #D1893D;
+    --accent-rust: #9B3E25;
+  }
+
+  body {
+    background-color: var(--bg-obsidian);
+    color: var(--text-bone);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--accent-rust);
+    color: var(--text-bone);
+  }
+}
+
+@layer components {
+  /* Cinematic Typography */
+  .title-hero {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    line-height: 1.1;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  @media (min-width: 768px) {
+    .title-hero { font-size: 4.5rem; }
+  }
+  @media (min-width: 1200px) {
+    .title-hero { font-size: 5.5rem; }
+  }
+
+  .title-section {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.25rem;
+    line-height: 1.2;
+    font-weight: 300;
+  }
+  @media (min-width: 768px) {
+    .title-section { font-size: 3.25rem; }
+  }
+  @media (min-width: 1024px) {
+    .title-section { font-size: 4rem; }
+  }
+
+  .text-body-large {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  @media (min-width: 768px) {
+    .text-body-large { font-size: 1.75rem; }
+  }
+
+  .label-tracking {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  @media (min-width: 768px) {
+    .label-tracking { font-size: 0.75rem; }
+  }
+
+  /* Cinematic Interactions */
+  .btn-cinematic {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 2.5rem;
+    background: transparent;
+    color: var(--text-bone);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid rgba(245, 242, 233, 0.2);
+    border-radius: 100px;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
   
-  /* PAMHO Purple System */
-  --color-brand-purple: #8442fa;      /* Primary PAMHO Logo Purple */
-  --color-brand-plum: #140b1e;        /* Very dark purple-black for subtle section backgrounds */
-  --color-brand-plumLighter: #1a1025; /* Slightly lighter plum for contrast areas */
-  --color-brand-charcoalWarm: #111115; /* Warm charcoal for structural variation */
-  --color-brand-lavender: #b48aff;    /* Muted lavender for secondary accents */
-  --color-brand-purpleDark: #2a1b42;  /* Deep purple for subtle borders/surfaces */
+  .btn-cinematic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--text-bone);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: -1;
+  }
   
-  --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
+  .btn-cinematic:hover {
+    color: var(--text-dark);
+    border-color: transparent;
+  }
+  
+  .btn-cinematic:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Structural */
+  .canvas-container {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .canvas-container { padding: 0 4rem; }
+  }
 }
 
-*, *::before, *::after { 
-  box-sizing: border-box; 
-}
-
-body {
-  background-color: #0a0a0c;
-  color: #f4f2ee;
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* ═══════════════════════════════════════════════
-   BUTTONS (Restrained, Flat)
-═══════════════════════════════════════════════ */
-.btn-primary {
-  background-color: #8442fa;
-  color: #ffffff;
-  transition: background-color 0.15s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.btn-primary:hover {
-  background-color: #985eff;
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid rgba(132, 66, 250, 0.4);
-  color: #b48aff;
-  transition: border-color 0.15s ease, color 0.15s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.btn-secondary:hover {
-  border-color: #8442fa;
-  color: #ffffff;
-}
-
-.btn-ivory {
-  background: #f4f2ee;
-  color: #0a0a0c;
-  transition: background-color 0.15s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-.btn-ivory:hover {
-  background: #e6e3df;
-}
-
-/* ═══════════════════════════════════════════════
-   EDITORIAL BORDERS & RULES
-═══════════════════════════════════════════════ */
-.rule-bottom {
-  border-bottom: 1px solid rgba(244, 242, 238, 0.08);
-}
-.rule-top {
-  border-top: 1px solid rgba(244, 242, 238, 0.08);
-}
-.rule-purple {
-  border-top: 1px solid rgba(132, 66, 250, 0.2);
-}
-
-/* ═══════════════════════════════════════════════
-   PRODUCT UI DEMONSTRATION (Strict, Flat)
-═══════════════════════════════════════════════ */
-.ui-frame {
-  background: #0a0a0c;
-  border: 1px solid rgba(132, 66, 250, 0.2);
-  border-radius: 2px;
-  overflow: hidden;
-}
-.ui-sidebar {
-  background: #111114;
-  border-right: 1px solid rgba(244, 242, 238, 0.05);
-}
-.ui-progress-track {
-  height: 2px;
-  background: rgba(244, 242, 238, 0.1);
+/* Image treatments */
+.img-cinematic {
   width: 100%;
-}
-.ui-progress-fill {
   height: 100%;
-  background: #8442fa;
-}
-.ui-active-item {
-  background: rgba(132, 66, 250, 0.08);
-  border-left: 2px solid #8442fa;
+  object-fit: cover;
+  filter: saturate(0.8) contrast(1.1) brightness(0.9);
+  transition: filter 1.5s ease;
 }
 
-/* ═══════════════════════════════════════════════
-   FLAG MARQUEE (Seamless)
-═══════════════════════════════════════════════ */
-.marquee-container {
-  width: 100%;
-  overflow: hidden;
-  background: #111114;
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee-scroll 45s linear infinite;
-}
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
+.img-cinematic:hover {
+  filter: saturate(1) contrast(1) brightness(1);
 }
 
-/* ═══════════════════════════════════════════════
-   UTILITIES
-═══════════════════════════════════════════════ */
-.tag-solid {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 8px;
-  background: #2a1b42;
-  color: #b48aff;
-  border-radius: 2px;
-}
-.tag-outline {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  border: 1px solid rgba(132, 66, 250, 0.3);
-  color: #b48aff;
-  border-radius: 2px;
-}
-
-/* Strict Typography Handling */
-h1, h2, h3, h4, h5, h6 {
-  letter-spacing: -0.02em;
+/* Subtle grain overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }

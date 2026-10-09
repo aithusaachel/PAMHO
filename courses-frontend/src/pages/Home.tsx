@@ -1,269 +1,184 @@
-import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import FlagMarquee from '../components/FlagMarquee'
 import SEO from '../components/SEO'
+import { Reveal } from '../components/Reveal'
 
 export default function Home() {
-  const container = 'w-full max-w-[1536px] mx-auto px-6 sm:px-12 lg:px-20'
-  
-  const [featuredProgram, setFeaturedProgram] = useState<any>(null)
-
-  useEffect(() => {
-    const fetchPrograms = async () => {
-      try {
-        const res = await fetch('/api/v1/programs/')
-        if (res.ok) {
-          const data = await res.json()
-          const progs = data.results || data || []
-          const active = progs.find((p: any) => p.event_state === 'live' || p.event_state === 'upcoming')
-          if (active) setFeaturedProgram(active)
-        }
-      } catch (err) {
-        console.error(err)
-      }
-    }
-    fetchPrograms()
-  }, [])
-
   return (
-    <div className="flex flex-col">
-      <SEO title="Pan-African Mental Health Organization (PAMHO)" />
-      {/* ============================================================ */}
-      {/* PROMOTIONAL BANNER                                           */}
-      {/* ============================================================ */}
-      {featuredProgram && (
-        <section className={`pt-32 pb-4 ${container} bg-[#0a0a0c]`}>
-          <div className="border border-[#8442fa]/20 bg-[#111115] p-6 md:p-8 rounded-sm shadow-[0_4px_30px_-5px_rgba(132,66,250,0.15)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
-             {/* Subtle background nodes pattern */}
-             <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(rgba(132, 66, 250, 0.4) 1px, transparent 1px)', backgroundSize: '24px 24px', maskImage: 'linear-gradient(to right, black, transparent)' }}></div>
-             
-             <div className="relative z-10 flex-1">
-               <div className="text-[10px] uppercase tracking-widest text-[#b48aff] font-bold mb-3 flex items-center gap-2">
-                 <span className="w-1.5 h-1.5 rounded-full bg-[#8442fa] animate-pulse"></span>
-                 {featuredProgram.event_state === 'live' ? 'Live Now' : 'Upcoming Event'}
-               </div>
-               <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#f4f2ee] tracking-tight mb-2">
-                 {featuredProgram.title}
-               </h2>
-               <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-                 <span className="text-gray-300">{featuredProgram.description.length > 80 ? featuredProgram.description.substring(0, 80) + '...' : featuredProgram.description}</span>
-               </div>
-             </div>
-             
-             <Link 
-               to="/programs" 
-               className="relative z-10 group flex items-center gap-3 border border-[#8442fa]/40 bg-[#140b1e] px-6 py-3 md:px-8 md:py-4 rounded-sm text-sm font-bold text-[#f4f2ee] hover:bg-[#8442fa]/20 hover:border-[#8442fa]/60 transition-all shrink-0 w-full md:w-auto justify-center"
-             >
-               View Details
-               <svg className="w-4 h-4 text-[#b48aff] group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-             </Link>
-          </div>
-        </section>
-      )}
+    <div className="flex flex-col min-h-screen relative">
+      <SEO title="The Pan-African Mental Health Conversation — PAMHO" />
+      <div className="grain-overlay"></div>
 
       {/* ============================================================ */}
-      {/* HOME HERO (Editorial & Continental Scale)                    */}
+      {/* 1. THE ENCOUNTER - Cinematic Hero                            */}
       {/* ============================================================ */}
-      <section className={`${featuredProgram ? 'pt-8' : 'pt-40'} pb-32 ${container} relative bg-[#0a0a0c] min-h-[90vh] flex items-center`}>
-        {/* Subtle plum gradient for depth */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-[#140b1e] via-[#0a0a0c]/50 to-transparent pointer-events-none -z-10"></div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center w-full">
-          <div className="lg:col-span-8 flex flex-col justify-center">
-            <div className="tag-outline self-start mb-8 text-[#b48aff] border-[#8442fa]/30">Pan African Mental Health Organization</div>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] font-bold text-[#f4f2ee] tracking-tight leading-[1.05]">
-              Advancing mental<br/>health across the<br/>
-              <span className="text-[#8442fa]">African continent.</span>
+      <section className="relative h-screen w-full flex flex-col justify-end pb-12 lg:pb-24">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/hero_community.png" 
+            alt="Community Engagement" 
+            className="w-full h-full object-cover filter brightness-[0.35] contrast-[1.1] saturate-[0.8]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-transparent"></div>
+        </div>
+
+        <div className="canvas-container relative z-10">
+          <Reveal delay={200}>
+            <span className="label-tracking text-[#D1893D] mb-6 block">The Inaugural Dialogue</span>
+            <h1 className="title-hero max-w-5xl">
+              The Pan-African Mental Health <span className="italic text-[rgba(245,242,233,0.7)]">Conversation.</span>
             </h1>
-            <p className="mt-10 text-lg md:text-xl text-gray-400 max-w-2xl leading-relaxed font-light">
-              We are dedicated to improving access to support, reducing stigma, and empowering communities through education, advocacy, and collaborative action.
+          </Reveal>
+          
+          <Reveal delay={600} className="mt-12 flex flex-col sm:flex-row items-start gap-8 border-t border-[rgba(245,242,233,0.15)] pt-8">
+            <p className="text-body-large text-[rgba(245,242,233,0.8)] max-w-2xl font-sans text-lg md:text-xl font-light">
+              Convening professionals, advocates, researchers, youth, and communities across 54 African nations.
             </p>
-            <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <Link to="/about" className="btn-primary text-sm font-bold px-8 py-4 rounded-sm shadow-[0_4px_20px_-5px_rgba(132,66,250,0.4)]">
-                Our Mission
+            <div className="shrink-0 pt-2 flex flex-col sm:flex-row gap-4">
+              <Link to="/programs" className="btn-cinematic">
+                Enter the Dialogue <span className="ml-4 font-serif text-xl leading-none">→</span>
               </Link>
-              <Link to="/programs" className="text-sm font-medium text-gray-400 hover:text-[#b48aff] transition-colors">
-                Explore our initiatives &rarr;
+              <Link to="/register-conversation" className="btn-cinematic !border-[rgba(245,242,233,0.2)] !text-[#F5F2E9] hover:!border-[#D1893D] hover:!text-[#D1893D]">
+                Register to Attend
               </Link>
             </div>
-          </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 2. THE UNDERSTANDING - The Core Statement                    */}
+      {/* ============================================================ */}
+      <section className="py-32 md:py-48 bg-[#030303]">
+        <div className="canvas-container flex justify-center">
+          <Reveal className="max-w-4xl text-center">
+            <span className="font-serif text-[#D1893D] text-8xl md:text-[10rem] leading-none opacity-20 absolute -ml-16 -mt-16">“</span>
+            <h2 className="title-section relative z-10 leading-[1.3]">
+              Mental health is not a luxury. It is a foundation. Africa cannot rise without the wellbeing of its <span className="italic text-[#D1893D]">people.</span>
+            </h2>
+            <span className="label-tracking mt-12 block">PAMHO Manifesto</span>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 3. HUMAN CONNECTION - Documentary Grid                       */}
+      {/* ============================================================ */}
+      <section className="py-24 bg-[#110E0C]">
+        <div className="canvas-container">
+          <Reveal>
+            <span className="label-tracking mb-8 block">The Architecture of Change</span>
+          </Reveal>
           
-          <div className="lg:col-span-4 h-full hidden lg:flex items-center justify-end relative">
-             {/* Continental Scale Visual / Abstract Map Node */}
-             <div className="w-full aspect-square relative">
-                {/* Abstract grid mapping */}
-                <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(132, 66, 250, 0.15) 1px, transparent 1px)', backgroundSize: '32px 32px', maskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)', WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 70%)' }}></div>
-                
-                {/* Pulse node representing continent focus */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                   <div className="w-4 h-4 bg-[#8442fa] rounded-full shadow-[0_0_40px_rgba(132,66,250,0.8)] relative z-10"></div>
-                   <div className="w-4 h-4 bg-[#8442fa] rounded-full absolute inset-0 animate-ping opacity-75"></div>
-                   <div className="w-32 h-32 border border-[#8442fa]/30 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
-                   <div className="w-64 h-64 border border-[#8442fa]/10 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
+            
+            <div className="md:col-span-5 order-2 md:order-1">
+              <Reveal delay={200} className="flex flex-col gap-12">
+                <div>
+                  <h3 className="font-serif text-3xl mb-4">Contextual Intervention</h3>
+                  <p className="text-lg text-[rgba(245,242,233,0.6)] font-light leading-relaxed">
+                    We reject imported, top-down psychiatric solutions. Care must be culturally grounded and locally led. PAMHO bridges the gap between clinical professionals and grassroots reality.
+                  </p>
                 </div>
-             </div>
+                <div>
+                  <h3 className="font-serif text-3xl mb-4">Systemic Reform</h3>
+                  <p className="text-lg text-[rgba(245,242,233,0.6)] font-light leading-relaxed">
+                    Awareness is meaningless without infrastructure. We mobilize communities to demand policy changes, securing funding and legislative backing for mental health resources across the continent.
+                  </p>
+                </div>
+                <div className="pt-8">
+                  <Link to="/about" className="label-tracking text-[#D1893D] hover:text-[#F5F2E9] flex items-center gap-4 transition-colors w-fit">
+                    Read the Full Manifesto <span className="w-12 h-[1px] bg-current block"></span>
+                  </Link>
+                </div>
+              </Reveal>
+            </div>
+            
+            <div className="md:col-span-7 order-1 md:order-2">
+              <Reveal delay={400}>
+                <div className="aspect-[4/5] md:aspect-[3/4] w-full overflow-hidden relative">
+                  <img 
+                    src="/institute_learning.png" 
+                    alt="Clinical Education in Africa" 
+                    className="img-cinematic"
+                  />
+                  <div className="absolute inset-0 border border-[rgba(245,242,233,0.1)] m-4 pointer-events-none"></div>
+                </div>
+              </Reveal>
+            </div>
+            
           </div>
         </div>
       </section>
 
       {/* ============================================================ */}
-      {/* FLAG MARQUEE (Continental Reach)                             */}
+      {/* 4. PURPOSE - The Pillars                                     */}
       {/* ============================================================ */}
-      <FlagMarquee className="bg-[#111115]" />
+      <section className="py-32 md:py-48 bg-[#030303]">
+        <div className="canvas-container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-32">
+            
+            <div className="flex flex-col justify-center">
+              <Reveal>
+                <span className="label-tracking text-[#D1893D] mb-6 block">Structural Pillars</span>
+                <h2 className="title-section mb-8">Six pathways. One movement.</h2>
+                <p className="text-body-large text-[rgba(245,242,233,0.7)]">
+                  Our operational framework is designed to dismantle stigma and build capacity simultaneously.
+                </p>
+              </Reveal>
+            </div>
+
+            <div className="flex flex-col gap-0 border-t border-[rgba(245,242,233,0.1)]">
+              {[
+                { n: "01", t: "Advocacy", d: "Championing mental health policy reform." },
+                { n: "02", t: "Research", d: "Generating evidence that drives better outcomes." },
+                { n: "03", t: "Education", d: "Building literacy in schools and institutions." },
+                { n: "04", t: "Youth Empowerment", d: "Positioning young Africans as changemakers." },
+                { n: "05", t: "Partnerships", d: "Connecting governments, NGOs, and communities." },
+                { n: "06", t: "Community Interventions", d: "Bringing resources closer to the people." }
+              ].map((item, idx) => (
+                <Reveal key={item.n} delay={idx * 100} className="border-b border-[rgba(245,242,233,0.1)] py-8 group">
+                  <div className="grid grid-cols-12 items-baseline">
+                    <span className="col-span-2 md:col-span-3 font-serif text-xl md:text-2xl text-[rgba(245,242,233,0.3)] group-hover:text-[#D1893D] transition-colors">{item.n}</span>
+                    <div className="col-span-10 md:col-span-9">
+                      <h4 className="font-serif text-2xl md:text-3xl mb-2">{item.t}</h4>
+                      <p className="text-sm md:text-base font-sans font-light text-[rgba(245,242,233,0.5)]">{item.d}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
 
       {/* ============================================================ */}
-      {/* THE CHALLENGE & APPROACH (Large Typographic Split)           */}
+      {/* 5. PARTICIPATION - The Final Frame                           */}
       {/* ============================================================ */}
-      <section className={`py-40 ${container} bg-[#0a0a0c]`}>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32">
-          <div>
-            <h2 className="text-[11px] uppercase tracking-widest text-[#b48aff] font-bold mb-6">The Context</h2>
-            <h3 className="text-3xl md:text-5xl font-bold text-[#f4f2ee] tracking-tight leading-tight">
-              Mental health is a public health priority that requires culturally sensitive, local solutions.
-            </h3>
-          </div>
-          <div className="flex flex-col justify-center">
-            <p className="text-xl text-gray-400 font-light leading-relaxed mb-8">
-              Across Africa, mental health support is often hindered by stigma, lack of resources, and systemic gaps. 
-            </p>
-            <p className="text-gray-500 leading-relaxed mb-10">
-              PAMHO operates at the intersection of grassroots advocacy and institutional reform. We collaborate with professionals, local advocates, and communities to build resilient support networks and advocate for systemic change.
-            </p>
-            <Link to="/about" className="inline-flex items-center text-[#8442fa] font-semibold hover:text-[#b48aff] transition-colors">
-              Read our organizational philosophy
-              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      <section className="relative h-[70vh] min-h-[600px] flex items-center justify-center">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/advocacy_group.png" 
+            alt="Ambassador Network" 
+            className="w-full h-full object-cover filter brightness-[0.25] saturate-0"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#030303] via-transparent to-[#030303]"></div>
+        </div>
+        
+        <Reveal className="relative z-10 text-center flex flex-col items-center">
+          <h2 className="title-section mb-12">The work is structural.<br/>The time is now.</h2>
+          <div className="flex flex-wrap justify-center gap-6">
+            <Link to="/ambassadors" className="btn-cinematic !border-[#D1893D] !text-[#D1893D] hover:!text-[#030303]">
+              Become an Ambassador
+            </Link>
+            <Link to="/donate" className="btn-cinematic">
+              Fund the Mission
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      {/* ============================================================ */}
-      {/* WHAT WE DO (Editorial Grid)                                  */}
-      {/* ============================================================ */}
-      <section className={`py-32 ${container} bg-[#111115] border-y border-[#8442fa]/10`}>
-        <div className="mb-24 md:mb-32 flex flex-col md:flex-row md:items-end justify-between gap-8">
-           <div>
-             <h2 className="text-[11px] uppercase tracking-widest text-[#b48aff] font-bold mb-4">Our Work</h2>
-             <h3 className="text-4xl md:text-5xl font-bold text-[#f4f2ee] tracking-tight">Ecosystem of Action</h3>
-           </div>
-           <p className="text-gray-400 max-w-sm text-sm leading-relaxed">
-             We do not rely on a single approach. True systemic change requires education, advocacy, and direct community empowerment working simultaneously.
-           </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Pillar 1 */}
-          <Link to="/institute" className="group block bg-[#140b1e] border border-[#8442fa]/20 rounded-sm p-10 hover:bg-[#1a1025] hover:border-[#8442fa]/40 transition-all duration-300">
-             <div className="w-12 h-12 bg-[#8442fa]/10 rounded-sm flex items-center justify-center mb-10 border border-[#8442fa]/30 group-hover:bg-[#8442fa]/20 transition-colors">
-                <svg className="w-6 h-6 text-[#b48aff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-             </div>
-             <h4 className="text-2xl font-bold text-[#f4f2ee] mb-4">PAMHO Institute</h4>
-             <p className="text-gray-400 text-sm leading-relaxed mb-8">
-               Our dedicated digital learning environment providing evidence-based curricula for professionals and advocates.
-             </p>
-             <span className="text-[#8442fa] font-mono text-xs uppercase tracking-widest group-hover:text-[#b48aff] transition-colors">Enter Platform &rarr;</span>
-          </Link>
-
-          {/* Pillar 2 */}
-          <Link to="/programs" className="group block bg-[#140b1e] border border-[#8442fa]/20 rounded-sm p-10 hover:bg-[#1a1025] hover:border-[#8442fa]/40 transition-all duration-300">
-             <div className="w-12 h-12 bg-[#8442fa]/10 rounded-sm flex items-center justify-center mb-10 border border-[#8442fa]/30 group-hover:bg-[#8442fa]/20 transition-colors">
-                <svg className="w-6 h-6 text-[#b48aff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-             </div>
-             <h4 className="text-2xl font-bold text-[#f4f2ee] mb-4">Programs & Advocacy</h4>
-             <p className="text-gray-400 text-sm leading-relaxed mb-8">
-               On-the-ground initiatives and advocacy campaigns designed for regional impact, including our flagship Pan-African Mental Health Conversation.
-             </p>
-             <span className="text-[#8442fa] font-mono text-xs uppercase tracking-widest group-hover:text-[#b48aff] transition-colors">View Programs &rarr;</span>
-          </Link>
-
-          {/* Pillar 3 */}
-          <Link to="/ambassadors" className="group block bg-[#140b1e] border border-[#8442fa]/20 rounded-sm p-10 hover:bg-[#1a1025] hover:border-[#8442fa]/40 transition-all duration-300">
-             <div className="w-12 h-12 bg-[#8442fa]/10 rounded-sm flex items-center justify-center mb-10 border border-[#8442fa]/30 group-hover:bg-[#8442fa]/20 transition-colors">
-                <svg className="w-6 h-6 text-[#b48aff]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-             </div>
-             <h4 className="text-2xl font-bold text-[#f4f2ee] mb-4">Community Network</h4>
-             <p className="text-gray-400 text-sm leading-relaxed mb-8">
-               A growing continental network of ambassadors and mobilizers driving change within their local contexts.
-             </p>
-             <span className="text-[#8442fa] font-mono text-xs uppercase tracking-widest group-hover:text-[#b48aff] transition-colors">Meet the Network &rarr;</span>
-          </Link>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* NETWORK / SCALE (Structural Viz)                             */}
-      {/* ============================================================ */}
-      <section className={`py-32 ${container} bg-[#0a0a0c]`}>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
-           {/* Structural Community Network Visual */}
-           <div className="aspect-square bg-[#111115] border border-[#8442fa]/20 rounded-sm p-8 relative flex flex-col justify-between overflow-hidden order-2 md:order-1">
-              <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(rgba(132, 66, 250, 0.1) 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
-              
-              <div className="relative z-10 text-[11px] font-mono text-gray-500 uppercase tracking-widest bg-[#111115] self-start px-2 -ml-2">Distributed Architecture</div>
-              
-              <div className="relative z-10 flex-1 flex flex-col justify-center space-y-8 max-w-sm mr-auto ml-4 mt-8">
-                <div className="flex items-center gap-6 relative">
-                  <div className="absolute left-full top-1/2 w-24 h-px bg-[#8442fa]/30 -translate-y-1/2 ml-6"></div>
-                  <div className="text-sm font-semibold text-[#f4f2ee] w-32 text-right">Professionals</div>
-                  <div className="h-px w-16 bg-gradient-to-l from-[#8442fa]/40 to-transparent"></div>
-                  <div className="w-2.5 h-2.5 bg-[#8442fa] rounded-sm ring-4 ring-[#8442fa]/20"></div>
-                </div>
-                
-                <div className="flex items-center gap-6 relative">
-                  <div className="absolute left-full top-1/2 w-12 h-px bg-[#b48aff]/30 -translate-y-1/2 ml-6"></div>
-                  <div className="absolute left-full top-1/2 h-20 w-px bg-[#8442fa]/30 -translate-y-full ml-[4.5rem]"></div>
-                  <div className="text-sm font-semibold text-[#f4f2ee] w-32 text-right">Advocates</div>
-                  <div className="h-px w-16 bg-gradient-to-l from-[#b48aff]/40 to-transparent"></div>
-                  <div className="w-2.5 h-2.5 bg-[#b48aff] rounded-sm ring-4 ring-[#b48aff]/20"></div>
-                </div>
-                
-                <div className="flex items-center gap-6 relative">
-                  <div className="absolute left-full top-1/2 w-16 h-px bg-gray-500/30 -translate-y-1/2 ml-6"></div>
-                  <div className="absolute left-full top-1/2 h-16 w-px bg-[#b48aff]/30 -translate-y-full ml-[3.5rem]"></div>
-                  <div className="text-sm text-gray-400 w-32 text-right">Partners</div>
-                  <div className="h-px w-16 bg-gradient-to-l from-gray-500/40 to-transparent"></div>
-                  <div className="w-2 h-2 bg-gray-500 rounded-sm"></div>
-                </div>
-              </div>
-           </div>
-
-           <div className="order-1 md:order-2">
-             <h2 className="text-4xl md:text-5xl font-bold text-[#f4f2ee] mb-8 leading-tight">Systemic reach.<br/>Local relevance.</h2>
-             <p className="text-gray-400 text-lg leading-relaxed mb-10">
-               We do not believe in top-down solutions. PAMHO acts as an infrastructure layer, connecting and equipping the people already doing the work on the ground.
-             </p>
-             <div className="grid grid-cols-2 gap-8">
-               <div className="rule-top pt-4">
-                 <div className="text-sm text-[#f4f2ee] font-semibold mb-2">Membership</div>
-                 <div className="text-xs text-gray-500 leading-relaxed">Join a professional and advocacy network spanning the continent.</div>
-                 <Link to="/membership" className="text-[10px] uppercase tracking-widest text-[#8442fa] font-bold mt-4 inline-block hover:text-[#b48aff]">Join &rarr;</Link>
-               </div>
-               <div className="rule-top pt-4">
-                 <div className="text-sm text-[#f4f2ee] font-semibold mb-2">Partnerships</div>
-                 <div className="text-xs text-gray-500 leading-relaxed">Collaborate with us to fund research and implement programs.</div>
-                 <Link to="/membership" className="text-[10px] uppercase tracking-widest text-[#8442fa] font-bold mt-4 inline-block hover:text-[#b48aff]">Partner &rarr;</Link>
-               </div>
-             </div>
-           </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* FINAL CTA (Institutional Action)                             */}
-      {/* ============================================================ */}
-      <section className={`py-40 ${container} text-center relative overflow-hidden bg-[#1a1025] border-t border-[#8442fa]/30`}>
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
-        
-        <h2 className="text-[11px] uppercase tracking-widest text-[#b48aff] font-bold mb-6 relative z-10">Get Involved</h2>
-        <h3 className="text-4xl md:text-6xl font-bold text-[#f4f2ee] tracking-tight mb-8 relative z-10">Support the mission.</h3>
-        <p className="text-[#b48aff] text-lg max-w-xl mx-auto mb-12 relative z-10 font-medium">
-          Whether you are a professional, an advocate, or an organization, your contribution drives mental health progress in Africa.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
-          <Link to="/donate" className="btn-primary text-sm font-bold px-10 py-4 rounded-sm shadow-[0_4px_24px_-4px_rgba(132,66,250,0.5)]">Make a Donation</Link>
-          <Link to="/contact?type=general" className="btn-secondary text-sm font-bold px-10 py-4 rounded-sm bg-[#111115]/50">Contact Us</Link>
-        </div>
-      </section>
     </div>
   )
 }

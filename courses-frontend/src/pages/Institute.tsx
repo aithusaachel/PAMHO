@@ -1,233 +1,100 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import SEO from '../components/SEO';
-
-interface Course {
-  id: number;
-  slug: string;
-  title: string;
-  short_description: string;
-  thumbnail: string;
-  estimated_duration: string;
-  difficulty: string;
-}
-
-function CourseInterfaceDemo() {
-  return (
-    <div className="ui-frame w-full flex flex-col md:flex-row h-[500px]">
-      <div className="ui-sidebar w-full md:w-72 flex flex-col p-6 shrink-0 bg-[#0a0a0c]">
-        <div className="mb-8">
-          <h4 className="text-[11px] uppercase tracking-widest text-[#b48aff] mb-2">Current Module</h4>
-          <h3 className="text-sm font-semibold text-[#f4f2ee]">Cultural Contexts of Mental Health</h3>
-        </div>
-        
-        <div className="space-y-1">
-          <div className="py-3 px-4 flex gap-4 text-sm text-gray-400 border-l-2 border-transparent">
-            <span className="text-[10px] mt-1 font-mono">01</span>
-            <span>Historical Perspectives</span>
-          </div>
-          <div className="ui-active-item py-3 px-4 flex gap-4 text-sm text-[#f4f2ee]">
-            <span className="text-[10px] mt-1 font-mono text-[#b48aff]">02</span>
-            <span>Stigma and Social Dynamics</span>
-          </div>
-          <div className="py-3 px-4 flex gap-4 text-sm text-gray-600 border-l-2 border-transparent">
-            <span className="text-[10px] mt-1 font-mono">03</span>
-            <span>Community Interventions</span>
-          </div>
-        </div>
-
-        <div className="mt-auto pt-6 border-t border-white/5">
-          <div className="flex justify-between text-[10px] font-mono text-gray-500 mb-2">
-            <span>PROGRESS</span>
-            <span className="text-[#b48aff]">45%</span>
-          </div>
-          <div className="ui-progress-track">
-            <div className="ui-progress-fill" style={{ width: '45%' }}></div>
-          </div>
-        </div>
-      </div>
-      
-      <div className="flex-1 bg-[#111115] p-6 md:p-10 flex flex-col">
-        <div className="flex-1 bg-[#140b1e] border border-[#8442fa]/20 flex flex-col items-center justify-center relative overflow-hidden group">
-          <div className="absolute inset-0 opacity-20 bg-cover bg-center mix-blend-luminosity" style={{ backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCCJQATcOhqFYI3w4vk-o68YcNbkvs-VWQHW2qKzQmbAMHBm9BVTglSHNYAb4rTnYb_1sgjGz9toc-jmCGWW7K2wKUph69ShqMQD5rZlaNo1eDcwsjGevZd5fK5Yju92kQnczY4tB4IjUCgiAqhnPcImDjmMLyQhWEoQIXSR4e7Lj8ketxPBntmPAYLN7yZLZSIMqtqvTG_ScBBfheY0RVZ1KxPK9VrJo5cXSMnOFwrWNR52tz03JeP")' }}></div>
-          <div className="absolute inset-0 bg-[#140b1e]/60"></div>
-          <button className="relative z-10 w-16 h-16 bg-[#8442fa] text-white rounded-sm flex items-center justify-center transition-transform hover:bg-[#985eff]">
-            <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-          </button>
-        </div>
-        <div className="mt-6 flex justify-between items-start">
-          <div>
-            <h2 className="text-xl font-bold text-[#f4f2ee]">Stigma and Social Dynamics</h2>
-            <p className="text-sm text-gray-500 mt-1">Instructor: Dr. ABC</p>
-          </div>
-          <div className="tag-outline border-[#8442fa]/30 text-[#b48aff]">Video • 24 Min</div>
-        </div>
-      </div>
-    </div>
-  )
-}
+import { Link } from 'react-router-dom'
+import SEO from '../components/SEO'
+import { Reveal } from '../components/Reveal'
 
 export default function Institute() {
-  const container = 'w-full max-w-[1536px] mx-auto px-6 sm:px-12 lg:px-20'
-  const [courses, setCourses] = useState<Course[]>([]);
-  
-  useEffect(() => {
-    fetch('/api/v1/courses/')
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data)) {
-          setCourses(data);
-        } else if (data.results) {
-          setCourses(data.results);
-        }
-      })
-      .catch(err => console.error("Failed to load courses", err));
-  }, []);
-
   return (
-    <div className="flex flex-col">
-      <SEO title="PAMHO Institute | Professional Mental Health Education" description="Structured mental health education and professional development courses provided by PAMHO." />
+    <div className="flex flex-col min-h-screen relative bg-[#030303]">
+      <SEO title="PAMHO Institute | PAMHO" />
+      <div className="grain-overlay"></div>
+
       {/* ============================================================ */}
-      {/* TYPOGRAPHIC HERO                                             */}
+      {/* 1. THE OPENING                                               */}
       {/* ============================================================ */}
-      <section className={`pt-40 pb-32 ${container} relative bg-[#0a0a0c]`}>
-        <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-bl from-[#140b1e] via-transparent to-transparent pointer-events-none -z-10"></div>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-          <div className="lg:col-span-7 flex flex-col justify-center">
-            <div className="flex gap-3 mb-8">
-               <div className="tag-outline self-start text-[#b48aff] border-[#8442fa]/30">PAMHO Ecosystem</div>
-               <div className="tag-outline self-start text-gray-400 border-white/10">Learning Platform</div>
+      <section className="pt-48 pb-16 md:pt-64 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
+        <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
+          <Reveal>
+            <span className="label-tracking text-[#D1893D] mb-8 block">Education Platform</span>
+            <h1 className="title-hero mb-8">
+              Knowledge as a <span className="italic text-[rgba(245,242,233,0.7)]">tool for change.</span>
+            </h1>
+            <p className="text-body-large text-[rgba(245,242,233,0.6)] font-light leading-relaxed mb-12">
+              The PAMHO Institute provides evidence-based, culturally contextualized curricula for professionals, advocates, and students across the continent.
+            </p>
+            <div className="flex flex-wrap justify-center gap-6">
+              <Link to="/institute/catalog" className="btn-cinematic !border-[#D1893D] !text-[#D1893D] hover:!text-[#030303]">
+                Browse Catalog
+              </Link>
+              <Link to="/login" className="btn-cinematic">
+                Sign In
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 2. THE CURRICULUM OVERVIEW                                   */}
+      {/* ============================================================ */}
+      <section className="py-24 md:py-32 bg-[#110E0C]">
+        <div className="canvas-container">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 lg:gap-24 items-center">
+            
+            <div className="md:col-span-6 order-2 md:order-1 flex flex-col gap-12 border-t md:border-t-0 md:border-r border-[rgba(245,242,233,0.05)] pt-12 md:pt-0 md:pr-16">
+              <Reveal>
+                <span className="label-tracking text-[#D1893D] mb-4 block">Academic Standard</span>
+                <h3 className="font-serif text-4xl mb-6">Rigorous Curriculum</h3>
+                <p className="font-sans font-light text-[rgba(245,242,233,0.6)] leading-relaxed text-lg mb-8">
+                  Our courses are developed in collaboration with mental health professionals to ensure academic rigor while remaining deeply relevant to the African context.
+                </p>
+                
+                <ul className="flex flex-col gap-6">
+                  <li className="grid grid-cols-12 items-start group">
+                    <span className="col-span-2 font-serif text-[#D1893D] opacity-50">I</span>
+                    <span className="col-span-10 font-sans font-light text-[rgba(245,242,233,0.8)] group-hover:text-[#F5F2E9] transition-colors">Self-paced learning modules designed for active professionals.</span>
+                  </li>
+                  <li className="grid grid-cols-12 items-start group">
+                    <span className="col-span-2 font-serif text-[#D1893D] opacity-50">II</span>
+                    <span className="col-span-10 font-sans font-light text-[rgba(245,242,233,0.8)] group-hover:text-[#F5F2E9] transition-colors">Case studies rooted in practical, pan-African scenarios.</span>
+                  </li>
+                  <li className="grid grid-cols-12 items-start group">
+                    <span className="col-span-2 font-serif text-[#D1893D] opacity-50">III</span>
+                    <span className="col-span-10 font-sans font-light text-[rgba(245,242,233,0.8)] group-hover:text-[#F5F2E9] transition-colors">Verified certification upon completion of core tracks.</span>
+                  </li>
+                </ul>
+              </Reveal>
+            </div>
+
+            <div className="md:col-span-6 order-1 md:order-2">
+              <Reveal delay={200}>
+                <div className="aspect-square w-full overflow-hidden relative">
+                  <img src="/institute_learning.png" alt="Clinical Education in Africa" className="img-cinematic absolute inset-0 filter brightness-[0.6] saturate-[0.8]" />
+                  <div className="absolute inset-0 border border-[rgba(245,242,233,0.1)] m-4 pointer-events-none"></div>
+                </div>
+              </Reveal>
             </div>
             
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold text-[#f4f2ee] tracking-tight leading-[1.05]">
-              Structured education.<br />
-              <span className="text-[#8442fa]">For African development.</span>
-            </h1>
-            <p className="mt-10 text-lg md:text-xl text-gray-400 max-w-2xl leading-relaxed font-light">
-              We provide practical learning and professional development through a growing catalog of structured courses. Our platform bridges the gap between theoretical knowledge and real-world application.
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 3. CALL TO ACTION                                            */}
+      {/* ============================================================ */}
+      <section className="py-32 md:py-48 bg-[#030303] text-center border-t border-[rgba(245,242,233,0.05)]">
+        <div className="canvas-container flex flex-col items-center">
+          <Reveal>
+            <h2 className="title-section mb-12">Start learning today.</h2>
+            <p className="text-body-large text-[rgba(245,242,233,0.5)] font-light mb-16 max-w-2xl mx-auto">
+              Whether you are an aspiring ambassador, a community health worker, or a mental health professional, the PAMHO Institute provides the resources to deepen your impact.
             </p>
-            <div className="mt-12 flex items-center gap-6">
-              <a href="#curriculum" className="btn-primary text-sm font-bold px-8 py-4 rounded-sm shadow-[0_4px_20px_-5px_rgba(132,66,250,0.4)]">View Catalog</a>
-              <a href="#platform" className="text-sm font-medium text-gray-400 hover:text-[#b48aff] transition-colors">Explore the platform &rarr;</a>
-            </div>
-          </div>
-          
-          <div className="lg:col-span-5 h-full hidden lg:flex items-center justify-end relative">
-            <div className="w-full aspect-square flex items-center justify-center relative">
-              <div className="absolute inset-0 border border-[#8442fa]/5 rounded-full scale-100"></div>
-              <div className="absolute inset-0 border border-[#8442fa]/10 rounded-full scale-75"></div>
-              <div className="absolute inset-0 border border-[#8442fa]/20 rounded-full scale-50"></div>
-              <div className="absolute inset-0 border border-[#8442fa]/40 rounded-full scale-[0.25]"></div>
-
-              <div className="absolute top-1/2 left-0 w-full h-px bg-[#8442fa]/10 -translate-y-1/2"></div>
-              <div className="absolute left-1/2 top-0 h-full w-px bg-[#8442fa]/10 -translate-x-1/2"></div>
-
-              <div className="relative z-10 bg-[#0a0a0c] p-6 rounded-full border border-[#8442fa]/30 shadow-[0_0_40px_rgba(132,66,250,0.15)]">
-                <img src="/pamho-logo.png" alt="PAMHO Mark" className="w-48 h-48 drop-shadow-md" />
-              </div>
-            </div>
-          </div>
+            <Link to="/register" className="btn-cinematic">
+              Create Account
+            </Link>
+          </Reveal>
         </div>
       </section>
 
-      {/* ============================================================ */}
-      {/* PLATFORM DEMONSTRATION                                       */}
-      {/* ============================================================ */}
-      <section id="platform" className={`py-32 ${container} bg-[#111115]`}>
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
-          <h2 className="text-3xl md:text-5xl font-bold text-[#f4f2ee] tracking-tight max-w-2xl leading-tight">
-            A focused environment for <br />structured learning.
-          </h2>
-          <p className="text-gray-400 max-w-sm text-sm leading-relaxed">
-            The platform is engineered to remove distraction. Sequential pathways, integrated discussions, and verifiable progression.
-          </p>
-        </div>
-        
-        <CourseInterfaceDemo />
-      </section>
-
-      {/* ============================================================ */}
-      {/* CURRICULUM CATALOG (Intentional Empty State)                 */}
-      {/* ============================================================ */}
-      <section id="curriculum" className={`py-40 ${container} bg-[#140b1e] border-y border-[#8442fa]/10`}>
-        <div className="mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-          <div>
-            <h2 className="text-[11px] uppercase tracking-widest text-[#b48aff] font-bold mb-4">Course Catalog</h2>
-            <h3 className="text-4xl font-bold text-[#f4f2ee]">Featured Curricula</h3>
-          </div>
-          <div className="text-sm text-gray-500 font-mono uppercase tracking-widest">
-            Learning Opportunities
-          </div>
-        </div>
-
-        {courses.length === 0 ? (
-          <div className="w-full bg-[#111115] border border-[#8442fa]/10 rounded-sm p-16 md:p-24 flex flex-col items-center justify-center text-center shadow-[0_0_50px_rgba(132,66,250,0.05)]">
-             <div className="w-16 h-16 rounded-full border border-[#8442fa]/20 bg-[#140b1e] flex items-center justify-center mb-6">
-                <svg className="w-6 h-6 text-[#8442fa]/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-             </div>
-             <h4 className="text-2xl font-bold text-[#f4f2ee] mb-4">Courses will appear here as they are published by PAMHO.</h4>
-             <p className="text-gray-400 text-lg leading-relaxed max-w-xl">
-               Our educational catalog is expanding. New courses, modules, and professional development programs will be listed as soon as they become available.
-             </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {courses.map(course => (
-              <Link 
-                key={course.id} 
-                to={`/institute/courses/${course.slug}`}
-                className="group flex flex-col bg-[#111115] border border-[#8442fa]/10 rounded-sm overflow-hidden hover:border-[#8442fa]/30 transition-colors"
-              >
-                {course.thumbnail ? (
-                  <div className="h-48 bg-[#140b1e] relative overflow-hidden">
-                    <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity mix-blend-luminosity" />
-                  </div>
-                ) : (
-                  <div className="h-48 bg-[#140b1e] border-b border-[#8442fa]/10 flex items-center justify-center">
-                    <svg className="w-10 h-10 text-[#8442fa]/20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                  </div>
-                )}
-                <div className="p-6 flex flex-col flex-1">
-                  <div className="flex gap-2 mb-3">
-                    {course.difficulty && (
-                      <span className="text-[10px] font-mono text-[#b48aff] bg-[#8442fa]/10 px-2 py-1 rounded-sm uppercase tracking-wider">
-                        {course.difficulty}
-                      </span>
-                    )}
-                    {course.estimated_duration && (
-                      <span className="text-[10px] font-mono text-gray-400 bg-white/5 px-2 py-1 rounded-sm uppercase tracking-wider">
-                        {course.estimated_duration}
-                      </span>
-                    )}
-                  </div>
-                  <h4 className="text-xl font-bold text-[#f4f2ee] mb-2 group-hover:text-[#b48aff] transition-colors">{course.title}</h4>
-                  <p className="text-sm text-gray-500 line-clamp-3 mb-6 flex-1">
-                    {course.short_description || "No description provided."}
-                  </p>
-                  <div className="mt-auto pt-4 border-t border-white/5 text-sm font-medium text-gray-400 group-hover:text-[#f4f2ee] transition-colors flex items-center justify-between">
-                    <span>View Course</span>
-                    <span>&rarr;</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* ============================================================ */}
-      {/* FINAL CTA                                                    */}
-      {/* ============================================================ */}
-      <section className={`py-40 ${container} text-center relative overflow-hidden bg-[#1a1025] border-t border-[#8442fa]/30`}>
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
-        
-        <h2 className="text-4xl md:text-6xl font-bold text-[#f4f2ee] tracking-tight mb-8 relative z-10">Prepare to learn.</h2>
-        <p className="text-[#b48aff] text-lg max-w-xl mx-auto mb-12 relative z-10 font-medium">Create a student account to enroll in upcoming evidence-based curricula and join our learning network.</p>
-        <div className="flex flex-col sm:flex-row gap-6 justify-center relative z-10">
-          <Link to="/register" className="btn-primary text-sm font-bold px-10 py-4 rounded-sm shadow-[0_4px_24px_-4px_rgba(132,66,250,0.5)]">Create Account</Link>
-        </div>
-      </section>
     </div>
   )
 }

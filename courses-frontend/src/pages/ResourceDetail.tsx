@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import SEO from '../components/SEO';
+import { Reveal } from '../components/Reveal';
 
 export default function ResourceDetail() {
   const { slug } = useParams();
   const [resource, setResource] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const container = 'w-full max-w-[1536px] mx-auto px-6 sm:px-12 lg:px-20';
 
   useEffect(() => {
     const fetchResource = async () => {
@@ -25,37 +26,65 @@ export default function ResourceDetail() {
     fetchResource();
   }, [slug]);
 
-  if (loading) return <div className="min-h-screen bg-[#0a0a0c] pt-48 text-center text-neutral-500">Loading resource...</div>;
-  if (error || !resource) return <div className="min-h-screen bg-[#0a0a0c] pt-48 text-center text-red-500">Resource not found.</div>;
+  if (loading) return (
+    <div className="min-h-screen bg-[#030303] pt-48 text-center">
+      <span className="font-serif text-2xl text-[rgba(245,242,233,0.4)] italic">Retrieving document...</span>
+    </div>
+  );
+  if (error || !resource) return (
+    <div className="min-h-screen bg-[#030303] pt-48 text-center">
+      <span className="font-serif text-2xl text-[#D1893D] italic">Document not found or access restricted.</span>
+    </div>
+  );
 
   return (
-    <div className="flex flex-col bg-[#0a0a0c] min-h-screen">
-      <section className={`pt-48 pb-20 ${container} relative`}>
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#140b1e] blur-[150px] rounded-full pointer-events-none -z-10"></div>
-        
-        <div className="max-w-4xl relative z-10">
-          <Link to="/resources" className="text-[#b48aff] hover:text-white transition-colors text-sm mb-8 inline-block font-mono uppercase tracking-widest">&larr; Back to Library</Link>
-          <div className="tag-outline self-start mb-6 text-[#b48aff] border-[#8442fa]/30 uppercase tracking-widest inline-block text-xs">
-            {resource.resource_type.replace('_', ' ')}
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#f4f2ee] tracking-tight leading-tight mb-8">
-            {resource.title}
-          </h1>
-          {resource.author_name && (
-            <p className="text-gray-400 font-mono text-sm mb-6">By {resource.author_name}</p>
-          )}
-          <p className="text-xl text-gray-400 font-light leading-relaxed max-w-3xl mb-12">
-            {resource.excerpt}
-          </p>
+    <div className="flex flex-col bg-[#030303] min-h-screen relative">
+      <SEO title={`${resource.title} | PAMHO`} />
+      <div className="grain-overlay"></div>
+
+      <section className="pt-48 pb-16 md:pt-64 md:pb-32 border-b border-[rgba(245,242,233,0.05)]">
+        <div className="canvas-container max-w-4xl">
+          <Reveal>
+            <Link to="/resources" className="label-tracking text-[rgba(245,242,233,0.4)] hover:text-[#F5F2E9] mb-12 inline-block transition-colors border-b border-transparent hover:border-[#F5F2E9] pb-1">
+              &larr; Back to Index
+            </Link>
+            
+            <span className="label-tracking text-[#D1893D] mb-6 block">
+              {resource.resource_type?.replace('_', ' ') || 'Article'}
+            </span>
+            
+            <h1 className="title-hero mb-8 text-left">
+              {resource.title}
+            </h1>
+            
+            <div className="flex flex-col gap-2 mb-12">
+              {resource.author_name && (
+                <p className="label-tracking text-[rgba(245,242,233,0.6)]">
+                  Primary Investigator: <span className="text-[#F5F2E9]">{resource.author_name}</span>
+                </p>
+              )}
+              {resource.created_at && (
+                <p className="label-tracking text-[rgba(245,242,233,0.4)]">
+                  Declassified: {new Date(resource.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+              )}
+            </div>
+            
+            <p className="text-body-large text-[rgba(245,242,233,0.8)] font-light leading-relaxed">
+              {resource.excerpt || resource.summary}
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      <section className={`py-20 ${container}`}>
-        <div className="max-w-3xl border-t border-[#8442fa]/20 pt-16">
-          <div 
-            className="prose prose-invert prose-lg prose-p:text-gray-400 prose-headings:text-[#f4f2ee] prose-a:text-[#b48aff]"
-            dangerouslySetInnerHTML={{ __html: resource.content || 'No detailed content available.' }}
-          />
+      <section className="py-24 md:py-32 bg-[#110E0C]">
+        <div className="canvas-container max-w-4xl">
+          <Reveal>
+            <div 
+              className="prose prose-invert prose-lg md:prose-xl prose-p:text-[rgba(245,242,233,0.6)] prose-headings:font-serif prose-headings:text-[#F5F2E9] prose-headings:font-light prose-a:text-[#D1893D] prose-a:no-underline hover:prose-a:text-[#F5F2E9] prose-strong:text-[#F5F2E9] max-w-none leading-relaxed font-sans font-light"
+              dangerouslySetInnerHTML={{ __html: resource.content || 'No detailed content available.' }}
+            />
+          </Reveal>
         </div>
       </section>
     </div>

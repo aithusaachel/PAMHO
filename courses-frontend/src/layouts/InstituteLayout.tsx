@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom'
-import InstituteNavbar from '../components/InstituteNavbar'
+import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 export default function InstituteLayout() {
   return (
-    <div className="min-h-screen flex flex-col selection:bg-[#8442fa]/30 selection:text-[#f4f2ee]">
-      <InstituteNavbar />
+    <div className="min-h-screen flex flex-col bg-[#030303]">
+      <Navbar />
       <main className="flex-1 flex flex-col">
         <Outlet />
       </main>

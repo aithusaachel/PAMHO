@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import SEO from '../components/SEO';
+import { Reveal } from '../components/Reveal';
 
 interface Lesson {
   id: number;
@@ -84,7 +86,6 @@ export default function CourseDetail() {
       });
 
       if (response.ok) {
-        // Refresh course to show "Continue Learning"
         const updatedCourseRes = await fetch(`/api/v1/courses/${slug}/`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -103,90 +104,155 @@ export default function CourseDetail() {
   };
 
   if (loading) {
-    return <div className="min-h-screen bg-[#FDFBF7] flex items-center justify-center text-neutral-500">Loading course...</div>;
+    return (
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center">
+        <span className="font-serif text-2xl text-[rgba(245,242,233,0.4)] italic">Loading course details...</span>
+      </div>
+    );
   }
 
   if (!course) {
-    return <div className="min-h-screen bg-[#FDFBF7] flex items-center justify-center text-neutral-500">Course not found.</div>;
+    return (
+      <div className="min-h-screen bg-[#030303] flex items-center justify-center">
+        <span className="font-serif text-2xl text-[rgba(245,242,233,0.4)] italic">Course not found.</span>
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] pt-24 pb-12">
-      {/* Course Header */}
-      <div className="bg-[#1A1A1A] text-white py-16 px-6 sm:px-12 lg:px-20 border-b border-neutral-800">
-        <div className="max-w-[1536px] mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-          <div className="lg:col-span-2">
-            <div className="flex gap-3 mb-6">
-               {course.difficulty && <div className="tag-outline text-[#b48aff] border-[#8442fa]/30">{course.difficulty}</div>}
-               {course.estimated_duration && <div className="tag-outline text-gray-400 border-white/10">{course.estimated_duration}</div>}
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-bold mb-6 text-[#f4f2ee]">{course.title}</h1>
-            <p className="text-lg text-gray-400 leading-relaxed max-w-2xl">
-              {course.description || "No detailed description available."}
-            </p>
-          </div>
-          
-          <div className="bg-[#242424] p-8 border border-[#333] rounded-sm text-center shadow-2xl">
-             {course.is_enrolled ? (
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2">You are enrolled</h3>
-                  <p className="text-sm text-gray-400 mb-6">Pick up where you left off in this course.</p>
-                  <Link to={`/institute/learn/${course.slug}`} className="btn-primary w-full block py-3 rounded-sm font-bold text-sm">
-                    Continue Learning
-                  </Link>
-                </div>
-             ) : (
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-2">Ready to start?</h3>
-                  <p className="text-sm text-gray-400 mb-6">Enroll now to access the full curriculum and track your progress.</p>
-                  <button 
-                    onClick={handleEnroll} 
-                    disabled={enrolling}
-                    className="btn-primary w-full block py-3 rounded-sm font-bold text-sm disabled:opacity-50"
-                  >
-                    {enrolling ? 'Enrolling...' : 'Enroll Now'}
-                  </button>
-                </div>
-             )}
-          </div>
-        </div>
-      </div>
+    <div className="flex flex-col min-h-screen relative bg-[#030303]">
+      <SEO title={`${course.title} | PAMHO Institute`} />
+      <div className="grain-overlay"></div>
 
-      {/* Curriculum */}
-      <div className="max-w-[1536px] mx-auto px-6 sm:px-12 lg:px-20 py-16">
-        <h2 className="text-2xl font-bold text-[#1A1A1A] mb-8">Course Curriculum</h2>
-        
-        <div className="space-y-6 max-w-4xl">
-          {course.modules.length === 0 ? (
-            <p className="text-neutral-500">Modules have not been published yet.</p>
-          ) : (
-            course.modules.map((module, mIdx) => (
-              <div key={module.id} className="bg-white border border-neutral-200 rounded-sm shadow-sm overflow-hidden">
-                <div className="p-6 bg-[#FAFAFA] border-b border-neutral-200">
-                  <h3 className="text-lg font-bold text-[#1A1A1A]">Module {mIdx + 1}: {module.title}</h3>
-                  {module.description && <p className="text-sm text-neutral-600 mt-2">{module.description}</p>}
-                </div>
-                <div className="divide-y divide-neutral-100">
-                  {module.lessons.map((lesson, lIdx) => (
-                    <div key={lesson.id} className="p-4 px-6 flex justify-between items-center hover:bg-neutral-50 transition-colors">
-                      <div className="flex items-center gap-4">
-                        <span className="text-xs font-mono text-neutral-400 w-6">{lIdx + 1}.</span>
-                        <span className="text-sm font-medium text-neutral-800">{lesson.title}</span>
-                      </div>
-                      <div className="flex gap-4 items-center">
-                        <span className="text-xs uppercase tracking-wider text-[#b48aff] bg-[#8442fa]/5 px-2 py-1 rounded-sm font-mono">
-                          {lesson.lesson_type}
-                        </span>
-                        {lesson.duration && <span className="text-xs text-neutral-400 font-mono">{lesson.duration}m</span>}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+      {/* ============================================================ */}
+      {/* 1. THE OPENING                                               */}
+      {/* ============================================================ */}
+      <section className="pt-48 pb-16 md:pt-64 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
+        <div className="canvas-container max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+          
+          <div className="lg:col-span-7 flex flex-col">
+            <Reveal>
+              <Link to="/institute/catalog" className="label-tracking text-[rgba(245,242,233,0.4)] hover:text-[#F5F2E9] mb-12 inline-block transition-colors border-b border-transparent hover:border-[#F5F2E9] pb-1">
+                &larr; Back to Catalog
+              </Link>
+              
+              <div className="flex gap-4 mb-8">
+                {course.difficulty && (
+                  <span className="label-tracking !text-[#D1893D]">
+                    {course.difficulty}
+                  </span>
+                )}
+                {course.estimated_duration && (
+                  <span className="label-tracking text-[rgba(245,242,233,0.4)]">
+                    {course.estimated_duration}
+                  </span>
+                )}
               </div>
-            ))
-          )}
+              
+              <h1 className="title-hero mb-8 text-left">
+                {course.title}
+              </h1>
+              
+              <p className="text-body-large text-[rgba(245,242,233,0.6)] font-light leading-relaxed mb-12">
+                {course.description || "Detailed description for this course is not currently available."}
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="lg:col-span-5">
+            <Reveal delay={200}>
+              <div className="p-8 border border-[rgba(245,242,233,0.1)] bg-[rgba(245,242,233,0.02)] backdrop-blur-sm flex flex-col text-center">
+                {course.is_enrolled ? (
+                  <>
+                    <h3 className="font-serif text-3xl text-[#F5F2E9] mb-4">Access Granted</h3>
+                    <p className="font-sans font-light text-[rgba(245,242,233,0.5)] mb-8">
+                      You are enrolled in this course. Proceed to the learning environment.
+                    </p>
+                    <Link to={`/institute/learn/${course.slug}`} className="btn-cinematic !border-[#D1893D] !text-[#D1893D] hover:!text-[#030303]">
+                      Start Course
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="font-serif text-3xl text-[#F5F2E9] mb-4">Enroll</h3>
+                    <p className="font-sans font-light text-[rgba(245,242,233,0.5)] mb-8">
+                      Sign in or create an account to enroll and access the course materials.
+                    </p>
+                    <button 
+                      onClick={handleEnroll} 
+                      disabled={enrolling}
+                      className="btn-cinematic w-full disabled:opacity-50"
+                    >
+                      {enrolling ? 'Enrolling...' : 'Enroll in Course'}
+                    </button>
+                  </>
+                )}
+              </div>
+            </Reveal>
+          </div>
+
         </div>
-      </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/* 2. THE SYLLABUS                                              */}
+      {/* ============================================================ */}
+      <section className="py-24 md:py-32 bg-[#110E0C]">
+        <div className="canvas-container max-w-4xl">
+          <Reveal>
+            <div className="flex justify-between items-end border-b border-[rgba(245,242,233,0.15)] pb-8 mb-16">
+              <h2 className="title-section">The Syllabus</h2>
+              <span className="label-tracking hidden md:block">Course Outline</span>
+            </div>
+          </Reveal>
+
+          <div className="flex flex-col gap-12">
+            {course.modules.length === 0 ? (
+              <Reveal>
+                <p className="font-serif text-xl text-[rgba(245,242,233,0.4)] italic">
+                  Syllabus is currently unavailable or undergoing revision.
+                </p>
+              </Reveal>
+            ) : (
+              course.modules.map((module, mIdx) => (
+                <Reveal key={module.id} delay={mIdx * 100} className="border border-[rgba(245,242,233,0.05)] bg-[#030303]">
+                  <div className="p-8 border-b border-[rgba(245,242,233,0.05)]">
+                    <span className="label-tracking text-[rgba(245,242,233,0.4)] mb-4 block">Module {mIdx + 1}</span>
+                    <h3 className="font-serif text-3xl text-[#F5F2E9] mb-4">{module.title}</h3>
+                    {module.description && (
+                      <p className="font-sans font-light text-[rgba(245,242,233,0.6)] leading-relaxed">
+                        {module.description}
+                      </p>
+                    )}
+                  </div>
+                  
+                  <div className="flex flex-col">
+                    {module.lessons.map((lesson, lIdx) => (
+                      <div key={lesson.id} className="p-6 md:p-8 flex flex-col md:flex-row md:justify-between md:items-center gap-4 border-b border-[rgba(245,242,233,0.02)] hover:bg-[rgba(245,242,233,0.02)] transition-colors last:border-0">
+                        <div className="flex items-center gap-6">
+                          <span className="font-serif text-xl text-[rgba(245,242,233,0.2)]">0{lIdx + 1}</span>
+                          <span className="font-serif text-xl md:text-2xl text-[rgba(245,242,233,0.8)]">{lesson.title}</span>
+                        </div>
+                        <div className="flex items-center gap-6 pl-10 md:pl-0">
+                          <span className="label-tracking text-[#D1893D]">
+                            {lesson.lesson_type}
+                          </span>
+                          {lesson.duration && (
+                            <span className="label-tracking text-[rgba(245,242,233,0.3)]">
+                              {lesson.duration}m
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </Reveal>
+              ))
+            )}
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
