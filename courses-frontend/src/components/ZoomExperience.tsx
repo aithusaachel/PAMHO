@@ -71,7 +71,7 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
       }
 
       // 2. Initialize the Zoom Meeting SDK (Client View)
-      ZoomMtg.setZoomJSLib('https://source.zoom.us/3.1.6/lib', '/av');
+      ZoomMtg.setZoomJSLib('https://source.zoom.us/6.5.0/lib', '/av');
       ZoomMtg.preLoadWasm();
       ZoomMtg.prepareWebSDK();
       
