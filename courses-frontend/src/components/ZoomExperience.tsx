@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import ZoomMtgEmbedded from '@zoom/meetingsdk/embedded'
+import { ZoomMtg } from '@zoom/meetingsdk'
 
 interface ZoomExperienceProps {
   programId: string;
@@ -71,36 +71,39 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
         throw new Error('Invalid meeting configuration received.')
       }
 
-      // 2. Initialize the Zoom Meeting SDK
-      const client = ZoomMtgEmbedded.createClient()
+      // 2. Initialize the Zoom Meeting SDK (Client View)
+      ZoomMtg.setZoomJSLib('https://source.zoom.us/3.1.6/lib', '/av');
+      ZoomMtg.preLoadWasm();
+      ZoomMtg.prepareWebSDK();
       
       setStatus('joining')
       
-      client.init({
-        zoomAppRoot: zoomRootRef.current as HTMLDivElement,
-        language: 'en-US',
-        customize: {
-          meetingInfo: ['topic', 'host', 'mn', 'pwd', 'telPwd', 'invite', 'participant', 'dc', 'enctype'],
-          video: {
-            isResizable: true,
-            viewSizes: {
-              default: { width: Math.max(window.innerWidth - 40, 800), height: Math.max(window.innerHeight - 40, 600) },
-              ribbon: { width: 300, height: 600 }
+      ZoomMtg.init({
+        leaveUrl: window.location.origin,
+        success: (success: any) => {
+          ZoomMtg.join({
+            signature: signature,
+            sdkKey: sdkKey,
+            meetingNumber: dynamicMeetingNumber,
+            passWord: dynamicPasscode,
+            userName: userName.trim() || 'Guest Participant',
+            success: (success: any) => {
+              console.log('Joined Meeting Successfully')
+              setStatus('active')
+            },
+            error: (error: any) => {
+              console.error('Zoom SDK Join Error:', error)
+              setStatus('error')
+              setErrorMsg('Failed to join the meeting room.')
             }
-          }
+          })
+        },
+        error: (error: any) => {
+          console.error('Zoom SDK Init Error:', error)
+          setStatus('error')
+          setErrorMsg('Failed to initialize Zoom client.')
         }
       })
-
-      // 3. Join the meeting
-      await client.join({
-        sdkKey: sdkKey,
-        signature: signature,
-        meetingNumber: dynamicMeetingNumber,
-        password: dynamicPasscode,
-        userName: userName.trim() || 'Guest Participant',
-      })
-
-      setStatus('active')
 
     } catch (err: any) {
       console.error('Zoom SDK Error:', err)
@@ -160,12 +163,7 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
         </div>
       )}
 
-      {/* The actual Zoom SDK mounts here. We hide it until joining begins. */}
-      <div 
-        id="zoom-root-container" 
-        ref={zoomRootRef} 
-        className={`w-full h-full min-h-screen absolute inset-0 bg-black ${(status === 'joining' || status === 'active') ? 'opacity-100 z-50 block' : 'opacity-0 -z-10 pointer-events-none hidden'}`}
-      ></div>
+      {/* The actual Zoom SDK Client mounts to the body automatically. We don't need a root container. */}
     </div>
   )
 }
