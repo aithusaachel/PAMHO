@@ -9,6 +9,7 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
   const zoomRootRef = useRef<HTMLDivElement>(null)
   const [status, setStatus] = useState<'idle' | 'initializing' | 'joining' | 'active' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
+  const [userName, setUserName] = useState('')
 
   useEffect(() => {
     // We only want to initialize when the user explicitly clicks join,
@@ -75,7 +76,7 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
           video: {
             isResizable: true,
             viewSizes: {
-              default: { width: 1000, height: 600 },
+              default: { width: Math.max(window.innerWidth - 40, 800), height: Math.max(window.innerHeight - 40, 600) },
               ribbon: { width: 300, height: 600 }
             }
           }
@@ -88,7 +89,7 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
         signature: signature,
         meetingNumber: dynamicMeetingNumber,
         password: dynamicPasscode,
-        userName: 'Guest Participant', // Or fetch from the user's PAMHO profile if logged in
+        userName: userName.trim() || 'Guest Participant',
       })
 
       setStatus('active')
@@ -108,12 +109,22 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
              <svg className="w-8 h-8 text-[#b48aff]" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
            </div>
            <h5 className="text-[#f4f2ee] font-bold text-lg mb-4">Secure Live Session</h5>
-           <p className="text-gray-400 text-sm max-w-sm mx-auto mb-8">
-             You are about to join the live broadcast. You will remain in control of your camera and microphone.
+           <p className="text-gray-400 text-sm max-w-sm mx-auto mb-6">
+             You are about to join the live broadcast. Please enter your name to continue.
            </p>
+           
+           <input 
+             type="text" 
+             value={userName}
+             onChange={(e) => setUserName(e.target.value)}
+             placeholder="Your Full Name" 
+             className="w-full max-w-xs mx-auto mb-8 block bg-[#1a1025] border border-[#8442fa]/30 rounded-sm p-3 text-[#f4f2ee] text-center focus:outline-none focus:border-[#8442fa]" 
+           />
+
            <button 
              onClick={handleJoin}
-             className="btn-primary text-sm font-bold px-10 py-4 rounded-sm shadow-[0_4px_24px_-4px_rgba(132,66,250,0.6)]"
+             disabled={!userName.trim()}
+             className="btn-primary text-sm font-bold px-10 py-4 rounded-sm shadow-[0_4px_24px_-4px_rgba(132,66,250,0.6)] disabled:opacity-50 disabled:cursor-not-allowed"
            >
              Join Live Now
            </button>
@@ -145,7 +156,7 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
       <div 
         id="zoom-root-container" 
         ref={zoomRootRef} 
-        className={`w-full h-full min-h-[600px] absolute inset-0 ${(status === 'joining' || status === 'active') ? 'opacity-100 z-50' : 'opacity-0 -z-10 pointer-events-none'}`}
+        className={`w-full h-full min-h-screen absolute inset-0 flex items-center justify-center bg-black ${(status === 'joining' || status === 'active') ? 'opacity-100 z-50' : 'opacity-0 -z-10 pointer-events-none'}`}
       ></div>
     </div>
   )
