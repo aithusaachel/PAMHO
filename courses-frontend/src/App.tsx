@@ -32,6 +32,7 @@ import AdminEnrollments from './pages/admin/AdminEnrollments'
 import AdminUsers from './pages/admin/AdminUsers'
 import AdminEnquiries from './pages/admin/AdminEnquiries'
 import AdminCourseDetail from './pages/admin/AdminCourseDetail'
+import AdminLegacyForms from './pages/admin/AdminLegacyForms'
 
 // All routes implemented
 
@@ -71,6 +72,7 @@ export default function App() {
           <Route path="enrollments" element={<AdminEnrollments />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="enquiries" element={<AdminEnquiries />} />
+          <Route path="legacy-forms" element={<AdminLegacyForms />} />
         </Route>
         
         {/* Public Website Routes (No Auth UI) */}
