@@ -164,7 +164,7 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
       <div 
         id="zoom-root-container" 
         ref={zoomRootRef} 
-        className={`w-full h-full min-h-screen absolute inset-0 flex items-center justify-center bg-black ${(status === 'joining' || status === 'active') ? 'opacity-100 z-50' : 'opacity-0 -z-10 pointer-events-none'}`}
+        className={`w-full h-full min-h-screen absolute inset-0 bg-black ${(status === 'joining' || status === 'active') ? 'opacity-100 z-50 block' : 'opacity-0 -z-10 pointer-events-none hidden'}`}
       ></div>
     </div>
   )
