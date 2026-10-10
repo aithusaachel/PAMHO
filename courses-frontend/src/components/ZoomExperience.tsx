@@ -27,6 +27,14 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
     try {
       setStatus('initializing')
       
+      // Pre-emptively request microphone permission to prevent browser blocks inside the Zoom iframe
+      try {
+        await navigator.mediaDevices.getUserMedia({ audio: true })
+      } catch (micError) {
+        console.warn('User did not grant microphone permission upfront or no mic available.', micError)
+        // We don't throw here, as they might just want to listen, but at least we asked.
+      }
+      
       // 1. Fetch the secure signature from the Django backend
       // Endpoint to be created in Django: POST /api/v1/programs/{programId}/zoom/join/
       // This endpoint MUST securely generate the SDK signature using the server-side ZOOM_SDK_SECRET.
