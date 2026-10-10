@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { login, user } = useAuth();
@@ -78,13 +79,22 @@ export default function AdminLogin() {
             </div>
             <div>
               <label className="block text-sm font-medium text-neutral-400 mb-1">Password</label>
-              <input
-                type="password"
-                required
-                className="w-full bg-[#0a0a0c] border border-neutral-800 rounded-sm px-4 py-3 text-white focus:border-[#8442fa] outline-none transition-colors"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  className="w-full bg-[#0a0a0c] border border-neutral-800 rounded-sm px-4 py-3 pr-16 text-white focus:border-[#8442fa] outline-none transition-colors"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-neutral-400 hover:text-white focus:outline-none"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
             </div>
           </div>
 

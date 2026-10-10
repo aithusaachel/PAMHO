@@ -71,7 +71,7 @@ export default function AdminLegacyForms() {
     if (!data.length) return alert('No data to export');
     
     const doc = new jsPDF({ orientation: "landscape" });
-    const cols = Object.keys(data[0]).filter(k => k !== 'id' && !k.includes('at')); // ignore ID and timestamps for cleaner view
+    const cols = Object.keys(data[0]).filter(k => k !== 'id' && k !== 'created_at' && k !== 'updated_at'); // explicitly ignore ID and timestamps
     
     const head = [cols.map(c => c.replace('_', ' ').toUpperCase())];
     const body = data.map(item => cols.map(c => String(item[c] || "—")));
