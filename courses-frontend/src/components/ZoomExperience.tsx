@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ZoomMtg } from '@zoom/meetingsdk'
 
 interface ZoomExperienceProps {
@@ -6,7 +6,6 @@ interface ZoomExperienceProps {
 }
 
 export default function ZoomExperience({ programId }: ZoomExperienceProps) {
-  const zoomRootRef = useRef<HTMLDivElement>(null)
   const [status, setStatus] = useState<'idle' | 'initializing' | 'joining' | 'active' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const [userName, setUserName] = useState('')
@@ -80,14 +79,14 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
       
       ZoomMtg.init({
         leaveUrl: window.location.origin,
-        success: (success: any) => {
-          ZoomMtg.join({
+        success: () => {
+          const joinParams: any = {
             signature: signature,
             sdkKey: sdkKey,
             meetingNumber: dynamicMeetingNumber,
             passWord: dynamicPasscode,
             userName: userName.trim() || 'Guest Participant',
-            success: (success: any) => {
+            success: () => {
               console.log('Joined Meeting Successfully')
               setStatus('active')
             },
@@ -96,7 +95,8 @@ export default function ZoomExperience({ programId }: ZoomExperienceProps) {
               setStatus('error')
               setErrorMsg('Failed to join the meeting room.')
             }
-          })
+          };
+          ZoomMtg.join(joinParams)
         },
         error: (error: any) => {
           console.error('Zoom SDK Init Error:', error)
