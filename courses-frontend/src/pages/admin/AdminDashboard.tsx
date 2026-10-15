@@ -9,7 +9,8 @@ export default function AdminDashboard() {
     programs: 0,
     enrollments: 0,
     resources: 0,
-    enquiries: 0
+    enquiries: 0,
+    waitlist: 0,
   });
   const [loading, setLoading] = useState(true);
 
@@ -22,12 +23,13 @@ export default function AdminDashboard() {
         const headers = { 'Authorization': `Bearer ${token}` };
         
         // Fetch real data
-        const [courses, programs, enrollments, resources, enquiries] = await Promise.all([
+        const [courses, programs, enrollments, resources, enquiries, waitlist] = await Promise.all([
           fetch('/api/v1/courses/', { headers }),
           fetch('/api/v1/programs/', { headers }),
           fetch('/api/v1/enrollments/', { headers }),
           fetch('/api/v1/resources/', { headers }),
-          fetch('/api/v1/enquiries/', { headers })
+          fetch('/api/v1/enquiries/', { headers }),
+          fetch('/api/v1/waitlist/', { headers })
         ]);
 
         const cData = await courses.json();
@@ -35,6 +37,7 @@ export default function AdminDashboard() {
         const eData = await enrollments.json();
         const rData = await resources.json();
         const enqData = await enquiries.json();
+        const wData = await waitlist.json();
 
         setStats({
           courses: cData.results ? cData.results.length : cData.length || 0,
@@ -42,6 +45,7 @@ export default function AdminDashboard() {
           enrollments: eData.results ? eData.results.length : eData.length || 0,
           resources: rData.results ? rData.results.length : rData.length || 0,
           enquiries: enqData.results ? enqData.results.length : enqData.length || 0,
+          waitlist: wData.results ? wData.results.length : wData.length || 0,
         });
       } catch (err) {
         console.error("Failed to fetch admin stats", err);
@@ -62,11 +66,16 @@ export default function AdminDashboard() {
       {loading ? (
         <div className="text-neutral-500">Loading metrics...</div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
           <div className="bg-[#121216] border border-neutral-800 p-6 rounded-sm">
             <div className="text-neutral-500 text-sm font-medium mb-2 uppercase tracking-wider">Total Courses</div>
             <div className="text-4xl font-bold text-white mb-4">{stats.courses}</div>
             <Link to="/admin/courses" className="text-sm text-[#b48aff] hover:text-[#9b6cf5] transition-colors">Manage Courses &rarr;</Link>
+          </div>
+          <div className="bg-[#121216] border border-[#8442fa]/30 p-6 rounded-sm relative overflow-hidden">
+            <div className="text-[#b48aff] text-sm font-medium mb-2 uppercase tracking-wider">Course Waitlist</div>
+            <div className="text-4xl font-bold text-white mb-4">{stats.waitlist}</div>
+            <Link to="/admin/waitlist" className="text-sm text-[#b48aff] hover:text-white transition-colors">View Applicants &rarr;</Link>
           </div>
           <div className="bg-[#121216] border border-neutral-800 p-6 rounded-sm">
             <div className="text-neutral-500 text-sm font-medium mb-2 uppercase tracking-wider">Active Enrollments</div>

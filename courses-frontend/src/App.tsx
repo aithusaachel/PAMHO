@@ -33,6 +33,7 @@ import AdminUsers from './pages/admin/AdminUsers'
 import AdminEnquiries from './pages/admin/AdminEnquiries'
 import AdminCourseDetail from './pages/admin/AdminCourseDetail'
 import AdminLegacyForms from './pages/admin/AdminLegacyForms'
+import AdminWaitlist from './pages/admin/AdminWaitlist'
 import CertifiedMHAdvocate from './pages/CertifiedMHAdvocate'
 
 // All routes implemented
@@ -74,6 +75,7 @@ export default function App() {
           <Route path="users" element={<AdminUsers />} />
           <Route path="enquiries" element={<AdminEnquiries />} />
           <Route path="legacy-forms" element={<AdminLegacyForms />} />
+          <Route path="waitlist" element={<AdminWaitlist />} />
         </Route>
         
         {/* Public Website Routes (No Auth UI) */}

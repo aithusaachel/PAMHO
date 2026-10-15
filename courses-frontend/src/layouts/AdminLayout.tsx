@@ -14,6 +14,7 @@ export default function AdminLayout() {
   const links = [
     { name: 'Dashboard', path: '/admin' },
     { name: 'Courses', path: '/admin/courses' },
+    { name: 'Course Waitlist', path: '/admin/waitlist' },
     { name: 'Programs', path: '/admin/programs' },
     { name: 'Resources', path: '/admin/resources' },
     { name: 'Form Submissions', path: '/admin/enquiries' },
