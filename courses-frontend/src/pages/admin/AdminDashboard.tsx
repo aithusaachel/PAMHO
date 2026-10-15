@@ -22,30 +22,35 @@ export default function AdminDashboard() {
       try {
         const headers = { 'Authorization': `Bearer ${token}` };
         
-        // Fetch real data
-        const [courses, programs, enrollments, resources, enquiries, waitlist] = await Promise.all([
-          fetch('/api/v1/courses/', { headers }),
-          fetch('/api/v1/programs/', { headers }),
-          fetch('/api/v1/enrollments/', { headers }),
-          fetch('/api/v1/resources/', { headers }),
-          fetch('/api/v1/enquiries/', { headers }),
-          fetch('/api/v1/waitlist/', { headers })
+        const safeCount = async (p: Promise<Response>) => {
+          try {
+            const res = await p;
+            if (!res.ok) return 0;
+            const data = await res.json();
+            if (Array.isArray(data)) return data.length;
+            if (Array.isArray(data?.results)) return data.results.length;
+            return 0;
+          } catch {
+            return 0;
+          }
+        };
+
+        const [cCount, pCount, eCount, rCount, enqCount, wCount] = await Promise.all([
+          safeCount(fetch('/api/v1/courses/', { headers })),
+          safeCount(fetch('/api/v1/programs/', { headers })),
+          safeCount(fetch('/api/v1/enrollments/', { headers })),
+          safeCount(fetch('/api/v1/resources/', { headers })),
+          safeCount(fetch('/api/v1/enquiries/', { headers })),
+          safeCount(fetch('/api/v1/waitlist/', { headers })),
         ]);
 
-        const cData = await courses.json();
-        const pData = await programs.json();
-        const eData = await enrollments.json();
-        const rData = await resources.json();
-        const enqData = await enquiries.json();
-        const wData = await waitlist.json();
-
         setStats({
-          courses: cData.results ? cData.results.length : cData.length || 0,
-          programs: pData.results ? pData.results.length : pData.length || 0,
-          enrollments: eData.results ? eData.results.length : eData.length || 0,
-          resources: rData.results ? rData.results.length : rData.length || 0,
-          enquiries: enqData.results ? enqData.results.length : enqData.length || 0,
-          waitlist: wData.results ? wData.results.length : wData.length || 0,
+          courses: cCount,
+          programs: pCount,
+          enrollments: eCount,
+          resources: rCount,
+          enquiries: enqCount,
+          waitlist: wCount,
         });
       } catch (err) {
         console.error("Failed to fetch admin stats", err);

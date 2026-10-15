@@ -10,7 +10,9 @@ class BaseSubmissionViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_authenticated and user.role in ['content_manager', 'administrator', 'superadmin']:
+        if user.is_authenticated and (
+            user.is_staff or user.is_superuser or getattr(user, 'role', '') in ['content_manager', 'administrator', 'superadmin']
+        ):
             return self.queryset
         return self.queryset.none()
 

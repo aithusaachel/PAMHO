@@ -3,7 +3,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
 export default function AdminLegacyForms() {
-  const [activeTab, setActiveTab] = useState<'registrations' | 'ambassadors' | 'partners'>('registrations');
+  const [activeTab, setActiveTab] = useState<'waitlist' | 'registrations' | 'ambassadors' | 'partners'>('waitlist');
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -105,8 +105,12 @@ export default function AdminLegacyForms() {
       
       <div className="mb-6 flex gap-2 border-b border-neutral-800 pb-2 overflow-x-auto">
         <button 
+          onClick={() => setActiveTab('waitlist')} 
+          className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${activeTab === 'waitlist' ? 'bg-[#8442fa] text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
+        >Course Waitlist</button>
+        <button 
           onClick={() => setActiveTab('registrations')} 
-          className={`px-4 py-2 rounded-sm text-sm ${activeTab === 'registrations' ? 'bg-neutral-800 text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
+          className={`px-4 py-2 rounded-sm text-sm font-medium transition-colors ${activeTab === 'registrations' ? 'bg-[#8442fa] text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
         >Event Registrations</button>
         <button 
           onClick={() => setActiveTab('ambassadors')} 

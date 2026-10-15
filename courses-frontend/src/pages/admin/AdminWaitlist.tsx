@@ -20,23 +20,31 @@ interface WaitlistEntry {
 export default function AdminWaitlist() {
   const [entries, setEntries] = useState<WaitlistEntry[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [roleFilter, setRoleFilter] = useState('all');
   const [selectedEntry, setSelectedEntry] = useState<WaitlistEntry | null>(null);
 
   const fetchWaitlist = async () => {
     setLoading(true);
+    setError(null);
     const token = localStorage.getItem('pamho_access');
     try {
       const res = await fetch('/api/v1/waitlist/', {
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: token ? { 'Authorization': `Bearer ${token}` } : {}
       });
       if (res.ok) {
         const data = await res.json();
-        setEntries(data.results || data || []);
+        const list = Array.isArray(data) ? data : (data.results || []);
+        setEntries(list);
+      } else if (res.status === 401 || res.status === 403) {
+        setError('Authentication or permission required. Please log in with an administrator account.');
+      } else {
+        setError(`Failed to load waitlist entries (Error ${res.status}).`);
       }
     } catch (err) {
       console.error('Failed to load waitlist submissions', err);
+      setError('Network error while connecting to PAMHO backend.');
     } finally {
       setLoading(false);
     }
@@ -249,6 +257,22 @@ export default function AdminWaitlist() {
           </select>
         </div>
       </div>
+
+      {/* Error Alert */}
+      {error && (
+        <div className="mb-6 p-4 bg-red-950/40 border border-red-800/60 rounded-sm flex items-center justify-between text-sm text-red-200">
+          <div className="flex items-center gap-2">
+            <span className="text-red-400 font-bold">⚠️</span>
+            <span>{error}</span>
+          </div>
+          <button
+            onClick={fetchWaitlist}
+            className="px-3 py-1 bg-red-900/60 hover:bg-red-800 text-white text-xs uppercase font-mono tracking-wider rounded-sm transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      )}
 
       {/* Table */}
       {loading ? (
