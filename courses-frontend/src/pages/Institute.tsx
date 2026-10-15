@@ -79,6 +79,70 @@ export default function Institute() {
       </section>
 
       {/* ============================================================ */}
+      {/* 2.5 FEATURED INAUGURAL COHORT                                */}
+      {/* ============================================================ */}
+      <section className="py-24 md:py-32 bg-[#030303] border-t border-[rgba(245,242,233,0.05)]">
+        <div className="canvas-container">
+          <Reveal>
+            <div className="border border-[rgba(245,242,233,0.1)] p-8 md:p-16 bg-[#110E0C]">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div className="lg:col-span-8 flex flex-col">
+                  <div className="flex flex-wrap items-center gap-3 mb-6">
+                    <span className="label-tracking text-[#8442FA]">Inaugural Programme</span>
+                    <span className="text-[rgba(245,242,233,0.3)]">/</span>
+                    <span className="label-tracking text-[rgba(245,242,233,0.6)]">In Collaboration with ACI Africa</span>
+                  </div>
+                  <h3 className="title-section mb-4 text-[#F5F2E9]">
+                    Certified Mental Health Advocate
+                  </h3>
+                  <p className="font-serif text-lg text-[#8442FA] italic mb-6">
+                    Cohort I · January 2027 · Registration Opens 1 November 2026
+                  </p>
+                  <p className="font-sans font-light text-base md:text-lg text-[rgba(245,242,233,0.7)] leading-relaxed mb-8 max-w-3xl">
+                    A five-week programme equipping emerging leaders and community members across Africa with the knowledge, ethical grounding, and practical skills to advance mental health awareness, reduce stigma, and connect communities to appropriate support.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-6">
+                    <Link
+                      to="/institute/courses/certified-mental-health-advocate"
+                      className="btn-cinematic !border-[#8442FA] !text-[#8442FA] hover:!text-[#030303]"
+                    >
+                      View Programme & Waitlist <span className="ml-3 font-serif text-xl leading-none">→</span>
+                    </Link>
+                    <Link
+                      to="/institute/catalog"
+                      className="btn-cinematic"
+                    >
+                      Browse Full Catalog
+                    </Link>
+                  </div>
+                </div>
+                <div className="lg:col-span-4">
+                  <div className="border-t lg:border-t-0 lg:border-l border-[rgba(245,242,233,0.1)] pt-8 lg:pt-0 lg:pl-10 flex flex-col gap-6">
+                    <div>
+                      <span className="label-tracking text-[#8442FA] mb-1 block">Duration</span>
+                      <span className="font-serif text-xl text-[#F5F2E9]">5 Weeks · Live Online</span>
+                    </div>
+                    <div>
+                      <span className="label-tracking text-[#8442FA] mb-1 block">Schedule</span>
+                      <span className="font-serif text-xl text-[#F5F2E9]">Saturdays, 09:00 – 12:00 UTC</span>
+                    </div>
+                    <div>
+                      <span className="label-tracking text-[#8442FA] mb-1 block">Credential</span>
+                      <span className="font-serif text-xl text-[#F5F2E9]">Certificate of Completion</span>
+                    </div>
+                    <div>
+                      <span className="label-tracking text-[#8442FA] mb-1 block">Cohort Capacity</span>
+                      <span className="font-serif text-xl text-[#F5F2E9]">Limited to 40</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
       {/* 3. CALL TO ACTION                                            */}
       {/* ============================================================ */}
       <section className="py-32 md:py-48 bg-[#030303] text-center border-t border-[rgba(245,242,233,0.05)]">
