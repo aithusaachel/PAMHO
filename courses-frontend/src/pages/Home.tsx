@@ -4,42 +4,58 @@ import { Reveal } from '../components/Reveal'
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen relative">
-      <SEO title="The Pan-African Mental Health Conversation — PAMHO" />
+    <div className="flex flex-col min-h-screen relative bg-[#030303] text-[#F5F2E9]">
+      <SEO 
+        title="Pan-African Mental Health Organization — PAMHO" 
+        description="Convening Africa's mental health leadership, empowering community advocates, and transforming systems across 54 African nations."
+      />
       <div className="grain-overlay"></div>
 
       {/* ============================================================ */}
-      {/* 1. THE ENCOUNTER - Cinematic Hero                            */}
+      {/* 1. THE HERO - Flagship Certified Mental Health Advocate      */}
       {/* ============================================================ */}
-      <section className="relative h-screen w-full flex flex-col justify-end pb-12 lg:pb-24">
+      <section className="relative min-h-screen w-full flex flex-col justify-end pb-12 lg:pb-24 pt-36">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
             src="/images/home_hero.jpg" 
-            alt="Community Engagement" 
-            className="w-full h-full object-cover filter brightness-[0.35] contrast-[1.1] saturate-[0.8]"
+            alt="PAMHO Community Engagement" 
+            className="w-full h-full object-cover filter brightness-[0.32] contrast-[1.1] saturate-[0.8]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-[#030303]/40 to-transparent"></div>
         </div>
 
         <div className="canvas-container relative z-10">
           <Reveal delay={200}>
-            <span className="label-tracking text-[#8442FA] mb-6 block">The Inaugural Dialogue</span>
+            <div className="flex flex-wrap items-center gap-3 mb-6">
+              <span className="label-tracking text-[#8442FA]">PAMHO Institute</span>
+              <span className="text-[rgba(245,242,233,0.3)]">/</span>
+              <span className="label-tracking text-[rgba(245,242,233,0.6)]">In Collaboration with ACI Africa</span>
+            </div>
             <h1 className="title-hero max-w-5xl">
-              The Pan-African Mental Health <span className="italic text-[rgba(245,242,233,0.7)]">Conversation.</span>
+              Certified Mental Health <span className="italic text-[rgba(245,242,233,0.7)]">Advocate.</span>
             </h1>
+            <p className="font-serif text-2xl md:text-3xl text-[#8442FA] italic mt-4 block">
+              Cohort I · January 2027 · Registration Opens 1 November 2026
+            </p>
           </Reveal>
           
-          <Reveal delay={600} className="mt-12 flex flex-col sm:flex-row items-start gap-8 border-t border-[rgba(245,242,233,0.15)] pt-8">
-            <p className="text-body-large text-[rgba(245,242,233,0.8)] max-w-2xl font-sans text-lg md:text-xl font-light">
-              Convening professionals, advocates, researchers, youth, and communities across 54 African nations.
+          <Reveal delay={500} className="mt-10 flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-t border-[rgba(245,242,233,0.15)] pt-8">
+            <p className="text-body-large text-[rgba(245,242,233,0.8)] max-w-2xl font-sans text-lg md:text-xl font-light leading-relaxed">
+              A five-week foundational programme equipping emerging leaders and community members across Africa with the knowledge, ethical grounding, and practical skills to advance mental health awareness, reduce stigma, and connect communities to appropriate support.
             </p>
-            <div className="shrink-0 pt-2 flex flex-col sm:flex-row gap-4">
-              <Link to="/programs" className="btn-cinematic">
-                Enter the Dialogue <span className="ml-4 font-serif text-xl leading-none">→</span>
+            <div className="shrink-0 flex flex-col sm:flex-row gap-4">
+              <Link 
+                to="/institute/courses/certified-mental-health-advocate#waitlist" 
+                className="btn-cinematic !border-[#8442FA] !text-[#8442FA] hover:!text-[#030303]"
+              >
+                Join the Waitlist <span className="ml-4 font-serif text-xl leading-none">↓</span>
               </Link>
-              <Link to="/register-conversation" className="btn-cinematic !border-[rgba(245,242,233,0.2)] !text-[#F5F2E9] hover:!border-[#8442FA] hover:!text-[#8442FA]">
-                Register to Attend
+              <Link 
+                to="/institute/courses/certified-mental-health-advocate" 
+                className="btn-cinematic !border-[rgba(245,242,233,0.2)] !text-[#F5F2E9] hover:!border-[#8442FA] hover:!text-[#8442FA]"
+              >
+                Read More <span className="ml-4 font-serif text-xl leading-none">→</span>
               </Link>
             </div>
           </Reveal>
@@ -62,7 +78,7 @@ export default function Home() {
       </section>
 
       {/* ============================================================ */}
-      {/* 3. HUMAN CONNECTION - Documentary Grid                       */}
+      {/* 3. HUMAN CONNECTION - Documentary Grid & Concluded Dialogue  */}
       {/* ============================================================ */}
       <section className="py-24 bg-[#110E0C]">
         <div className="canvas-container">
@@ -96,10 +112,10 @@ export default function Home() {
             
             <div className="md:col-span-7 order-1 md:order-2">
               <Reveal delay={400}>
-                <div className="aspect-[4/5] md:aspect-[3/4] w-full overflow-hidden relative">
+                <div className="aspect-[4/5] md:aspect-[3/4] w-full overflow-hidden relative border border-[rgba(245,242,233,0.08)]">
                   <img 
                     src="/images/home_institute.jpg" 
-                    alt="Clinical Education in Africa" 
+                    alt="Clinical and Community Education in Africa" 
                     className="img-cinematic"
                   />
                   <div className="absolute inset-0 border border-[rgba(245,242,233,0.1)] m-4 pointer-events-none"></div>
@@ -108,6 +124,29 @@ export default function Home() {
             </div>
             
           </div>
+
+          {/* Landmark Concluded Dialogue Highlight */}
+          <Reveal delay={200} className="mt-20">
+            <div className="border border-[rgba(245,242,233,0.1)] p-8 md:p-12 bg-[#030303]">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="w-2 h-2 rounded-full bg-[#8442FA]/60"></span>
+                    <span className="label-tracking text-[#8442FA]">Landmark Milestone · 10 October 2026</span>
+                  </div>
+                  <h4 className="font-serif text-2xl md:text-3xl text-[#F5F2E9] mb-3">
+                    The Pan-African Mental Health Conversation
+                  </h4>
+                  <p className="font-sans font-light text-base text-[rgba(245,242,233,0.6)] max-w-2xl leading-relaxed">
+                    Successfully convened on World Mental Health Day, bringing together professionals, advocates, researchers, youth, and communities across 54 African nations.
+                  </p>
+                </div>
+                <Link to="/programs" className="btn-cinematic whitespace-nowrap shrink-0">
+                  View Initiative Archive <span className="ml-3 font-serif text-xl leading-none">→</span>
+                </Link>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -130,12 +169,12 @@ export default function Home() {
 
             <div className="flex flex-col gap-0 border-t border-[rgba(245,242,233,0.1)]">
               {[
-                { n: "01", t: "Advocacy", d: "Championing mental health policy reform." },
-                { n: "02", t: "Research", d: "Generating evidence that drives better outcomes." },
-                { n: "03", t: "Education", d: "Building literacy in schools and institutions." },
-                { n: "04", t: "Youth Empowerment", d: "Positioning young Africans as changemakers." },
-                { n: "05", t: "Partnerships", d: "Connecting governments, NGOs, and communities." },
-                { n: "06", t: "Community Interventions", d: "Bringing resources closer to the people." }
+                { n: "01", t: "Advocacy", d: "Championing mental health policy reform across Africa." },
+                { n: "02", t: "Research", d: "Generating evidence that drives better continental outcomes." },
+                { n: "03", t: "Education", d: "Building literacy and certified capacity through the PAMHO Institute." },
+                { n: "04", t: "Youth Empowerment", d: "Positioning young Africans as transformative changemakers." },
+                { n: "05", t: "Partnerships", d: "Connecting governments, continental non-profits, and communities." },
+                { n: "06", t: "Community Interventions", d: "Bringing evidence-based resources closer to the people." }
               ].map((item, idx) => (
                 <Reveal key={item.n} delay={idx * 100} className="border-b border-[rgba(245,242,233,0.1)] py-8 group">
                   <div className="grid grid-cols-12 items-baseline">
