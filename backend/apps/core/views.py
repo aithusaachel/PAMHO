@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions
-from .models import Enquiry, EventRegistration, AmbassadorApplication, PartnerApplication
-from .serializers import EnquirySerializer, EventRegistrationSerializer, AmbassadorApplicationSerializer, PartnerApplicationSerializer
+from .models import Enquiry, EventRegistration, AmbassadorApplication, PartnerApplication, WaitlistSubmission
+from .serializers import EnquirySerializer, EventRegistrationSerializer, AmbassadorApplicationSerializer, PartnerApplicationSerializer, WaitlistSubmissionSerializer
 
 class BaseSubmissionViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
@@ -29,3 +29,7 @@ class AmbassadorApplicationViewSet(BaseSubmissionViewSet):
 class PartnerApplicationViewSet(BaseSubmissionViewSet):
     queryset = PartnerApplication.objects.all()
     serializer_class = PartnerApplicationSerializer
+
+class WaitlistSubmissionViewSet(BaseSubmissionViewSet):
+    queryset = WaitlistSubmission.objects.all()
+    serializer_class = WaitlistSubmissionSerializer

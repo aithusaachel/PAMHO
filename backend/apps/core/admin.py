@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Enquiry, EventRegistration, AmbassadorApplication, PartnerApplication
+from .models import Enquiry, EventRegistration, AmbassadorApplication, PartnerApplication, WaitlistSubmission
 
 @admin.register(Enquiry)
 class EnquiryAdmin(admin.ModelAdmin):
@@ -26,3 +26,11 @@ class PartnerApplicationAdmin(admin.ModelAdmin):
     list_display = ('org_name', 'org_type', 'contact_name', 'contact_email', 'created_at')
     list_filter = ('org_type',)
     search_fields = ('org_name', 'contact_name', 'contact_email')
+
+@admin.register(WaitlistSubmission)
+class WaitlistSubmissionAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'email', 'country', 'role', 'agreed_to_contact', 'interested_future', 'created_at')
+    list_filter = ('role', 'country', 'heard_about', 'interested_future', 'agreed_to_contact')
+    search_fields = ('full_name', 'email', 'country', 'organisation')
+    readonly_fields = ('created_at', 'updated_at')
+    ordering = ('-created_at',)

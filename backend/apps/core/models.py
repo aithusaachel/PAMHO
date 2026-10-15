@@ -95,3 +95,41 @@ class PartnerApplication(TimeStampedModel):
 
     def __str__(self):
         return f"Partner: {self.org_name}"
+
+
+class WaitlistSubmission(TimeStampedModel):
+    """Stores waitlist sign-ups for the Certified Mental Health Advocate programme."""
+    ROLE_CHOICES = [
+        ('student', 'Student'),
+        ('professional', 'Professional'),
+        ('educator', 'Educator'),
+        ('community_faith_leader', 'Community or faith leader'),
+        ('other', 'Other'),
+    ]
+    HEARD_ABOUT_CHOICES = [
+        ('pamhc', 'Pan-African Mental Health Conversation'),
+        ('social_media', 'Social media'),
+        ('friend_colleague', 'Friend or colleague'),
+        ('ambassador', 'Ambassador or Community Mobilizer'),
+        ('other', 'Other'),
+    ]
+
+    # Required fields
+    full_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    country = models.CharField(max_length=100)
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES)
+    agreed_to_contact = models.BooleanField(default=False)
+
+    # Optional fields
+    whatsapp = models.CharField(max_length=50, blank=True)
+    organisation = models.CharField(max_length=255, blank=True)
+    motivation = models.TextField(blank=True)
+    heard_about = models.CharField(max_length=50, choices=HEARD_ABOUT_CHOICES, blank=True)
+    interested_future = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Waitlist: {self.full_name} ({self.email})"

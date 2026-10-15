@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Enquiry, EventRegistration, AmbassadorApplication, PartnerApplication
+from .models import Enquiry, EventRegistration, AmbassadorApplication, PartnerApplication, WaitlistSubmission
 
 class EnquirySerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,3 +21,11 @@ class PartnerApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = PartnerApplication
         fields = '__all__'
+
+class WaitlistSubmissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WaitlistSubmission
+        fields = ['id', 'full_name', 'email', 'country', 'role', 'agreed_to_contact',
+                  'whatsapp', 'organisation', 'motivation', 'heard_about',
+                  'interested_future', 'created_at']
+        read_only_fields = ['id', 'created_at']

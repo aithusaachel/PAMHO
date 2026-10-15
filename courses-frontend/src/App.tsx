@@ -33,6 +33,7 @@ import AdminUsers from './pages/admin/AdminUsers'
 import AdminEnquiries from './pages/admin/AdminEnquiries'
 import AdminCourseDetail from './pages/admin/AdminCourseDetail'
 import AdminLegacyForms from './pages/admin/AdminLegacyForms'
+import CertifiedMHAdvocate from './pages/CertifiedMHAdvocate'
 
 // All routes implemented
 
@@ -93,6 +94,8 @@ export default function App() {
         <Route element={<InstituteLayout />}>
           <Route path="/institute" element={<Institute />} />
           <Route path="/institute/catalog" element={<Catalog />} />
+          {/* Specific course landing pages (must come before the generic :slug route) */}
+          <Route path="/institute/courses/certified-mental-health-advocate" element={<CertifiedMHAdvocate />} />
           <Route path="/institute/courses/:slug" element={<CourseDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
