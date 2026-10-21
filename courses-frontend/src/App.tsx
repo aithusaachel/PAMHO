@@ -12,7 +12,7 @@ import Resources from './pages/Resources'
 import ResourceDetail from './pages/ResourceDetail'
 import Donate from './pages/Donate'
 import Contact from './pages/Contact'
-import RegisterConversation from './pages/RegisterConversation'
+// import RegisterConversation from './pages/RegisterConversation'
 import LiveZoomPage from './pages/LiveZoomPage'
 
 import Login from './pages/Login'
@@ -46,20 +46,20 @@ export default function App() {
         {/* Full-screen routes outside of Layouts */}
         <Route path="/programs/live" element={<LiveZoomPage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
-        
+
         {/* Learning Experience Routes (Protected) - No Navbar/Footer for focused learning */}
-        <Route 
-          path="/institute/learn/:slug" 
+        <Route
+          path="/institute/learn/:slug"
           element={
             <ProtectedRoute>
               <CourseLearning />
             </ProtectedRoute>
-          } 
+          }
         />
 
         {/* Admin Portal */}
-        <Route 
-          path="/admin" 
+        <Route
+          path="/admin"
           element={
             <ProtectedRoute allowedRoles={['content_manager', 'administrator', 'superadmin']}>
               <AdminLayout />
@@ -77,7 +77,7 @@ export default function App() {
           <Route path="legacy-forms" element={<AdminLegacyForms />} />
           <Route path="waitlist" element={<AdminWaitlist />} />
         </Route>
-        
+
         {/* Public Website Routes (No Auth UI) */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
@@ -89,7 +89,7 @@ export default function App() {
           <Route path="/resources/:slug" element={<ResourceDetail />} />
           <Route path="/donate" element={<Donate />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/register-conversation" element={<RegisterConversation />} />
+          {/*<Route path="/register-conversation" element={<RegisterConversation />} /> */}
         </Route>
 
         {/* Institute Platform Routes (Auth UI) */}
@@ -101,14 +101,14 @@ export default function App() {
           <Route path="/institute/courses/:slug" element={<CourseDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          
-          <Route 
-            path="/institute/dashboard" 
+
+          <Route
+            path="/institute/dashboard"
             element={
               <ProtectedRoute>
                 <Dashboard />
               </ProtectedRoute>
-            } 
+            }
           />
         </Route>
       </Routes>

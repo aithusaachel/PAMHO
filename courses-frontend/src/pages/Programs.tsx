@@ -56,7 +56,7 @@ export default function Programs() {
         if (res.ok) {
           const data = await res.json()
           const fetchedPrograms = data.results || data || []
-          
+
           const normalized = fetchedPrograms.map((p: any) => {
             // The Pan-African Mental Health Conversation occurred on 10 October 2026 and is now completed
             if (p.title && p.title.toLowerCase().includes('conversation')) {
@@ -74,7 +74,7 @@ export default function Programs() {
           // Merge active featured course if not already present
           const hasCourse = normalized.some((p: any) => p.slug === ACTIVE_FEATURED_PROGRAM.slug)
           const hasArchive = normalized.some((p: any) => p.title?.toLowerCase().includes('conversation'))
-          
+
           let combined = normalized
           if (!hasCourse) {
             combined = [ACTIVE_FEATURED_PROGRAM, ...combined]
@@ -113,8 +113,8 @@ export default function Programs() {
 
   return (
     <div className="flex flex-col min-h-screen relative bg-[#030303] text-[#F5F2E9]">
-      <SEO 
-        title="Programs & Initiatives | PAMHO" 
+      <SEO
+        title="Programs & Initiatives | PAMHO"
         description="Explore active continental programmes and historical initiatives by the Pan-African Mental Health Organization."
       />
       <div className="grain-overlay"></div>
@@ -161,7 +161,7 @@ export default function Programs() {
                 const dateDisplay = formatDate(program.scheduled_start || program.start_time)
                 return (
                   <Reveal key={program.id} delay={idx * 150} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 py-16 border-b border-[rgba(245,242,233,0.08)] group hover:bg-[rgba(245,242,233,0.02)] transition-colors">
-                    
+
                     <div className="md:col-span-3 flex flex-col gap-4">
                       {program.event_state === 'live' ? (
                         <div className="flex items-center gap-3">
@@ -189,8 +189,8 @@ export default function Programs() {
 
                     <div className="md:col-span-3 flex md:justify-end items-start pt-2">
                       {program.custom_link ? (
-                        <Link 
-                          to={program.custom_link} 
+                        <Link
+                          to={program.custom_link}
                           className="btn-cinematic !border-[#8442FA] !text-[#8442FA] hover:!text-[#030303]"
                         >
                           {program.custom_cta || 'View Details'} <span className="ml-3 font-serif text-xl leading-none">→</span>
@@ -211,7 +211,7 @@ export default function Programs() {
               })}
             </div>
           ) : (
-             <Reveal>
+            <Reveal>
               <div className="py-24 text-center border border-[rgba(245,242,233,0.05)] bg-[#030303]">
                 <p className="font-serif text-2xl text-[rgba(245,242,233,0.4)] italic">No active or upcoming programs are currently scheduled. Please check the archive.</p>
               </div>
@@ -234,7 +234,7 @@ export default function Programs() {
               <span className="label-tracking hidden md:block">Concluded Initiatives</span>
             </div>
           </Reveal>
-          
+
           {loading ? null : pastPrograms.length > 0 ? (
             <div className="flex flex-col">
               {pastPrograms.map((program, idx) => (

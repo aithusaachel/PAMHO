@@ -254,11 +254,28 @@ export default function CertifiedMHAdvocate() {
         <div className="canvas-container">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
             <div className="md:col-span-5 relative">
-              <Reveal className="md:sticky md:top-40">
+              <Reveal className="md:sticky md:top-32">
                 <span className="label-tracking text-[rgba(245,242,233,0.4)] mb-4 block">01 — The Context</span>
-                <h2 className="title-section leading-[1.2]">
+                <h2 className="title-section leading-[1.2] mb-8">
                   Mental health is a <span className="italic text-[#8442FA]">community</span> issue.
                 </h2>
+
+                {/* Authentic African Learner Frame */}
+                <div className="aspect-[4/3] w-full overflow-hidden relative border border-[rgba(245,242,233,0.1)]">
+                  <img 
+                    src="/images/student_learning.jpg" 
+                    alt="African student and community advocate learning online" 
+                    className="w-full h-full object-cover filter brightness-[0.75] contrast-[1.05]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 z-10 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#8442FA]"></span>
+                    <span className="label-tracking text-[#F5F2E9] text-[10px]">
+                      Digital Learning Across Africa
+                    </span>
+                  </div>
+                  <div className="absolute inset-0 border border-[rgba(245,242,233,0.08)] m-3 pointer-events-none"></div>
+                </div>
               </Reveal>
             </div>
 

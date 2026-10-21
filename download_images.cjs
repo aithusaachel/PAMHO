@@ -1,42 +1,37 @@
-const https = require('https');
+// Synchronizes vetted authentic Black African photography for PAMHO
 const fs = require('fs');
 const path = require('path');
 
-const images = [
-    { name: 'home_hero.jpg', url: 'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=1920&q=80' },
-    { name: 'home_institute.jpg', url: 'https://images.unsplash.com/photo-1541814674753-2746816e87a9?auto=format&fit=crop&w=1920&q=80' },
-    { name: 'home_advocacy.jpg', url: 'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=1920&q=80' },
-    { name: 'about_hero.jpg', url: 'https://images.unsplash.com/photo-1542884748-2b87b36c6b90?auto=format&fit=crop&w=1920&q=80' },
-    { name: 'institute_hero.jpg', url: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1920&q=80' }
+const assetMap = [
+    { name: 'home_hero.jpg', source: 'hero.jpg' },
+    { name: 'home_institute.jpg', source: 'partners-collab.jpg' },
+    { name: 'home_advocacy.jpg', source: 'ambassadors-network.jpg' },
+    { name: 'about_hero.jpg', source: 'partners-banner.jpg' },
+    { name: 'institute_hero.jpg', source: 'hero.jpg' },
+    { name: 'ambassadors_hero.jpg', source: 'ambassadors-banner.jpg' },
+    { name: 'programs_hero.jpg', source: 'join-banner.jpg' },
+    { name: 'student_learning.jpg', source: 'join-participant.jpg' },
+    { name: 'membership_hero.jpg', source: 'partners-banner.jpg' }
 ];
 
-const download = (url, dest) => {
-    return new Promise((resolve, reject) => {
-        const file = fs.createWriteStream(dest);
-        https.get(url, response => {
-            if (response.statusCode === 301 || response.statusCode === 302) {
-                return download(response.headers.location, dest).then(resolve).catch(reject);
-            }
-            response.pipe(file);
-            file.on('finish', () => {
-                file.close(resolve);
-            });
-        }).on('error', err => {
-            fs.unlink(dest, () => {});
-            reject(err.message);
-        });
-    });
-};
+(() => {
+    const srcDir = path.join(__dirname, 'frontend', 'src', 'assets');
+    const destDir = path.join(__dirname, 'courses-frontend', 'public', 'images');
+    
+    if (!fs.existsSync(destDir)) {
+        fs.mkdirSync(destDir, { recursive: true });
+    }
 
-(async () => {
-    for (const img of images) {
-        const dest = path.join(__dirname, 'courses-frontend', 'public', 'images', img.name);
-        console.log(`Downloading ${img.name}...`);
-        try {
-            await download(img.url, dest);
-            console.log(`Successfully downloaded ${img.name}`);
-        } catch (err) {
-            console.error(`Failed to download ${img.name}: ${err}`);
+    for (const item of assetMap) {
+        const srcPath = path.join(srcDir, item.source);
+        const destPath = path.join(destDir, item.name);
+        
+        if (fs.existsSync(srcPath)) {
+            fs.copyFileSync(srcPath, destPath);
+            console.log(`Synced ${item.name} from ${item.source} (100% Black African imagery)`);
+        } else {
+            console.warn(`Source asset not found: ${srcPath}`);
         }
     }
 })();
+

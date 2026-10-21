@@ -4,16 +4,16 @@ import { Reveal } from '../components/Reveal'
 
 export default function Membership() {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [formData, setFormData] = useState({ 
+  const [formData, setFormData] = useState({
     name: '', email: '', country: '', city: '', whatsapp: '',
-    institution: '', qualifications: '', specialty: 'Clinical Psychology', referral: '' 
+    institution: '', qualifications: '', specialty: 'Clinical Psychology', referral: ''
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
-    
+
     const formattedMessage = `
 Country: ${formData.country}
 City: ${formData.city}
@@ -30,12 +30,12 @@ ${formData.qualifications}
       const res = await fetch('/api/v1/enquiries/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           organization: formData.institution,
           message: formattedMessage,
-          enquiry_type: 'Membership Application' 
+          enquiry_type: 'Membership Application'
         })
       });
       if (res.ok) {
@@ -53,7 +53,7 @@ ${formData.qualifications}
       <SEO title="Membership | PAMHO" />
       <div className="grain-overlay"></div>
 
-      <section className="pt-48 pb-16 md:pt-64 md:pb-32">
+      <section className="pt-48 pb-12 md:pt-64 md:pb-20">
         <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
           <Reveal>
             <span className="label-tracking text-[#8442FA] mb-8 block">Clinical Membership</span>
@@ -67,10 +67,27 @@ ${formData.qualifications}
         </div>
       </section>
 
+      {/* Featured Institutional Leadership Frame */}
+      <section className="pb-20 md:pb-28">
+        <div className="canvas-container">
+          <Reveal>
+            <div className="aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden relative border border-[rgba(245,242,233,0.1)]">
+              <img
+                src="/images/membership_hero.jpg"
+                alt="Pan-African healthcare leadership and clinical council assembly"
+                className="w-full h-full object-cover filter brightness-[0.7] contrast-[1.05]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#110E0C] via-transparent to-transparent"></div>
+              <div className="absolute inset-0 border border-[rgba(245,242,233,0.1)] m-4 pointer-events-none"></div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       <section className="py-24 md:py-32 bg-[#110E0C]">
         <div className="canvas-container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 border-t border-[rgba(245,242,233,0.1)] pt-16">
-            
+
             <Reveal delay={0}>
               <div>
                 <span className="font-serif text-[#8442FA] text-5xl mb-6 block opacity-40">I</span>
@@ -80,7 +97,7 @@ ${formData.qualifications}
                 </p>
               </div>
             </Reveal>
-            
+
             <Reveal delay={150}>
               <div>
                 <span className="font-serif text-[#8442FA] text-5xl mb-6 block opacity-40">II</span>
@@ -109,7 +126,7 @@ ${formData.qualifications}
         <div className="canvas-container flex flex-col items-center max-w-4xl mx-auto">
           <Reveal>
             <h2 className="title-section mb-12">Apply for membership.</h2>
-            
+
             {status === 'success' ? (
               <div className="p-8 border border-[#8442FA] bg-[#8442FA]/5">
                 <h3 className="font-serif text-3xl text-[#F5F2E9] mb-4">Application Received</h3>
@@ -133,41 +150,41 @@ ${formData.qualifications}
                     Submission failed. Please try again or check your network connection.
                   </div>
                 )}
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Full Name</label>
-                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Your name" value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Your name" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
                   </div>
                   <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Email Address</label>
-                    <input required type="email" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Your email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+                    <input required type="email" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Your email" value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Country</label>
-                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Country" value={formData.country} onChange={e => setFormData({...formData, country: e.target.value})} />
+                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Country" value={formData.country} onChange={e => setFormData({ ...formData, country: e.target.value })} />
                   </div>
                   <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">City</label>
-                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="City" value={formData.city} onChange={e => setFormData({...formData, city: e.target.value})} />
+                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="City" value={formData.city} onChange={e => setFormData({ ...formData, city: e.target.value })} />
                   </div>
                   <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">WhatsApp</label>
-                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Phone number" value={formData.whatsapp} onChange={e => setFormData({...formData, whatsapp: e.target.value})} />
+                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Phone number" value={formData.whatsapp} onChange={e => setFormData({ ...formData, whatsapp: e.target.value })} />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Clinical / Academic Institution</label>
-                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Hospital, university, or clinic" value={formData.institution} onChange={e => setFormData({...formData, institution: e.target.value})} />
+                    <input required type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Hospital, university, or clinic" value={formData.institution} onChange={e => setFormData({ ...formData, institution: e.target.value })} />
                   </div>
                   <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Primary Specialty</label>
-                    <select required className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none appearance-none" value={formData.specialty} onChange={e => setFormData({...formData, specialty: e.target.value})}>
+                    <select required className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none appearance-none" value={formData.specialty} onChange={e => setFormData({ ...formData, specialty: e.target.value })}>
                       <option value="Clinical Psychology" className="bg-[#110E0C]">Clinical Psychology</option>
                       <option value="Psychiatry" className="bg-[#110E0C]">Psychiatry</option>
                       <option value="Social Work" className="bg-[#110E0C]">Social Work</option>
@@ -180,12 +197,12 @@ ${formData.qualifications}
 
                 <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                   <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Clinical Qualifications</label>
-                  <textarea required rows={3} className="w-full bg-transparent font-sans font-light text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)] resize-none" placeholder="Provide your licensing, degree, or credential details..." value={formData.qualifications} onChange={e => setFormData({...formData, qualifications: e.target.value})}></textarea>
+                  <textarea required rows={3} className="w-full bg-transparent font-sans font-light text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)] resize-none" placeholder="Provide your licensing, degree, or credential details..." value={formData.qualifications} onChange={e => setFormData({ ...formData, qualifications: e.target.value })}></textarea>
                 </div>
 
                 <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                   <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">How did you hear about PAMHO?</label>
-                  <input type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Referral, social media, etc." value={formData.referral} onChange={e => setFormData({...formData, referral: e.target.value})} />
+                  <input type="text" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Referral, social media, etc." value={formData.referral} onChange={e => setFormData({ ...formData, referral: e.target.value })} />
                 </div>
 
                 <div className="flex gap-6 mt-4">

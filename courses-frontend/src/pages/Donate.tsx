@@ -117,6 +117,24 @@ export default function Donate() {
                 </div>
               </Reveal>
 
+              <Reveal delay={400}>
+                <div className="aspect-[4/3] w-full overflow-hidden relative border border-[rgba(245,242,233,0.1)] mt-2">
+                  <img 
+                    src="/images/home_advocacy.jpg" 
+                    alt="African youth advocates in community training" 
+                    className="w-full h-full object-cover filter brightness-[0.7] contrast-[1.05]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#110E0C] via-transparent to-transparent"></div>
+                  <div className="absolute bottom-3 left-3 z-10 flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#8442FA]"></span>
+                    <span className="label-tracking text-[#F5F2E9] text-[9px]">
+                      Your Giving Directly Fuels Grassroots Advocacy
+                    </span>
+                  </div>
+                  <div className="absolute inset-0 border border-[rgba(245,242,233,0.08)] m-2 pointer-events-none"></div>
+                </div>
+              </Reveal>
+
             </div>
             
           </div>

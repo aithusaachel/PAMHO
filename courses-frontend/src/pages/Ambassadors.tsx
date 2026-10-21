@@ -60,7 +60,7 @@ ${formData.meaning}
       <SEO title="Ambassadors | PAMHO" />
       <div className="grain-overlay"></div>
 
-      <section className="pt-48 pb-16 md:pt-64 md:pb-32">
+      <section className="pt-48 pb-12 md:pt-64 md:pb-20">
         <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
           <Reveal>
             <span className="label-tracking text-[#8442FA] mb-8 block">Ambassador Program</span>
@@ -70,6 +70,29 @@ ${formData.meaning}
             <p className="text-body-large text-[rgba(245,242,233,0.6)] font-light leading-relaxed">
               PAMHO Ambassadors are dedicated professionals, advocates, and grassroots leaders committed to breaking psychological stigma and advancing mental health discourse across Africa.
             </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Featured Community Documentary Frame */}
+      <section className="pb-20 md:pb-28">
+        <div className="canvas-container">
+          <Reveal>
+            <div className="aspect-[16/9] md:aspect-[21/9] w-full overflow-hidden relative border border-[rgba(245,242,233,0.1)]">
+              <img 
+                src="/images/ambassadors_hero.jpg" 
+                alt="PAMHO Ambassador addressing community gathering in Africa" 
+                className="w-full h-full object-cover filter brightness-[0.7] contrast-[1.05]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#110E0C] via-transparent to-transparent"></div>
+              <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 z-10 flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-[#8442FA] animate-pulse"></span>
+                <span className="label-tracking text-[#F5F2E9] text-xs">
+                  Grassroots Advocacy · Community Dialogue in Action
+                </span>
+              </div>
+              <div className="absolute inset-0 border border-[rgba(245,242,233,0.1)] m-4 pointer-events-none"></div>
+            </div>
           </Reveal>
         </div>
       </section>
