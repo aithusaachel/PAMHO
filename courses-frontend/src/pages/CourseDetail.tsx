@@ -127,7 +127,7 @@ export default function CourseDetail() {
       {/* ============================================================ */}
       {/* 1. THE OPENING                                               */}
       {/* ============================================================ */}
-      <section className="pt-48 pb-16 md:pt-64 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
+      <section className="pt-28 pb-16 md:pt-40 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
           
           <div className="lg:col-span-7 flex flex-col">

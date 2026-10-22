@@ -50,11 +50,11 @@ export default function Footer() {
 
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[rgba(245,242,233,0.1)]">
-          <p className="label-tracking !text-[10px] text-[rgba(245,242,233,0.3)] mb-4 md:mb-0">
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[rgba(245,242,233,0.1)] gap-4 text-center md:text-left">
+          <p className="label-tracking !text-[10px] text-[rgba(245,242,233,0.3)]">
             &copy; {new Date().getFullYear()} Pan-African Mental Health Organization.
           </p>
-          <div className="flex space-x-8">
+          <div className="flex flex-wrap justify-center md:justify-end gap-6 sm:gap-8">
             <Link to="/privacy" className="label-tracking !text-[10px] text-[rgba(245,242,233,0.3)] hover:text-[#F5F2E9]">Privacy Policy</Link>
             <Link to="/terms" className="label-tracking !text-[10px] text-[rgba(245,242,233,0.3)] hover:text-[#F5F2E9]">Terms of Service</Link>
           </div>

@@ -44,16 +44,16 @@ export default function Home() {
             <p className="text-body-large text-[rgba(245,242,233,0.8)] max-w-2xl font-sans text-lg md:text-xl font-light leading-relaxed">
               A five-week foundational programme equipping emerging leaders and community members across Africa with the knowledge, ethical grounding, and practical skills to advance mental health awareness, reduce stigma, and connect communities to appropriate support.
             </p>
-            <div className="shrink-0 flex flex-col sm:flex-row gap-4">
+            <div className="shrink-0 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
               <Link 
                 to="/institute/courses/certified-mental-health-advocate#waitlist" 
-                className="btn-cinematic !border-[#8442FA] !text-[#8442FA] hover:!text-[#030303]"
+                className="btn-cinematic !border-[#8442FA] !text-[#8442FA] hover:!text-[#030303] w-full sm:w-auto text-center justify-center"
               >
                 Join the Waitlist <span className="ml-4 font-serif text-xl leading-none">↓</span>
               </Link>
               <Link 
                 to="/institute/courses/certified-mental-health-advocate" 
-                className="btn-cinematic !border-[rgba(245,242,233,0.2)] !text-[#F5F2E9] hover:!border-[#8442FA] hover:!text-[#8442FA]"
+                className="btn-cinematic !border-[rgba(245,242,233,0.2)] !text-[#F5F2E9] hover:!border-[#8442FA] hover:!text-[#8442FA] w-full sm:w-auto text-center justify-center"
               >
                 Read More <span className="ml-4 font-serif text-xl leading-none">→</span>
               </Link>
@@ -65,14 +65,14 @@ export default function Home() {
       {/* ============================================================ */}
       {/* 2. THE UNDERSTANDING - The Core Statement                    */}
       {/* ============================================================ */}
-      <section className="py-32 md:py-48 bg-[#030303]">
+      <section className="py-20 md:py-48 bg-[#030303] overflow-hidden">
         <div className="canvas-container flex justify-center">
-          <Reveal className="max-w-4xl text-center">
-            <span className="font-serif text-[#8442FA] text-8xl md:text-[10rem] leading-none opacity-20 absolute -ml-16 -mt-16">“</span>
+          <Reveal className="max-w-4xl text-center relative px-4">
+            <span className="font-serif text-[#8442FA] text-7xl sm:text-8xl md:text-[10rem] leading-none opacity-20 absolute -top-8 sm:-top-12 md:-top-16 left-1/2 -translate-x-1/2 select-none pointer-events-none">“</span>
             <h2 className="title-section relative z-10 leading-[1.3]">
               Mental health is not a luxury. It is a foundation. Africa cannot rise without the wellbeing of its <span className="italic text-[#8442FA]">people.</span>
             </h2>
-            <span className="label-tracking mt-12 block">PAMHO Manifesto</span>
+            <span className="label-tracking mt-8 md:mt-12 block">PAMHO Manifesto</span>
           </Reveal>
         </div>
       </section>
@@ -126,22 +126,22 @@ export default function Home() {
           </div>
 
           {/* Landmark Concluded Dialogue Highlight */}
-          <Reveal delay={200} className="mt-20">
-            <div className="border border-[rgba(245,242,233,0.1)] p-8 md:p-12 bg-[#030303]">
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                <div>
+          <Reveal delay={200} className="mt-16 md:mt-20">
+            <div className="border border-[rgba(245,242,233,0.1)] p-6 sm:p-8 md:p-12 bg-[#030303]">
+              <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                <div className="max-w-2xl">
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="w-2 h-2 rounded-full bg-[#8442FA]/60"></span>
+                    <span className="w-2 h-2 rounded-full bg-[#8442FA]/60 shrink-0"></span>
                     <span className="label-tracking text-[#8442FA]">Landmark Milestone · 10 October 2026</span>
                   </div>
                   <h4 className="font-serif text-2xl md:text-3xl text-[#F5F2E9] mb-3">
                     The Pan-African Mental Health Conversation
                   </h4>
-                  <p className="font-sans font-light text-base text-[rgba(245,242,233,0.6)] max-w-2xl leading-relaxed">
+                  <p className="font-sans font-light text-base text-[rgba(245,242,233,0.6)] leading-relaxed">
                     Successfully convened on World Mental Health Day, bringing together professionals, advocates, researchers, youth, and communities across 54 African nations.
                   </p>
                 </div>
-                <Link to="/programs" className="btn-cinematic whitespace-nowrap shrink-0">
+                <Link to="/programs" className="btn-cinematic w-full sm:w-auto text-center justify-center shrink-0">
                   View Initiative Archive <span className="ml-3 font-serif text-xl leading-none">→</span>
                 </Link>
               </div>
@@ -195,7 +195,7 @@ export default function Home() {
       {/* ============================================================ */}
       {/* 5. PARTICIPATION - The Final Frame                           */}
       {/* ============================================================ */}
-      <section className="relative h-[70vh] min-h-[600px] flex items-center justify-center">
+      <section className="relative min-h-[500px] md:h-[70vh] md:min-h-[600px] flex items-center justify-center py-20 px-4 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
             src="/images/home_advocacy.jpg" 
@@ -205,13 +205,13 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-[#030303] via-transparent to-[#030303]"></div>
         </div>
         
-        <Reveal className="relative z-10 text-center flex flex-col items-center">
-          <h2 className="title-section mb-12">The work is structural.<br/>The time is now.</h2>
-          <div className="flex flex-wrap justify-center gap-6">
-            <Link to="/ambassadors" className="btn-cinematic !border-[#8442FA] !text-[#8442FA] hover:!text-[#030303]">
+        <Reveal className="relative z-10 text-center flex flex-col items-center max-w-4xl mx-auto w-full px-4">
+          <h2 className="title-section mb-8 md:mb-12">The work is structural.<br/>The time is now.</h2>
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6 w-full sm:w-auto">
+            <Link to="/ambassadors" className="btn-cinematic !border-[#8442FA] !text-[#8442FA] hover:!text-[#030303] w-full sm:w-auto text-center justify-center">
               Become an Ambassador
             </Link>
-            <Link to="/donate" className="btn-cinematic">
+            <Link to="/donate" className="btn-cinematic w-full sm:w-auto text-center justify-center">
               Fund the Mission
             </Link>
           </div>

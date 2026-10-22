@@ -11,19 +11,28 @@ export default function Navbar() {
   }, [location.pathname])
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener('scroll', handleScroll)
+    const handleScroll = () => setScrolled(window.scrollY > 20)
+    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-700 ${scrolled ? 'bg-[#030303]/90 backdrop-blur-md py-4' : 'bg-transparent py-8'
+    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out ${scrolled
+      ? 'bg-[#030303]/90 backdrop-blur-md py-1.5 md:py-2.5 border-b border-[rgba(245,242,233,0.08)] shadow-lg'
+      : 'bg-gradient-to-b from-[#030303]/80 via-[#030303]/30 to-transparent py-2 md:py-5'
       }`}>
       <div className="canvas-container">
         <div className="flex justify-between items-center">
 
-          <Link to="/" className="flex-shrink-0 relative z-50">
-            <img src="/pamho-logo.png" alt="PAMHO" style={{ height: '165px', width: 'auto' }} className="opacity-90 transition-opacity hover:opacity-100" />
+          <Link to="/" className="flex-shrink-0 relative z-50 flex items-center -my-3 md:-my-6">
+            <img
+              src="/pamho-logo.png"
+              alt="PAMHO"
+              className={`w-auto transition-all duration-300 ease-in-out opacity-95 hover:opacity-100 ${scrolled
+                ? 'h-[85px] md:h-[115px]'
+                : 'h-[105px] md:h-[155px]'
+                }`}
+            />
           </Link>
 
           <div className="hidden lg:flex items-center space-x-8 xl:space-x-10">

@@ -198,7 +198,7 @@ export default function CertifiedMHAdvocate() {
       {/* ============================================================ */}
       {/* 1. HERO - Cinematic & Institutional                           */}
       {/* ============================================================ */}
-      <section className="relative pt-44 pb-20 md:pt-60 md:pb-32 border-b border-[rgba(245,242,233,0.05)]">
+      <section className="relative pt-28 pb-16 md:pt-40 md:pb-28 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl">
           <Reveal>
             <div className="flex flex-wrap items-center gap-4 mb-8">

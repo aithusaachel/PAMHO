@@ -70,7 +70,7 @@ export default function Dashboard() {
       {/* ============================================================ */}
       {/* 1. THE OPENING                                               */}
       {/* ============================================================ */}
-      <section className="pt-48 pb-16 md:pt-64 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
+      <section className="pt-28 pb-16 md:pt-40 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl">
           <Reveal>
             <span className="label-tracking text-[#8442FA] mb-8 block">Account Overview</span>
