@@ -18,7 +18,6 @@ export default function Donate() {
       <section className="pt-28 pb-16 md:pt-40 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl">
           <Reveal>
-            <span className="label-tracking text-[#8442FA] mb-8 block">Philanthropy & Funding</span>
             <h1 className="title-hero mb-8">
               Fund systemic <span className="italic text-[rgba(245,242,233,0.7)]">reform.</span>
             </h1>

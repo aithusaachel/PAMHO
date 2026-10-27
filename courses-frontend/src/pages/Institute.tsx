@@ -14,7 +14,6 @@ export default function Institute() {
       <section className="pt-28 pb-16 md:pt-40 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#8442FA] mb-8 block">Education Platform</span>
             <h1 className="title-hero mb-8">
               Knowledge as a <span className="italic text-[rgba(245,242,233,0.7)]">tool for change.</span>
             </h1>
@@ -42,7 +41,6 @@ export default function Institute() {
             
             <div className="md:col-span-6 order-2 md:order-1 flex flex-col gap-12 border-t md:border-t-0 md:border-r border-[rgba(245,242,233,0.05)] pt-12 md:pt-0 md:pr-16">
               <Reveal>
-                <span className="label-tracking text-[#8442FA] mb-4 block">Academic Standard</span>
                 <h3 className="font-serif text-4xl mb-6">Rigorous Curriculum</h3>
                 <p className="font-sans font-light text-[rgba(245,242,233,0.6)] leading-relaxed text-lg mb-8">
                   Our courses are developed in collaboration with mental health professionals to ensure academic rigor while remaining deeply relevant to the African context.
@@ -87,11 +85,6 @@ export default function Institute() {
             <div className="border border-[rgba(245,242,233,0.1)] p-8 md:p-16 bg-[#110E0C]">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div className="lg:col-span-8 flex flex-col">
-                  <div className="flex flex-wrap items-center gap-3 mb-6">
-                    <span className="label-tracking text-[#8442FA]">Inaugural Programme</span>
-                    <span className="text-[rgba(245,242,233,0.3)]">/</span>
-                    <span className="label-tracking text-[rgba(245,242,233,0.6)]">In Collaboration with ACI Africa</span>
-                  </div>
                   <h3 className="title-section mb-4 text-[#F5F2E9]">
                     Certified Mental Health Advocate
                   </h3>

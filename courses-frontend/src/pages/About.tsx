@@ -23,7 +23,6 @@ export default function About() {
 
         <div className="canvas-container relative z-10 text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#8442FA] mb-8 block">About the Organization</span>
             <h1 className="title-hero max-w-5xl mx-auto drop-shadow-lg">
               Convening Africa's <span className="italic text-[rgba(245,242,233,0.7)]">Mental Health Future.</span>
             </h1>
@@ -75,7 +74,6 @@ export default function About() {
             
             <Reveal>
               <div className="border-t border-[rgba(245,242,233,0.1)] pt-8">
-                <span className="label-tracking text-[#8442FA] mb-6 block">Our Vision</span>
                 <h4 className="font-serif text-3xl md:text-4xl leading-snug mb-8">
                   To become a world-class Pan-African institution dedicated to improving mental health.
                 </h4>
@@ -87,7 +85,6 @@ export default function About() {
 
             <Reveal delay={200}>
               <div className="border-t border-[rgba(245,242,233,0.1)] pt-8">
-                <span className="label-tracking text-[#8442FA] mb-6 block">Our Mission</span>
                 <h4 className="font-serif text-3xl md:text-4xl leading-snug mb-8">
                   To promote awareness, strengthen systems, and influence continental policy.
                 </h4>

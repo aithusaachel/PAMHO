@@ -27,11 +27,6 @@ export default function Home() {
 
         <div className="canvas-container relative z-10">
           <Reveal delay={200}>
-            <div className="flex flex-wrap items-center gap-3 mb-6">
-              <span className="label-tracking text-[#8442FA]">PAMHO Institute</span>
-              <span className="text-[rgba(245,242,233,0.3)]">/</span>
-              <span className="label-tracking text-[rgba(245,242,233,0.6)]">In Collaboration with ACI Africa</span>
-            </div>
             <h1 className="title-hero max-w-5xl">
               Certified Mental Health <span className="italic text-[rgba(245,242,233,0.7)]">Advocate.</span>
             </h1>
@@ -130,10 +125,6 @@ export default function Home() {
             <div className="border border-[rgba(245,242,233,0.1)] p-6 sm:p-8 md:p-12 bg-[#030303]">
               <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                 <div className="max-w-2xl">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="w-2 h-2 rounded-full bg-[#8442FA]/60 shrink-0"></span>
-                    <span className="label-tracking text-[#8442FA]">Landmark Milestone · 10 October 2026</span>
-                  </div>
                   <h4 className="font-serif text-2xl md:text-3xl text-[#F5F2E9] mb-3">
                     The Pan-African Mental Health Conversation
                   </h4>
@@ -159,7 +150,6 @@ export default function Home() {
             
             <div className="flex flex-col justify-center">
               <Reveal>
-                <span className="label-tracking text-[#8442FA] mb-6 block">Structural Pillars</span>
                 <h2 className="title-section mb-8">Six pathways. One movement.</h2>
                 <p className="text-body-large text-[rgba(245,242,233,0.7)]">
                   Our operational framework is designed to dismantle stigma and build capacity simultaneously.

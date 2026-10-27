@@ -125,7 +125,6 @@ export default function Programs() {
       <section className="pt-28 pb-16 md:pt-40 md:pb-28 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#8442FA] mb-8 block">Initiatives & Action</span>
             <h1 className="title-hero max-w-5xl mx-auto mb-12">
               Translating dialogue into <span className="italic text-[rgba(245,242,233,0.7)]">structural impact.</span>
             </h1>
@@ -144,7 +143,6 @@ export default function Programs() {
           <Reveal>
             <div className="flex justify-between items-end border-b border-[rgba(245,242,233,0.15)] pb-8 mb-16">
               <div>
-                <span className="label-tracking text-[#8442FA] mb-2 block">Current Slate</span>
                 <h2 className="title-section">Active & Upcoming</h2>
               </div>
               <span className="label-tracking hidden md:block">Continental Delivery</span>
@@ -228,7 +226,6 @@ export default function Programs() {
           <Reveal>
             <div className="flex justify-between items-end border-b border-[rgba(245,242,233,0.15)] pb-8 mb-16">
               <div>
-                <span className="label-tracking text-[#8442FA] mb-2 block">Heritage & Milestones</span>
                 <h2 className="title-section">The Archive</h2>
               </div>
               <span className="label-tracking hidden md:block">Concluded Initiatives</span>

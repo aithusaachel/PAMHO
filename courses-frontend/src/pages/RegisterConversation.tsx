@@ -53,7 +53,6 @@ ${formData.requirements || 'None provided.'}
       <section className="pt-28 pb-16 md:pt-40 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#8442FA] mb-8 block">The Main Event</span>
             <h1 className="title-hero mb-8">
               Register for the <span className="italic text-[rgba(245,242,233,0.7)]">Conversation.</span>
             </h1>

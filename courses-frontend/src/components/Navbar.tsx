@@ -41,6 +41,7 @@ export default function Navbar() {
               ['Programs', '/programs'],
               ['Ambassadors', '/ambassadors'],
               ['Membership', '/membership'],
+              ['Volunteer', '/volunteer'],
               ['Resources', '/resources'],
               ['Institute', '/institute']
             ].map(([label, path]) => (
@@ -89,6 +90,7 @@ export default function Navbar() {
             ['Programs', '/programs'],
             ['Ambassadors', '/ambassadors'],
             ['Membership', '/membership'],
+            ['Volunteer', '/volunteer'],
             ['Resources', '/resources'],
             ['Institute', '/institute'],
             ['Contact', '/contact'],

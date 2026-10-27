@@ -73,7 +73,6 @@ export default function Dashboard() {
       <section className="pt-28 pb-16 md:pt-40 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl">
           <Reveal>
-            <span className="label-tracking text-[#8442FA] mb-8 block">Account Overview</span>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-none text-[#F5F2E9] mb-8 tracking-[-0.02em]">
               Welcome back,<br />
               <span className="italic text-[rgba(245,242,233,0.7)]">{user?.first_name || user?.username}.</span>

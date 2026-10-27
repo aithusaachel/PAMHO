@@ -35,6 +35,10 @@ import AdminCourseDetail from './pages/admin/AdminCourseDetail'
 import AdminLegacyForms from './pages/admin/AdminLegacyForms'
 import AdminWaitlist from './pages/admin/AdminWaitlist'
 import CertifiedMHAdvocate from './pages/CertifiedMHAdvocate'
+import VolunteerHub from './pages/VolunteerHub'
+import VolunteerApplyLead from './pages/VolunteerApplyLead'
+import VolunteerApplyJoin from './pages/VolunteerApplyJoin'
+import VolunteerSuccess from './pages/VolunteerSuccess'
 
 // All routes implemented
 
@@ -85,6 +89,13 @@ export default function App() {
           <Route path="/programs" element={<Programs />} />
           <Route path="/ambassadors" element={<Ambassadors />} />
           <Route path="/membership" element={<Membership />} />
+          <Route path="/volunteer" element={<VolunteerHub />} />
+          <Route path="/volunteer/lead" element={<VolunteerApplyLead />} />
+          <Route path="/volunteer/join" element={<VolunteerApplyJoin />} />
+          <Route path="/volunteer/success" element={<VolunteerSuccess />} />
+          <Route path="/join-team" element={<VolunteerHub />} />
+          <Route path="/apply-lead" element={<VolunteerApplyLead />} />
+          <Route path="/apply-join" element={<VolunteerApplyJoin />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/resources/:slug" element={<ResourceDetail />} />
           <Route path="/donate" element={<Donate />} />

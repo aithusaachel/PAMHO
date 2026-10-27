@@ -49,10 +49,6 @@ export default function ResourceDetail() {
               &larr; Back to Index
             </Link>
             
-            <span className="label-tracking text-[#8442FA] mb-6 block">
-              {resource.resource_type?.replace('_', ' ') || 'Article'}
-            </span>
-            
             <h1 className="title-hero mb-8 text-left">
               {resource.title}
             </h1>

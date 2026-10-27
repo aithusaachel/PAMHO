@@ -35,7 +35,6 @@ export default function Resources() {
       <section className="pt-28 pb-16 md:pt-40 md:pb-28 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#8442FA] mb-8 block">Editorial Archive</span>
             <h1 className="title-hero mb-8">
               Insights and <span className="italic text-[rgba(245,242,233,0.7)]">publications.</span>
             </h1>

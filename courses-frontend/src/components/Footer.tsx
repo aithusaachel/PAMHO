@@ -28,6 +28,7 @@ export default function Footer() {
               <li><Link to="/about" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#8442FA] transition-colors tracking-wide">Manifesto</Link></li>
               <li><Link to="/programs" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#8442FA] transition-colors tracking-wide">Strategic Programs</Link></li>
               <li><Link to="/ambassadors" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#8442FA] transition-colors tracking-wide">The Network</Link></li>
+              <li><Link to="/volunteer" className="text-sm font-sans font-light text-[rgba(245,242,233,0.7)] hover:text-[#8442FA] transition-colors tracking-wide">Lead or Join a Team</Link></li>
             </ul>
           </div>
 

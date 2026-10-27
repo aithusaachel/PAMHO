@@ -56,7 +56,6 @@ ${formData.qualifications}
       <section className="pt-28 pb-12 md:pt-40 md:pb-20">
         <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#8442FA] mb-8 block">Clinical Membership</span>
             <h1 className="title-hero mb-8">
               A Network of <span className="italic text-[rgba(245,242,233,0.7)]">Professionals.</span>
             </h1>

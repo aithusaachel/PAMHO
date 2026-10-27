@@ -63,7 +63,6 @@ ${formData.meaning}
       <section className="pt-28 pb-12 md:pt-40 md:pb-20">
         <div className="canvas-container max-w-5xl text-center flex flex-col items-center">
           <Reveal>
-            <span className="label-tracking text-[#8442FA] mb-8 block">Ambassador Program</span>
             <h1 className="title-hero mb-8">
               Voices for systemic <span className="italic text-[rgba(245,242,233,0.7)]">change.</span>
             </h1>

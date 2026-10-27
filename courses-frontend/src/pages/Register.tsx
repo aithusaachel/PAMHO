@@ -70,7 +70,6 @@ export default function Register() {
       <div className="max-w-2xl w-full flex flex-col z-10">
         <Reveal>
           <div className="mb-16">
-            <span className="label-tracking text-[#8442FA] mb-4 block">Join the Institute</span>
             <h2 className="title-hero mb-4 text-left">
               Create Account
             </h2>

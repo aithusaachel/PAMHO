@@ -57,7 +57,6 @@ export default function Contact() {
       <section className="pt-28 pb-16 md:pt-40 md:pb-24 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container flex flex-col items-start max-w-5xl">
           <Reveal>
-            <span className="label-tracking text-[#8442FA] mb-8 block">Communications</span>
             <h1 className="title-hero mb-8">
               Get in <span className="italic text-[rgba(245,242,233,0.7)]">Touch.</span>
             </h1>

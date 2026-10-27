@@ -201,12 +201,6 @@ export default function CertifiedMHAdvocate() {
       <section className="relative pt-28 pb-16 md:pt-40 md:pb-28 border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl">
           <Reveal>
-            <div className="flex flex-wrap items-center gap-4 mb-8">
-              <span className="label-tracking text-[#8442FA]">PAMHO Institute</span>
-              <span className="text-[rgba(245,242,233,0.3)]">/</span>
-              <span className="label-tracking text-[rgba(245,242,233,0.6)]">In Collaboration with ACI Africa</span>
-            </div>
-
             <h1 className="title-hero mb-6">
               Certified Mental Health <span className="italic text-[rgba(245,242,233,0.7)]">Advocate.</span>
             </h1>
@@ -289,7 +283,6 @@ export default function CertifiedMHAdvocate() {
                 </p>
 
                 <div className="border-t border-[rgba(245,242,233,0.1)] pt-10">
-                  <span className="label-tracking text-[#8442FA] mb-4 block">In Collaboration With ACI Africa</span>
                   <h4 className="font-serif text-2xl text-[#F5F2E9] mb-4">
                     AbelCares Initiatives Africa
                   </h4>
@@ -314,7 +307,6 @@ export default function CertifiedMHAdvocate() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
             <div className="md:col-span-5">
               <Reveal>
-                <span className="label-tracking text-[#8442FA] mb-4 block">Candidate Profile</span>
                 <h2 className="title-section mb-6">Designed for community leaders.</h2>
                 <p className="font-sans font-light text-lg text-[rgba(245,242,233,0.6)] leading-relaxed mb-8">
                   No prior clinical training in psychology or psychiatric medicine is required. We prepare champions who work on the front lines of African society.
@@ -357,7 +349,6 @@ export default function CertifiedMHAdvocate() {
       <section id="curriculum" className="py-24 md:py-36 bg-[#030303] border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container">
           <Reveal className="mb-20">
-            <span className="label-tracking text-[#8442FA] mb-4 block">Curriculum Architecture</span>
             <h2 className="title-section mb-6">
               Five modules. <span className="italic text-[rgba(245,242,233,0.7)]">Five weeks.</span>
             </h2>
@@ -398,7 +389,6 @@ export default function CertifiedMHAdvocate() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
             <div className="md:col-span-5">
               <Reveal>
-                <span className="label-tracking text-[#8442FA] mb-4 block">Programme Delivery</span>
                 <h2 className="title-section mb-6">
                   Live. Structured. <span className="italic text-[rgba(245,242,233,0.7)]">Practical.</span>
                 </h2>
@@ -440,7 +430,6 @@ export default function CertifiedMHAdvocate() {
       <section className="py-24 md:py-36 bg-[#030303] border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container">
           <Reveal className="max-w-4xl mb-20">
-            <span className="label-tracking text-[#8442FA] mb-4 block">Credential & Network</span>
             <h2 className="title-section mb-6">
               What certification <span className="italic text-[rgba(245,242,233,0.7)]">confers.</span>
             </h2>
@@ -465,7 +454,6 @@ export default function CertifiedMHAdvocate() {
 
           <Reveal delay={300} className="mt-20">
             <div className="border border-[rgba(245,242,233,0.1)] p-8 md:p-12 bg-[#110E0C]">
-              <span className="label-tracking text-[#8442FA] mb-4 block">Ethical Duty of Care & Boundaries</span>
               <h3 className="font-serif text-2xl md:text-3xl text-[#F5F2E9] mb-4">
                 Important Scope Notice
               </h3>
@@ -484,7 +472,6 @@ export default function CertifiedMHAdvocate() {
         <div className="canvas-container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
             <Reveal>
-              <span className="label-tracking text-[#8442FA] mb-4 block">Academic Instruction</span>
               <h3 className="font-serif text-3xl md:text-4xl mb-6">Expert African Faculty</h3>
               <p className="font-sans font-light text-lg text-[rgba(245,242,233,0.6)] leading-relaxed mb-6">
                 Courses are taught by seasoned African mental health clinicians, community researchers, and advocacy leaders drawn from PAMHO and ACI Africa networks.
@@ -540,7 +527,6 @@ export default function CertifiedMHAdvocate() {
       <section className="py-24 md:py-36 bg-[#110E0C] border-b border-[rgba(245,242,233,0.05)]">
         <div className="canvas-container max-w-5xl">
           <Reveal className="mb-16">
-            <span className="label-tracking text-[#8442FA] mb-4 block">Inquiries</span>
             <h2 className="title-section">Frequently Asked Questions</h2>
           </Reveal>
 
@@ -580,7 +566,6 @@ export default function CertifiedMHAdvocate() {
         <div className="canvas-container max-w-4xl">
           <Reveal>
             <div className="text-center mb-16">
-              <span className="label-tracking text-[#8442FA] mb-4 block">Limited Founding Cohort</span>
               <h2 className="title-hero mb-6">
                 Join the <span className="italic text-[rgba(245,242,233,0.7)]">Waitlist.</span>
               </h2>
@@ -591,7 +576,6 @@ export default function CertifiedMHAdvocate() {
 
             {submitted ? (
               <div className="border border-[rgba(245,242,233,0.15)] p-12 md:p-20 bg-[#110E0C] text-center">
-                <span className="label-tracking text-[#8442FA] mb-6 block">Priority Access Confirmed</span>
                 <h3 className="title-section mb-6">You are on the waitlist for Cohort I.</h3>
                 <p className="text-body-large text-[rgba(245,242,233,0.75)] max-w-2xl mx-auto mb-8 font-light leading-relaxed">
                   Thank you for applying to join the founding cohort. We will email you with your priority access link ahead of 1 November 2026.
