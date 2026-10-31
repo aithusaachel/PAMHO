@@ -178,10 +178,20 @@ export default function CertifiedMHAdvocate() {
         setSubmitted(true)
       } else {
         const data = await res.json().catch(() => ({}))
-        setError(data.detail || data.error || 'Unable to submit your application. Please check your information and try again.')
+        let msg = data.detail || data.error
+        if (!msg && typeof data === 'object' && Object.keys(data).length > 0) {
+          msg = Object.entries(data)
+            .map(([field, errs]) => {
+              const fieldName = field.replace(/_/g, ' ')
+              const errStr = Array.isArray(errs) ? errs.join(' ') : String(errs)
+              return `${fieldName.charAt(0).toUpperCase() + fieldName.slice(1)}: ${errStr}`
+            })
+            .join(' | ')
+        }
+        setError(msg || 'Unable to submit your application. Please check your information and try again.')
       }
     } catch {
-      setError('A network error occurred. Please try again.')
+      setError('A network error occurred. Please check your connection and try again.')
     } finally {
       setSubmitting(false)
     }

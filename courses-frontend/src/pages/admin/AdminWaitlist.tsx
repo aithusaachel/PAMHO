@@ -154,7 +154,18 @@ export default function AdminWaitlist() {
   };
 
   const getRoleBadge = (role: string) => {
-    const formatted = (role || 'other').replace('_', ' ');
+    const roleMap: Record<string, string> = {
+      student: 'Student / Postgraduate',
+      community_leader: 'Community Organizer',
+      healthcare: 'Healthcare Worker',
+      educator: 'Educator / Academic',
+      faith_leader: 'Faith / Pastoral Leader',
+      corporate_hr: 'Workplace HR',
+      professional: 'Professional',
+      community_faith_leader: 'Community / Faith Leader',
+      other: 'Other Champion',
+    };
+    const formatted = roleMap[role] || (role || 'other').replace(/_/g, ' ');
     return (
       <span className="px-2.5 py-1 text-xs rounded-sm uppercase tracking-wider font-mono font-medium bg-[#8442fa]/10 text-[#b48aff] border border-[#8442fa]/20">
         {formatted}
