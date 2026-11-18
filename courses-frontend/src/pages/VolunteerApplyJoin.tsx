@@ -304,6 +304,7 @@ export default function VolunteerApplyJoin() {
                         type="text"
                         className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
                         placeholder="Your full name"
+                        maxLength={255}
                         value={formData.fullName}
                         onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                       />
@@ -316,7 +317,7 @@ export default function VolunteerApplyJoin() {
                       <input
                         id="email"
                         required
-                        type="email"
+                        type="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Please enter a full email address, e.g. name@example.com"
                         className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
                         placeholder="yourname@domain.org"
                         value={formData.email}
@@ -337,6 +338,7 @@ export default function VolunteerApplyJoin() {
                         type="text"
                         className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
                         placeholder="+233 24 000 0000"
+                        maxLength={50}
                         value={formData.whatsapp}
                         onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
                       />
@@ -391,6 +393,7 @@ export default function VolunteerApplyJoin() {
                         type="text"
                         className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
                         placeholder="e.g. BSc in Communications / BA Graphic Design"
+                        maxLength={255}
                         value={formData.highestQualification}
                         onChange={(e) => setFormData({ ...formData, highestQualification: e.target.value })}
                       />
@@ -408,6 +411,7 @@ export default function VolunteerApplyJoin() {
                       type="text"
                       className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
                       placeholder="e.g. Content Writer / Software Developer / Student"
+                      maxLength={255}
                       value={formData.currentOccupation}
                       onChange={(e) => setFormData({ ...formData, currentOccupation: e.target.value })}
                     />
@@ -498,6 +502,7 @@ export default function VolunteerApplyJoin() {
                     <input
                       type="text"
                       placeholder="Other languages not listed..."
+                      maxLength={100}
                       value={formData.otherLanguages || ''}
                       onChange={(e) => setFormData({ ...formData, otherLanguages: e.target.value })}
                       className="w-full bg-transparent font-serif text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)] border-t border-[rgba(245,242,233,0.06)] pt-2"
@@ -727,6 +732,7 @@ export default function VolunteerApplyJoin() {
                           type="text"
                           className="w-full bg-transparent font-serif text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.2)]"
                           placeholder="Full name"
+                          maxLength={255}
                           value={formData.referee1.fullName}
                           onChange={(e) => setFormData({ ...formData, referee1: { ...formData.referee1, fullName: e.target.value } })}
                         />
@@ -737,6 +743,7 @@ export default function VolunteerApplyJoin() {
                           type="text"
                           className="w-full bg-transparent font-serif text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.2)]"
                           placeholder="Relationship to you"
+                          maxLength={255}
                           value={formData.referee1.relationship}
                           onChange={(e) => setFormData({ ...formData, referee1: { ...formData.referee1, relationship: e.target.value } })}
                         />
@@ -747,6 +754,7 @@ export default function VolunteerApplyJoin() {
                           type="text"
                           className="w-full bg-transparent font-serif text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.2)]"
                           placeholder="Organization"
+                          maxLength={255}
                           value={formData.referee1.organization}
                           onChange={(e) => setFormData({ ...formData, referee1: { ...formData.referee1, organization: e.target.value } })}
                         />
@@ -754,9 +762,10 @@ export default function VolunteerApplyJoin() {
                       <div className="border-b border-[rgba(245,242,233,0.1)] pb-2">
                         <input
                           required
-                          type="email"
+                          type="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Please enter a full email address, e.g. name@example.com"
                           className="w-full bg-transparent font-serif text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.2)]"
                           placeholder="Email address"
+                          maxLength={255}
                           value={formData.referee1.email}
                           onChange={(e) => setFormData({ ...formData, referee1: { ...formData.referee1, email: e.target.value } })}
                         />
@@ -767,6 +776,7 @@ export default function VolunteerApplyJoin() {
                           type="tel"
                           className="w-full bg-transparent font-serif text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.2)]"
                           placeholder="Phone number"
+                          maxLength={50}
                           value={formData.referee1.phone}
                           onChange={(e) => setFormData({ ...formData, referee1: { ...formData.referee1, phone: e.target.value } })}
                         />
@@ -786,6 +796,7 @@ export default function VolunteerApplyJoin() {
                           type="text"
                           className="w-full bg-transparent font-serif text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.2)]"
                           placeholder="Full name"
+                          maxLength={255}
                           value={formData.referee2.fullName}
                           onChange={(e) => setFormData({ ...formData, referee2: { ...formData.referee2, fullName: e.target.value } })}
                         />
@@ -796,6 +807,7 @@ export default function VolunteerApplyJoin() {
                           type="text"
                           className="w-full bg-transparent font-serif text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.2)]"
                           placeholder="Relationship to you"
+                          maxLength={255}
                           value={formData.referee2.relationship}
                           onChange={(e) => setFormData({ ...formData, referee2: { ...formData.referee2, relationship: e.target.value } })}
                         />
@@ -806,6 +818,7 @@ export default function VolunteerApplyJoin() {
                           type="text"
                           className="w-full bg-transparent font-serif text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.2)]"
                           placeholder="Organization"
+                          maxLength={255}
                           value={formData.referee2.organization}
                           onChange={(e) => setFormData({ ...formData, referee2: { ...formData.referee2, organization: e.target.value } })}
                         />
@@ -813,9 +826,10 @@ export default function VolunteerApplyJoin() {
                       <div className="border-b border-[rgba(245,242,233,0.1)] pb-2">
                         <input
                           required
-                          type="email"
+                          type="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Please enter a full email address, e.g. name@example.com"
                           className="w-full bg-transparent font-serif text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.2)]"
                           placeholder="Email address"
+                          maxLength={255}
                           value={formData.referee2.email}
                           onChange={(e) => setFormData({ ...formData, referee2: { ...formData.referee2, email: e.target.value } })}
                         />
@@ -826,6 +840,7 @@ export default function VolunteerApplyJoin() {
                           type="tel"
                           className="w-full bg-transparent font-serif text-lg text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.2)]"
                           placeholder="Phone number"
+                          maxLength={50}
                           value={formData.referee2.phone}
                           onChange={(e) => setFormData({ ...formData, referee2: { ...formData.referee2, phone: e.target.value } })}
                         />
@@ -899,6 +914,12 @@ export default function VolunteerApplyJoin() {
                     </span>
                   </label>
                 </div>
+
+                {errorMessage && (
+                  <div role="alert" className="text-red-400 border border-red-900/50 bg-red-900/10 p-4 font-sans font-light text-sm">
+                    {errorMessage}
+                  </div>
+                )}
 
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t border-[rgba(245,242,233,0.1)]">
                   <Link

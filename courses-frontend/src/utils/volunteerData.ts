@@ -1,4 +1,5 @@
 import type { VolunteerTeam, SubmissionReceipt } from '../types/volunteer';
+import { readApiError } from './apiError';
 
 export const VOLUNTEER_CONFIG = {
   closingDate: 'November 30, 2026',
@@ -298,7 +299,7 @@ PART 5: CONFIRMATIONS
     time_zone: payload.timeZone,
     highest_qualification: payload.highestQualification,
     current_occupation: payload.currentOccupation,
-    cv_file_name: payload.cvFileName || '',
+    cv_file_name: (payload.cvFileName || '').slice(-255),
     cv_data: payload.cvDataUrl ? payload.cvDataUrl.slice(0, 1000) : '',
     work_links: payload.workLinks || '',
     languages: (payload.languages || []).join(', ') + (payload.otherLanguages ? `, ${payload.otherLanguages}` : ''),
@@ -328,6 +329,32 @@ PART 5: CONFIRMATIONS
     agreed_data_storage: !!payload.agreedDataStorage,
   };
 
+  const failureMessage =
+    `We couldn't submit your application right now. Your answers are still on this page, so please try again in a moment. ` +
+    `If the problem continues, email ${VOLUNTEER_CONFIG.contactEmail}.`;
+
+  // Backup path used only when the volunteer endpoint itself is unavailable
+  // (server error / network failure) — never to hide a validation error.
+  const submitAsEnquiry = async (): Promise<boolean> => {
+    try {
+      const res = await fetch('/api/v1/enquiries/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: payload.fullName,
+          email: payload.email,
+          organization: `${payload.currentOccupation || 'Volunteer'} (${payload.country})`.slice(0, 255),
+          message: formattedMessage,
+          enquiry_type: `Volunteer Application - ${type === 'lead' ? 'Lead a Team' : 'Join a Team'} [${payload.selectedTeam}]`.slice(0, 100),
+        }),
+      });
+      return res.ok;
+    } catch {
+      return false;
+    }
+  };
+
+  let saved = false;
   try {
     const res = await fetch('/api/v1/volunteers/', {
       method: 'POST',
@@ -335,41 +362,23 @@ PART 5: CONFIRMATIONS
       body: JSON.stringify(volunteerPayload),
     });
 
-    if (!res.ok) {
-      // Fallback to /api/v1/enquiries/
-      await fetch('/api/v1/enquiries/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: payload.fullName,
-          email: payload.email,
-          organization: `${payload.currentOccupation || 'Volunteer'} (${payload.country})`,
-          message: formattedMessage,
-          enquiry_type: `Volunteer Application - ${type === 'lead' ? 'Lead a Team' : 'Join a Team'} [${payload.selectedTeam}]`,
-        }),
-      });
+    if (res.ok) {
+      saved = true;
+    } else if (res.status === 400) {
+      // The applicant needs to correct something — tell them what.
+      const error = await readApiError(res, 'Please check your answers and try again.');
+      return { success: false, receipt, error };
+    } else {
+      saved = await submitAsEnquiry();
     }
-  } catch (err) {
-    // Attempt enquiry fallback if direct volunteer call threw network error
-    try {
-      await fetch('/api/v1/enquiries/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: payload.fullName,
-          email: payload.email,
-          organization: `${payload.currentOccupation || 'Volunteer'} (${payload.country})`,
-          message: formattedMessage,
-          enquiry_type: `Volunteer Application - ${type === 'lead' ? 'Lead a Team' : 'Join a Team'} [${payload.selectedTeam}]`,
-        }),
-      });
-    } catch (fallbackErr) {
-      console.warn('Backend API submission deferred, stored locally in session/localStorage', fallbackErr);
-    }
+  } catch {
+    saved = await submitAsEnquiry();
   }
 
-  // Always save receipt so user can access Page 4 seamlessly
-  saveReceiptToStorage(receipt);
+  if (!saved) {
+    return { success: false, receipt, error: failureMessage };
+  }
 
+  saveReceiptToStorage(receipt);
   return { success: true, receipt };
 }

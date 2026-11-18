@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import SEO from '../components/SEO'
 import { Reveal } from '../components/Reveal'
+import { readApiError } from '../utils/apiError'
 
 export default function Ambassadors() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -10,10 +11,12 @@ export default function Ambassadors() {
     reach: 'Under 500' 
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
+    setErrorMessage('');
     
     const formattedMessage = `
 Country: ${formData.country}
@@ -48,9 +51,11 @@ ${formData.meaning}
       if (res.ok) {
         setStatus('success');
       } else {
+        setErrorMessage(await readApiError(res, 'Submission failed. Please try again or check your network connection.'));
         setStatus('error');
       }
     } catch (err) {
+      setErrorMessage('Submission failed. Please try again or check your network connection.');
       setStatus('error');
     }
   };
@@ -149,7 +154,7 @@ ${formData.meaning}
               <form onSubmit={handleSubmit} className="w-full text-left flex flex-col gap-8 animate-fade-in border border-[rgba(245,242,233,0.1)] p-8 md:p-12 bg-[#110E0C]">
                 {status === 'error' && (
                   <div className="text-red-400 border border-red-900/50 bg-red-900/10 p-4 font-sans font-light text-sm">
-                    Submission failed. Please try again or check your network connection.
+                    {errorMessage || 'Submission failed. Please try again or check your network connection.'}
                   </div>
                 )}
                 
@@ -160,7 +165,7 @@ ${formData.meaning}
                   </div>
                   <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
                     <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Email Address</label>
-                    <input required type="email" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Your email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+                    <input required type="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Please enter a full email address, e.g. name@example.com" className="w-full bg-transparent font-serif text-xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]" placeholder="Your email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
                   </div>
                 </div>
 

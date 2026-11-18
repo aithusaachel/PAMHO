@@ -635,7 +635,7 @@ export default function CertifiedMHAdvocate() {
                     <input
                       id="email"
                       required
-                      type="email"
+                      type="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Please enter a full email address, e.g. name@example.com"
                       className="w-full bg-transparent font-serif text-xl md:text-2xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.2)]"
                       placeholder="name@organization.org"
                       value={form.email}

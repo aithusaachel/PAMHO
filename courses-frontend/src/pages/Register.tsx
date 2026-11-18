@@ -126,7 +126,7 @@ export default function Register() {
             <div className="flex flex-col border-b border-[rgba(245,242,233,0.1)] focus-within:border-[#8442FA] transition-colors pb-2">
               <label className="label-tracking text-[rgba(245,242,233,0.4)] mb-2">Email Address</label>
               <input
-                type="email"
+                type="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Please enter a full email address, e.g. name@example.com"
                 required
                 className="w-full bg-transparent font-serif text-2xl text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
                 placeholder="Your email address"

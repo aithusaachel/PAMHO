@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import SEO from '../components/SEO'
 import { Reveal } from '../components/Reveal'
+import { readApiError } from '../utils/apiError'
 
 export default function Contact() {
   const [searchParams] = useSearchParams()
@@ -16,9 +17,12 @@ export default function Contact() {
 
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
 
+  const [errorMessage, setErrorMessage] = useState('')
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('submitting')
+    setErrorMessage('')
 
     try {
       const payload = {
@@ -38,10 +42,12 @@ export default function Contact() {
         setStatus('success')
         setFormData({ name: '', email: '', type: 'general', message: '' })
       } else {
+        setErrorMessage(await readApiError(res, 'An error occurred during submission. Please attempt to resubmit or utilize the direct email.'))
         setStatus('error')
       }
     } catch (err) {
       console.error(err)
+      setErrorMessage('An error occurred during submission. Please attempt to resubmit or utilize the direct email.')
       setStatus('error')
     }
   }
@@ -135,7 +141,7 @@ export default function Contact() {
                       <div className="border-b border-[rgba(245,242,233,0.15)] pb-4 focus-within:border-[rgba(245,242,233,0.6)] transition-colors">
                         <label htmlFor="email" className="label-tracking block mb-4">Email Address</label>
                         <input
-                          type="email"
+                          type="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Please enter a full email address, e.g. name@example.com"
                           id="email"
                           required
                           className="w-full bg-transparent text-2xl font-serif text-[#F5F2E9] focus:outline-none placeholder:text-[rgba(245,242,233,0.15)]"
@@ -177,7 +183,7 @@ export default function Contact() {
 
                     {status === 'error' && (
                       <div className="p-6 border border-[#9B3E25] bg-[rgba(155,62,37,0.1)] text-[#F5F2E9]">
-                        <p className="font-sans text-sm font-light">An error occurred during submission. Please attempt to resubmit or utilize the direct email.</p>
+                        <p className="font-sans text-sm font-light">{errorMessage || 'An error occurred during submission. Please attempt to resubmit or utilize the direct email.'}</p>
                       </div>
                     )}
 
