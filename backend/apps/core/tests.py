@@ -86,3 +86,45 @@ class WaitlistSubmissionTests(APITestCase):
         response = self.client.post(self.url, payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('role', response.data)
+
+
+class VolunteerApplicationAdminTests(APITestCase):
+    """The volunteer forms POST anonymously; the admin Volunteer Applications page lists and updates them."""
+
+    url = '/api/v1/volunteers/'
+
+    def setUp(self):
+        from django.contrib.auth import get_user_model
+        self.admin = get_user_model().objects.create_user(
+            username='admin', password='pw-12345!', role='administrator'
+        )
+        self.payload = {
+            'reference_id': 'PAMHO-VOL-TEST1', 'application_type': 'join', 'status': 'new',
+            'full_name': 'Ama Mensah', 'email': 'ama@example.com', 'whatsapp': '+233200000000',
+            'country': 'Ghana', 'time_zone': 'GMT', 'highest_qualification': 'BSc',
+            'current_occupation': 'Designer', 'selected_team': 'Design', 'hours_per_week': '5-8',
+            'skills': 'Figma\nIllustration', 'agreed_unpaid_probation': True,
+            'agreed_weekly_hours': True, 'agreed_referees_contacted': True, 'agreed_data_storage': True,
+        }
+
+    def test_public_submission_then_admin_can_see_and_update(self):
+        res = self.client.post(self.url, self.payload, format='json')
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED, res.data)
+
+        # Anonymous visitors must not be able to read responses
+        self.assertIn(self.client.get(self.url).status_code, (401, 403))
+
+        self.client.force_authenticate(self.admin)
+        res = self.client.get(self.url)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data), 1)
+        entry = res.data[0]
+        self.assertEqual(entry['full_name'], 'Ama Mensah')
+        self.assertEqual(entry['selected_team'], 'Design')
+
+        res = self.client.patch(f"{self.url}{entry['id']}/", {'status': 'shortlisted'}, format='json')
+        self.assertEqual(res.status_code, status.HTTP_200_OK, res.data)
+        self.assertEqual(res.data['status'], 'shortlisted')
+
+        res = self.client.delete(f"{self.url}{entry['id']}/")
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)

@@ -34,6 +34,7 @@ import AdminEnquiries from './pages/admin/AdminEnquiries'
 import AdminCourseDetail from './pages/admin/AdminCourseDetail'
 import AdminLegacyForms from './pages/admin/AdminLegacyForms'
 import AdminWaitlist from './pages/admin/AdminWaitlist'
+import AdminVolunteers from './pages/admin/AdminVolunteers'
 import CertifiedMHAdvocate from './pages/CertifiedMHAdvocate'
 import VolunteerHub from './pages/VolunteerHub'
 import VolunteerApplyLead from './pages/VolunteerApplyLead'
@@ -80,6 +81,7 @@ export default function App() {
           <Route path="enquiries" element={<AdminEnquiries />} />
           <Route path="legacy-forms" element={<AdminLegacyForms />} />
           <Route path="waitlist" element={<AdminWaitlist />} />
+          <Route path="volunteers" element={<AdminVolunteers />} />
         </Route>
 
         {/* Public Website Routes (No Auth UI) */}

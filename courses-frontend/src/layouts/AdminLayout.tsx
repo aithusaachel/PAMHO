@@ -17,6 +17,7 @@ export default function AdminLayout() {
     { name: 'Course Waitlist', path: '/admin/waitlist' },
     { name: 'Programs', path: '/admin/programs' },
     { name: 'Resources', path: '/admin/resources' },
+    { name: 'Volunteer Applications', path: '/admin/volunteers' },
     { name: 'Form Submissions', path: '/admin/enquiries' },
     { name: 'Legacy Forms', path: '/admin/legacy-forms' },
     { name: 'Enrollments', path: '/admin/enrollments' },
