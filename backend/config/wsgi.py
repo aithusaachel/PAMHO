@@ -14,3 +14,7 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 application = get_wsgi_application()
+
+# Self-ping so the Render free instance doesn't spin down (no-op outside Render).
+from config import keep_alive  # noqa: E402
+keep_alive.start()
